@@ -29,6 +29,8 @@ Every tool has an **advocacy output mode**: a way to export what the user knows 
 * "It depends" is always a valid answer
 * The platform never deletes anything without explicit user action
 * Every tool has an onboarding process that takes into account different types of ND and communication preferences
+* **Wherever the platform asks something of the user, there is more than one valid way in.** Multiple entry points is the default. This applies to onboarding and anywhere else the tool makes a demand on the user.
+* **Transparency is structural throughout.** At every step where the pacing or a question might feel unexpected, the tool explains itself in plain language — why this question, why now, what it's used for, who sees it. Not a disclaimer. An honest explanation.
 
 ---
 
@@ -110,7 +112,73 @@ All edits are scaffolded, not bare text boxes. The UI makes clear that edits sho
 The Always-lock and trigger logic on Q42 are hard-coded and cannot be changed by the user. The trigger logic fires based on the response option selected, not on the question text — so it holds regardless of how the wording is edited. The UI makes this explicit: the user is told that the purpose and behaviour of this question are fixed. Any wording edits should preserve the seriousness of the question — it must remain a genuine safety question, in language that fits the user better. The scaffolding for Q42 reflects this: edits are framed as being in service of that same purpose, not as customisation for comfort.
 
 ### Low Capacity Mode
-A temporary short-form check-in the user can trigger on bad days. Shows a small fixed set of high-signal questions plus the safety question. Does not change any frequency settings — next check-in returns to normal automatically. Content, trigger design, and whether users can customise what's in it are flagged for the onboarding design session.
+
+A temporary short-form check-in the user can trigger on bad days. Does not change any frequency settings — next check-in returns to normal automatically.
+
+**Trigger:**
+- Available on the check-in start screen before the user begins
+- Also available as an escape hatch mid check-in — a persistent, unobtrusive link at the bottom of every question screen
+- Trigger wording: *"This is too much today"*
+- Answers already given carry over when switching mid check-in
+- Language is deliberately non-clinical and non-judgmental — using it is not framed as a failure
+
+**Default question set (8 questions):**
+Q3 (sleep quality), Q4 (fatigue vs. sleepiness), Q5 (overall energy), Q10 (irritability), Q18 (concentration), Q20 (freeze response), Q40 (current capacity), Q42 (safety — always included, locked)
+
+**Customisation:**
+- Fixed by default; user can adjust which questions appear
+- Suggested cap of 8 questions; hard cap of 10
+- Q42 always included and cannot be removed
+- Setup is prompted after the first full check-in — not during onboarding, when the experience of the full check-in isn't yet known
+- Default question set flagged for review after testing
+
+**Q42 in-context framing and trigger response language:**
+The way Q42 is introduced within the check-in, and the tone of what happens when someone answers anything other than "No," requires its own careful design. It must feel like a person noticed — not like an alert fired. This is a separate design task to be completed before build. See Still Open below.
+
+### Onboarding Flow
+
+Onboarding has four jobs: establish baseline, walk through questions, add custom questions, set up low capacity mode.
+
+**Welcome screens (three screens before onboarding begins):**
+
+Screen 1 — Recognition. Leads with the user's experience, not a description of the tool. Named the gap between lived experience and what standard questionnaires capture. No diagnosis required. No right way to use it.
+
+Screen 2 — What it is. Plain description of the check-in: what it tracks, why it's built differently, what it produces. Includes a brief disclaimer, framed as honest information not fine print: this is not a medical tool and doesn't try to be; not peer-reviewed or clinically validated; designed to sit alongside clinical care and bridge the gap, not replace it.
+
+Screen 3 — How it works. Private by default. Nothing shared without the user's choice. Works on bad days. User sets it up their own way at their own pace. Brief note that five baseline questions come first and why.
+
+Fuller disclaimer on screen 3: expands on screen 2's brief mention. Framed as part of the explanation of what the tool is — not a caveat appended at the end.
+
+**Onboarding entry points — choice screen (after welcome screens):**
+
+Three genuinely equal paths, presented with first-person labels and plain-language descriptions of what each involves. No path is positioned as the recommended or default option.
+
+- *"I like to know what I'm getting into before I start"* — full section-by-section walkthrough before first check-in
+- *"I'd rather figure out what's relevant as I go"* — baseline only upfront, one section of walkthrough offered after each check-in
+- *"I just want to get started"* — baseline only, straight into first check-in, full walkthrough available in settings anytime
+
+Switching between paths is always possible. The choice screen itself explains what each path involves and why someone might choose it.
+
+**Baseline questions (all three paths, own distinct step before the question walkthrough):**
+
+Five questions, one per screen. Framed as "a few things we need to get started" — not setup overhead. Each screen explains why that question is being asked and what the answer is used for.
+
+1. Sleep pattern (one block / split / naps / irregular)
+2. Approximate sleep window (reference, not a rule)
+3. Commitments — work, study, or regular responsibilities (yes/no; determines whether Section 8 appears)
+4. Pain baseline — check-in descriptors (no pain / mild / moderate / significant / severe) plus optional free text for type and location; explained as a reference point for contextualising daily check-in responses
+5. Diagnoses / exploration areas — clearly skippable with low-friction skip; explicit that this shapes language surfaced to the user, is not a clinical record, and is not shared without their explicit permission
+
+**Question walkthrough (Path 1 in full; Paths 2 and 3 gradually or via settings):**
+
+Section-level: user sees each section name, a one-line description, and sets a default frequency for the whole section. Can expand any section to see and adjust individual questions — but doesn't have to.
+
+Inheritance: when a user sets a section to Occasional or Off, all questions inside inherit that setting. Individual question overrides take precedence over section setting. Section-level Off nudge makes clear that none of the questions in that section will appear, so the user knows what they're turning off.
+
+Wording edits and custom question builder available throughout the walkthrough.
+
+**Low capacity mode setup:**
+Prompted after the first full check-in. Also accessible from settings at any time.
 
 ### Onboarding Baseline
 Before the first check-in, the tool establishes:
@@ -149,7 +217,7 @@ Baseline updates over time as check-in history accumulates.
 - **Self-concept:** Separate question on how the user feels about themselves as a person — distinct from the burden/broken question
 - **Social:** Interaction broken down by type (text, email, phone, video, in-person 1:1, in-person group) — user indicates which were manageable vs. difficult
 - **Work:** Conditional section covering whether commitments were met, what it cost, what got in the way, and whether the current load is sustainable
-- **Safety question (Q42):** Always, locked — cannot be demoted or removed. Trigger logic (non-negative response → gentle acknowledgement + notes field + safety resource) is hard-coded and fires on response option selected, not on question wording. Wording can be edited but the UI makes explicit that the purpose and behaviour of the question are fixed; edits must preserve its seriousness as a genuine safety question. Scaffolding reflects this.
+- **Safety question (Q42):** Always, locked — cannot be demoted or removed. Trigger logic (non-negative response → gentle acknowledgement + notes field + safety resource) is hard-coded and fires on response option selected, not on question wording. Wording can be edited but the UI makes explicit that the purpose and behaviour of the question are fixed; edits must preserve its seriousness as a genuine safety question. Scaffolding reflects this. The in-context framing of Q42 within the check-in, and the tone of the trigger response, require their own careful design — this is a separate task before build.
 
 ### Clinician Export
 - Organised by section, with clinical translations alongside user's own language
@@ -158,8 +226,8 @@ Baseline updates over time as check-in history accumulates.
 - Diagnosis/exploration information shared only with explicit user permission
 
 ### Still Open
-- Low capacity mode — content, trigger design, and customisation (flagged for onboarding design session)
-- Onboarding flow design (UX)
+- **Q42 in-context framing and trigger response design** — how the question is introduced within the check-in, and the tone of what the tool does when someone answers anything other than "No." Must feel like a person noticed, not like an alert fired. Separate design task, to be completed before build.
+- Remaining onboarding design — choice screen visual design; question walkthrough UI detail; wording edit scaffolding detail; custom question builder detail
 - Clinician view / export design
 - Flagging logic for changes over time
 - Review existing nd-checkin.html before build — compare question framings for salvageable language and UI patterns (custom question builder in particular)
@@ -185,7 +253,7 @@ Baseline updates over time as check-in history accumulates.
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
 * GitHub Pages not yet enabled — no HTML to host yet
 * `nd-checkin.html` exists — being reconceived from scratch in design; existing file will be reviewed and compared before build begins
-* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow and clinician view are remaining design tasks before build
+* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); remaining design tasks before build: Q42 framing, remaining onboarding UI detail, clinician view
 * Everything else is planned only
 * No Supabase project connected yet
 * Audience: small trusted tester group

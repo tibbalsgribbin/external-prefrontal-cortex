@@ -2,6 +2,73 @@
 
 ---
 
+## 2026-05-05 — Session 6: Onboarding Flow Design
+
+### Decisions Made
+
+**Standing platform rules added (apply across all tools, not just nd-checkin):**
+* Multiple entry points is a core rule — wherever the platform asks something of the user, there is more than one valid way in. Respects ND experience. Applies to onboarding and everywhere else.
+* Transparency is structural throughout — at every step where pacing or a question might feel unexpected, the tool explains itself in plain language: why this question, why now, what it's used for, who sees it. Not a disclaimer. An honest explanation.
+
+**Welcome screens (three screens before onboarding begins):**
+* Screen 1 — Recognition: leads with the user's experience, names the gap between lived experience and standard questionnaires, no diagnosis required, no right way to use it
+* Screen 2 — What it is: plain description of the check-in; brief disclaimer framed as honest information — not a medical tool, not peer-reviewed, designed to bridge the gap alongside clinical care not replace it; does not name specific clinical tools (PHQ-9 etc.) by name — describes the gap without naming
+* Screen 3 — How it works: private by default, nothing shared without user choice, works on bad days, user sets it up their own way; fuller disclaimer here as elaboration of screen 2's mention; note that five baseline questions come first and why
+* Draft copy approved as starting point; will tweak after seeing in action
+
+**Onboarding entry points:**
+* Three genuinely equal paths, first-person labels, no hierarchy, no default
+* Labels: *"I like to know what I'm getting into before I start"* / *"I'd rather figure out what's relevant as I go"* / *"I just want to get started"*
+* Path 1: full section-by-section walkthrough before first check-in
+* Path 2: baseline only upfront; one section of walkthrough offered after each check-in; progress visible; can switch to doing the rest at once
+* Path 3: baseline only; straight into first check-in; full walkthrough in settings anytime; gentle prompts over time, never pushy
+* Switching between paths always possible
+
+**Baseline questions (all three paths):**
+* Own distinct step before question walkthrough; five questions, one per screen; framed as "a few things we need to get started"; each screen explains why the question is asked and what the answer is used for
+* Q1: Sleep pattern
+* Q2: Approximate sleep window
+* Q3: Commitments (determines whether Section 8 appears)
+* Q4: Pain baseline — check-in descriptors plus optional free text for type and location
+* Q5: Diagnoses / exploration areas — clearly skippable, low-friction skip, explicit about purpose and privacy
+
+**Question walkthrough:**
+* Section-level: section name, one-line description, frequency control for whole section
+* Expand any section to see and adjust individual questions — not required
+* Inheritance: section setting applies to all questions inside it; individual overrides take precedence; section-level Off nudge makes clear what the user is turning off
+* Wording edits and custom question builder available throughout
+
+**Low capacity mode — fully designed:**
+* Trigger: start screen button + persistent unobtrusive mid check-in link at bottom of every question screen
+* Trigger wording: *"This is too much today"*
+* Answers carry over when switching mid check-in
+* Default question set: Q3, Q4, Q5, Q10, Q18, Q20, Q40, Q42
+* Customisable: user can swap questions in/out; suggested cap 8, hard cap 10; Q42 always included and locked
+* Setup prompted after first full check-in (not during onboarding)
+* Default question set flagged for review after testing
+
+**Q42 safety question — design principle added:**
+* The in-context framing of Q42 within the check-in, and the tone of what happens when someone answers anything other than "No," require their own careful design
+* Must feel like a person noticed — not like an alert fired
+* This is a separate design task to be completed before build
+* Applies check-in 1 through check-in 50 — framing must stay genuine, not become a formality
+
+### Files Updated This Session
+
+* BRIEF.md — two new standing platform rules; welcome screens documented; onboarding entry points documented; baseline questions documented; question walkthrough documented; low capacity mode fully documented; Q42 framing flagged as separate design task; still open updated; current state updated
+* ROADMAP.md — onboarding flow progress reflected; Q42 framing and remaining UI detail added as separate tasks; standing platform rules noted
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Q42 in-context framing and trigger response design (recommended next — must happen before build)
+* Remaining onboarding UI detail — choice screen visual; walkthrough UI; wording edit scaffolding; custom question builder
+* Clinician view / export design
+* Flagging logic for changes over time
+* Review existing nd-checkin.html before build
+
+---
+
 ## 2026-05-05 — Session 5: Tweaking Scope
 
 ### Decisions Made
