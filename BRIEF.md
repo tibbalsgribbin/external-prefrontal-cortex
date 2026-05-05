@@ -94,6 +94,21 @@ Every question (including custom questions) has a frequency setting:
 
 **Everything defaults to Always.** The tool does not pre-decide what is worth tracking. During onboarding, users go through all questions and demote or remove anything that isn't relevant to them. Frequency settings are locked in per-user so tracking stays consistent over time; they can be adjusted in settings at any time.
 
+### Tweaking Scope — What Users Can Adjust During Onboarding
+
+During onboarding, before frequency settings lock in, users have full control over:
+
+- **Frequency** — set Always / Occasional / Off for every question (except Q42, which is Always and locked)
+- **Question wording** — any standard question can be reworded to fit the user's own language
+- **Plain-language descriptions** — the description underneath each question can also be edited
+- **Custom questions** — users can add their own questions with their own response types
+
+**How editing is handled — applies to all questions:**
+All edits are scaffolded, not bare text boxes. The UI makes clear that edits should be done thoughtfully, suggests what kinds of changes are meaningful (e.g. swapping in language that better fits how a particular state feels for this person), and reminds the user that they can revert to the original wording at any time via settings. Reverting is per-question — not all-or-nothing.
+
+**Q42 (safety question) — special treatment:**
+The Always-lock and trigger logic on Q42 are hard-coded and cannot be changed by the user. The trigger logic fires based on the response option selected, not on the question text — so it holds regardless of how the wording is edited. The UI makes this explicit: the user is told that the purpose and behaviour of this question are fixed. Any wording edits should preserve the seriousness of the question — it must remain a genuine safety question, in language that fits the user better. The scaffolding for Q42 reflects this: edits are framed as being in service of that same purpose, not as customisation for comfort.
+
 ### Low Capacity Mode
 A temporary short-form check-in the user can trigger on bad days. Shows a small fixed set of high-signal questions plus the safety question. Does not change any frequency settings — next check-in returns to normal automatically. Content, trigger design, and whether users can customise what's in it are flagged for the onboarding design session.
 
@@ -134,7 +149,7 @@ Baseline updates over time as check-in history accumulates.
 - **Self-concept:** Separate question on how the user feels about themselves as a person — distinct from the burden/broken question
 - **Social:** Interaction broken down by type (text, email, phone, video, in-person 1:1, in-person group) — user indicates which were manageable vs. difficult
 - **Work:** Conditional section covering whether commitments were met, what it cost, what got in the way, and whether the current load is sustainable
-- **Safety question (Q42):** Always, locked — cannot be demoted or removed. Any non-negative response triggers a gentle in-app acknowledgement, opens notes field, and offers a safety resource
+- **Safety question (Q42):** Always, locked — cannot be demoted or removed. Trigger logic (non-negative response → gentle acknowledgement + notes field + safety resource) is hard-coded and fires on response option selected, not on question wording. Wording can be edited but the UI makes explicit that the purpose and behaviour of the question are fixed; edits must preserve its seriousness as a genuine safety question. Scaffolding reflects this.
 
 ### Clinician Export
 - Organised by section, with clinical translations alongside user's own language
@@ -143,7 +158,6 @@ Baseline updates over time as check-in history accumulates.
 - Diagnosis/exploration information shared only with explicit user permission
 
 ### Still Open
-- Tweaking scope — what users can adjust before frequency settings lock in (flagged for its own design conversation)
 - Low capacity mode — content, trigger design, and customisation (flagged for onboarding design session)
 - Onboarding flow design (UX)
 - Clinician view / export design
@@ -171,7 +185,7 @@ Baseline updates over time as check-in history accumulates.
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
 * GitHub Pages not yet enabled — no HTML to host yet
 * `nd-checkin.html` exists — being reconceived from scratch in design; existing file will be reviewed and compared before build begins
-* nd-checkin question set v2 complete; onboarding flow and clinician view are remaining design tasks before build
+* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow and clinician view are remaining design tasks before build
 * Everything else is planned only
 * No Supabase project connected yet
 * Audience: small trusted tester group

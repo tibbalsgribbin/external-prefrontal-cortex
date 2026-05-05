@@ -12,11 +12,11 @@
 - [x] Complete nd-checkin question set design (v2 complete)
 - [x] Frequency system designed (Always / Occasional / Off — everything Always by default)
 - [x] Low capacity mode concept confirmed (design details TBD in onboarding session)
-- [ ] Tweaking scope — what users can adjust before frequency settings lock in (separate design conversation)
+- [x] Tweaking scope decided — full control during onboarding: frequency, question wording, plain-language descriptions, custom questions; all edits scaffolded; per-question revert available in settings; Q42 trigger logic and Always-lock hard-coded and cannot be changed
 - [ ] Design nd-checkin onboarding flow (includes low capacity mode content and trigger)
 - [ ] Design clinician view / export
 - [ ] Review existing nd-checkin.html and compare to new design (salvageable framings and UI patterns)
-- [ ] Build nd-checkin from new design (one question at a time, tiered system, Supabase storage)
+- [ ] Build nd-checkin from new design (one question at a time, frequency system, Supabase storage)
 - [ ] Deploy to GitHub Pages
 - [ ] Share with small tester group
 

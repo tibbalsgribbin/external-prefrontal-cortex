@@ -2,6 +2,40 @@
 
 ---
 
+## 2026-05-05 — Session 5: Tweaking Scope
+
+### Decisions Made
+
+* **Full control during onboarding** — before frequency settings lock in, users can adjust:
+  * Frequency (Always / Occasional / Off) for every question except Q42
+  * Question wording (any standard question)
+  * Plain-language description underneath each question
+  * Custom questions (add their own, with their own response types)
+
+* **All edits are scaffolded** — not bare text boxes. UI makes clear that edits should be done thoughtfully. Suggests what kinds of changes are meaningful (e.g. swapping in language that better fits how a state feels for this person). Reminds the user they can revert to original wording at any time via settings. Revert is per-question — not all-or-nothing.
+
+* **Q42 (safety question) — special treatment confirmed:**
+  * Always-lock and trigger logic are hard-coded and cannot be changed by the user
+  * Trigger logic fires on response option selected, not on question wording — holds regardless of how the question is reworded
+  * UI makes this explicit: purpose and behaviour of the question are fixed
+  * Wording edits are framed as being in service of that same seriousness — the question must remain a genuine safety question in language that fits the user better
+  * Scaffolding for Q42 reflects this framing
+
+### Files Updated This Session
+
+* BRIEF.md — tweaking scope section added; Q42 safety note expanded; still open updated; current state updated
+* ROADMAP.md — tweaking scope checked off with decision summary
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Onboarding flow design (recommended next — includes low capacity mode content and trigger)
+* Clinician view / export design
+* Flagging logic for changes over time
+* Detailed review of existing nd-checkin.html before build
+
+---
+
 ## 2026-05-05 — Session 4: Frequency System Design
 
 ### Decisions Made
@@ -34,8 +68,6 @@
 * Detailed review of existing nd-checkin.html before build
 
 ---
-
-
 
 ## 2026-05-05 — Session 3: GitHub Setup & Question Set Completion
 
@@ -116,7 +148,6 @@
 * Clinician view / export design (separate session)
 * Flagging logic for changes over time
 * Review existing nd-checkin.html before build begins
-* GitHub repo setup (deferred — design first)
 
 ### Known Issues
 
