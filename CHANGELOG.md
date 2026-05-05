@@ -2,6 +2,41 @@
 
 ---
 
+## 2026-05-05 — Session 3: GitHub Setup & Question Set Completion
+
+### Decisions Made
+
+* GitHub Desktop installed and connected to tibbalsgribbin/external-prefrontal-cortex
+* Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo — project now has a home
+* GitHub Pages not enabled yet — correct, nothing to host until first HTML file exists
+* INSTRUCTIONS.md currently saved as .txt in repo — to rename when tidying
+* nd-checkin question set v2 complete — three pending additions resolved:
+  1. **Hopelessness question:** distinction between personal hopelessness and reasonable response to world events is visible in the question itself (not a hidden branch). Plain-language description names both explicitly. Notes field always visible with prompt. Clinician view flags world-events hopelessness as contextual.
+  2. **Time-loss split (Q20):** now two separate questions — hyperfocus/absorption time-loss vs. fog/confusion/gaps time-loss. Plain-language descriptions distinguish clearly.
+  3. **Derealization/depersonalization subsection:** three questions under named subsection *Sense of reality and self* within Section 3. Intro text normalises before questions begin. Language is both recognisable and non-alarming. Covers: world feeling unreal, feeling disconnected from self, and how the user felt about the experience.
+* Existing nd-checkin.html reviewed against v2 — salvageable elements identified: anhedonia framed through special interests, masking gap question, freeze response framing, future-feeling question, self-concept question, custom question builder UI. These flagged for detailed comparison before build.
+* File creation rule clarified: Claude does not produce files until Melissa has given explicit go-ahead
+
+### Files Updated This Session
+
+* BRIEF.md — three question additions documented; current state updated; salvageable elements flagged
+* ROADMAP.md — GitHub repo checked off; nd-checkin question set v2 checked off; salvageable elements note added
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Full default tier assignments for all questions
+* Onboarding flow design (separate session)
+* Clinician view / export design (separate session)
+* Flagging logic for changes over time
+* Detailed review of existing nd-checkin.html before build begins
+
+### Known Issues
+
+* nd-checkin.html: results page and clinician view render blank (existing bug — file will be reviewed before build)
+
+---
+
 ## 2026-05-05 — Session 2: ND Check-In Design
 
 ### Decisions Made
