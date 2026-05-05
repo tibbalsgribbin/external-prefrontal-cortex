@@ -14,7 +14,9 @@
 - [x] Low capacity mode fully designed — trigger wording, default question set (Q3, Q4, Q5, Q10, Q18, Q20, Q40, Q42), customisable with suggested cap of 8 and hard cap of 10, setup prompted after first check-in
 - [x] Tweaking scope decided — full control during onboarding: frequency, question wording, plain-language descriptions, custom questions; all edits scaffolded; per-question revert available in settings; Q42 trigger logic and Always-lock hard-coded and cannot be changed
 - [x] Onboarding flow substantially designed — welcome screens (3), baseline questions (5), three entry paths with first-person labels, section-level walkthrough with inheritance, low capacity mode setup timing
-- [ ] Q42 in-context framing and trigger response design — how the question is introduced within the check-in; tone of response when someone answers anything other than "No"; must feel like a person noticed, not an alert fired. Separate design task before build.
+- [x] Q42 onboarding page drafted and approved — dedicated page seen once during onboarding before first check-in; covers full range of experiences, end-of-life distinction, common-but-unspoken, thought vs. intent, history, uncertainty, what happens when you answer, routine not reactive; see `q42-onboarding-page-draft.md`
+- [ ] Q42 trigger response design — what the tool says and does when someone answers anything other than "No"; must feel like a person noticed, not an alert fired. Next session.
+- [ ] Q42 check-in screen finalisation — framing note wording; final question block
 - [ ] Remaining onboarding UI detail — choice screen visual design; question walkthrough UI; wording edit scaffolding; custom question builder
 - [ ] Design clinician view / export
 - [ ] Review existing nd-checkin.html and compare to new design (salvageable framings and UI patterns)
@@ -75,7 +77,7 @@ Naming session: TBD (after Phase 0 complete)
 ## Notes
 - Tool scope is not fully locked — brainstorming is ongoing
 - nd-checkin is being built fresh from new design; existing file will be reviewed for salvageable question framings and UI patterns (especially custom question builder) before build
-- nd-checkin onboarding substantially designed; Q42 framing, remaining UI detail, and clinician view are remaining design tasks before build
+- nd-checkin onboarding substantially designed; Q42 trigger response, Q42 check-in screen finalisation, remaining UI detail, and clinician view are remaining design tasks before build
 - Medical Appointment Prep may stay as a Situation Planner template rather than a standalone tool
 - Data sharing between tools is a platform-wide goal; user controls what connects to what
 - Multiple entry points is a standing platform rule — wherever the platform asks something of the user, there is more than one valid way in

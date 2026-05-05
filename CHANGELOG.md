@@ -2,6 +2,65 @@
 
 ---
 
+## 2026-05-05 — Session 7: Q42 In-Context Framing Design
+
+### Decisions Made
+
+**Q42 section structure:**
+- Section 11 gets a named header — "Safety" — same weight and visual treatment as every other section. No special treatment that signals alarm before the question arrives.
+- A short framing note appears between the header and Q42. Purpose: normalise, and establish that this is routine not reactive. Wording not yet finalised.
+
+**Q42 onboarding page:**
+- Q42 gets its own dedicated page during onboarding, seen once before the first check-in. This is the place where the tool does the full nuanced work — so that every subsequent check-in can arrive at Q42 with that foundation already laid.
+- Full draft written and approved as a working version. Expected to be tweaked during testing. Saved as `q42-onboarding-page-draft.md`.
+- The page covers:
+  - What the question is asking — full range of experiences: passive ideation, burden, exhaustion, anger/outward-facing ("I'll show them"), going through the motions
+  - What it isn't asking — explicitly distinguishes from end-of-life belief and assisted dying; names this as a legitimate position held by many chronically ill people; makes clear the tool knows the difference
+  - That these thoughts are more common than people say out loud, and are often carried alone
+  - The difference between having a thought and meaning it — fleeting, intrusive thoughts count without implying intent
+  - The person with history who is currently okay — this is not a relapse check
+  - The person who isn't sure if what they're experiencing counts — uncertainty is valid, answer as best you can
+  - What happens when you answer — honest, not alarming; user stays in control
+  - That this question is part of every check-in — routine, not reactive
+
+**Q42 question wording updated:**
+- "easier" → "better": *Are you having thoughts that the world would be better without you, or that you don't deserve to take up space?*
+
+**Q42 check-in screen variations substantially developed:**
+- The direct question is now preceded by a list of variations — experiences that might be recognisable when the headline wording doesn't fit. Final block not yet locked.
+- Variations developed: burden, unearned space, easier not to exist, going through the motions, bone-deep exhaustion that isn't physical, feeling people would be sorry or would finally understand
+- Plain-language note replaced by variations list — the variations do the work of somatic/behavioural anchoring that plain-language notes do elsewhere
+
+**Q42 design scope clarified:**
+- The full range of experiences Q42 is trying to catch includes: passive ideation, burden/shame, exhaustion of existing, anger/outward-facing ideation, and the person who can't name what they're feeling
+- The chronically ill user's relationship to death as choice is explicitly outside the scope of Q42 — and the tool says so
+- These distinctions are held in the onboarding page, not in the check-in screen question itself
+
+**Q42 trigger response:**
+- Not yet designed. Next session.
+- Must feel like a person noticed — not like an alert fired.
+
+### Files Created This Session
+
+* `q42-onboarding-page-draft.md` — full draft of Q42 onboarding page; working version approved
+
+### Files Updated This Session
+
+* BRIEF.md — Q42 design detail substantially expanded; onboarding page documented; check-in screen progress noted; trigger response flagged as next session; still open updated; current state updated
+* ROADMAP.md — Q42 onboarding page checked off; trigger response and check-in screen finalisation added as separate tasks
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Q42 trigger response design (recommended next — must happen before build; do not squeeze)
+* Q42 check-in screen — framing note wording; final question block
+* Remaining onboarding UI detail — choice screen visual; walkthrough UI; wording edit scaffolding; custom question builder
+* Clinician view / export design
+* Flagging logic for changes over time
+* Review existing nd-checkin.html before build
+
+---
+
 ## 2026-05-05 — Session 6: Onboarding Flow Design
 
 ### Decisions Made

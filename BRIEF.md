@@ -217,7 +217,10 @@ Baseline updates over time as check-in history accumulates.
 - **Self-concept:** Separate question on how the user feels about themselves as a person — distinct from the burden/broken question
 - **Social:** Interaction broken down by type (text, email, phone, video, in-person 1:1, in-person group) — user indicates which were manageable vs. difficult
 - **Work:** Conditional section covering whether commitments were met, what it cost, what got in the way, and whether the current load is sustainable
-- **Safety question (Q42):** Always, locked — cannot be demoted or removed. Trigger logic (non-negative response → gentle acknowledgement + notes field + safety resource) is hard-coded and fires on response option selected, not on question wording. Wording can be edited but the UI makes explicit that the purpose and behaviour of the question are fixed; edits must preserve its seriousness as a genuine safety question. Scaffolding reflects this. The in-context framing of Q42 within the check-in, and the tone of the trigger response, require their own careful design — this is a separate task before build.
+- **Safety question (Q42):** Always, locked — cannot be demoted or removed. Trigger logic (non-negative response → gentle acknowledgement + notes field + safety resource) is hard-coded and fires on response option selected, not on question wording. Wording can be edited but the UI makes explicit that the purpose and behaviour of the question are fixed; edits must preserve its seriousness as a genuine safety question. Scaffolding reflects this.
+  - **Q42 onboarding page:** Q42 gets its own dedicated page during onboarding, seen once before the first check-in. Full draft complete — see `q42-onboarding-page-draft.md`. The page covers: what the question is asking (full range of experiences including passive ideation, burden, exhaustion, and anger/outward-facing experience); what it isn't asking (explicitly distinguishes from end-of-life belief and assisted dying); that these thoughts are common and often carried alone; the difference between having a thought and meaning it; the person with history who is currently okay; the person who isn't sure if what they're experiencing counts; what happens when you answer; and that this is routine, not reactive.
+  - **Q42 check-in screen:** Section 11 has a named header — "Safety" — same weight and visual treatment as every other section. A short framing note appears between the header and the question: purpose is to normalise and establish that this is routine, not reactive. Framing note wording not yet finalised. The check-in screen variations and direct question are substantially developed but final block not yet locked.
+  - **Trigger response:** Not yet designed. Next session. Must feel like a person noticed — not like an alert fired.
 
 ### Clinician Export
 - Organised by section, with clinical translations alongside user's own language
@@ -226,7 +229,8 @@ Baseline updates over time as check-in history accumulates.
 - Diagnosis/exploration information shared only with explicit user permission
 
 ### Still Open
-- **Q42 in-context framing and trigger response design** — how the question is introduced within the check-in, and the tone of what the tool does when someone answers anything other than "No." Must feel like a person noticed, not like an alert fired. Separate design task, to be completed before build.
+- **Q42 trigger response design** — what the tool says and does when someone answers anything other than "No." Must feel like a person noticed, not like an alert fired. Next session.
+- **Q42 check-in screen** — framing note wording; final question block
 - Remaining onboarding design — choice screen visual design; question walkthrough UI detail; wording edit scaffolding detail; custom question builder detail
 - Clinician view / export design
 - Flagging logic for changes over time
@@ -253,7 +257,8 @@ Baseline updates over time as check-in history accumulates.
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
 * GitHub Pages not yet enabled — no HTML to host yet
 * `nd-checkin.html` exists — being reconceived from scratch in design; existing file will be reviewed and compared before build begins
-* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); remaining design tasks before build: Q42 framing, remaining onboarding UI detail, clinician view
+* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); Q42 onboarding page drafted and approved as working version; remaining design tasks before build: Q42 trigger response, Q42 check-in screen finalisation, remaining onboarding UI detail, clinician view
+* `q42-onboarding-page-draft.md` exists in repo — working draft, approved, expected to be tweaked during testing
 * Everything else is planned only
 * No Supabase project connected yet
 * Audience: small trusted tester group
