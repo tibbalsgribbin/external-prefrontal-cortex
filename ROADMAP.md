@@ -17,11 +17,15 @@
 - [x] Q42 onboarding page drafted and approved — dedicated page seen once during onboarding before first check-in; covers full range of experiences, end-of-life distinction, common-but-unspoken, thought vs. intent, history, uncertainty, what happens when you answer, routine not reactive; see `q42-onboarding-page-draft.md`
 - [x] Q42 trigger response designed — immediate response locked; end-of-check-in response working draft complete (carries development notice; expected to change substantially after tester feedback); resource layer concept defined (warmlines, scripts, chat link research needed, trusted person nudge flagged); adjustment for most serious response option defined
 - [x] Q42 check-in screen finalised and locked — framing note, question wording, structure (question first / variations after), full variations list (7 items), notes field prompt; see BRIEF.md
+- [x] Onboarding UI — choice screen locked (framing line, four options, descriptions, no interface personification)
+- [x] Onboarding UI — question walkthrough screen locked (two-bar progress, section name in teal bar, frequency toggle with label and hint line, plain-language descriptions always visible, navigation pattern)
+- [x] Onboarding UI — section intro screen locked (title only, no section number, 2–3 sentence description, no progress bars, Skip this section / Next navigation)
 - [ ] Q42 deeper exploration feature — concept noted; design deferred (needs its own session; must work across all three user tiers)
 - [ ] Q42 trigger response — resource layer detail (warmline list, scripts, chat link encoding research)
 - [ ] Q42 trigger response — trusted person nudge decision (whether onboarding captures a named person)
 - [ ] Q42 trigger response copy — iterate after real-world tester feedback
-- [ ] Remaining onboarding UI detail — choice screen visual design; question walkthrough UI; wording edit scaffolding; custom question builder
+- [ ] Wording edit scaffolding detail — Session 11
+- [ ] Custom question builder detail — Session 11
 - [ ] Design clinician view / export
 - [ ] Review existing nd-checkin.html and compare to new design (salvageable framings and UI patterns)
 - [ ] Build nd-checkin from new design (one question at a time, frequency system, Supabase storage)
@@ -81,8 +85,9 @@ Naming session: TBD (after Phase 0 complete)
 ## Notes
 - Tool scope is not fully locked — brainstorming is ongoing
 - nd-checkin is being built fresh from new design; existing file will be reviewed for salvageable question framings and UI patterns (especially custom question builder) before build
-- nd-checkin onboarding substantially designed; Q42 check-in screen locked; remaining design tasks before build: Q42 deeper exploration (deferred), Q42 resource layer, remaining onboarding UI detail, clinician view
+- nd-checkin onboarding substantially designed; Q42 check-in screen locked; choice screen, question walkthrough screen, and section intro screen all locked; remaining design tasks before build: wording edit scaffolding, custom question builder, clinician view
 - Q42 trigger response is designed at concept level; copy is a working placeholder expected to change after tester feedback; resource layer detail and trusted person nudge decision are still open
+- "Walk me through" option labels: structure decided (section by section / all in one flow); exact wording deferred to build
 - Three-tier architecture (Analog Engine / Local Sovereign / Frictionless Cloud) under consideration — not yet decided; matters most for Brain Dump / Task Manager; relevant wherever AI features are designed; non-AI fallback should be designed alongside any AI feature
 - Medical Appointment Prep may stay as a Situation Planner template rather than a standalone tool
 - Data sharing between tools is a platform-wide goal; user controls what connects to what

@@ -149,11 +149,46 @@ A temporary short-form the user can trigger on bad days. Does not change frequen
 4. Diagnoses and exploration areas — optional free text; used for clinician export context only; not required, does not change the questions
 5. What brings you here — free text, optional; context only; not used clinically
 
-**Three entry paths into the question walkthrough:**
-Labels are first-person:
-- "Walk me through each one" — full walkthrough with explanation before frequency setting
-- "Show me the list, I'll decide" — condensed view, less scaffolding, same options
-- "Set everything to default and let me start" — skips walkthrough; enters first check-in with all defaults; adjustable in settings
+**Choice screen — entry path into the question walkthrough:**
+
+Framing line: *"There are a few ways to get started."*
+
+Four options (one screen):
+- [label TBD — "walk me through, section by section"] — *Each question with context, one at a time*
+- [label TBD — "walk me through, all in one flow"] — *Each question with context, one at a time*
+- **Show me the list, I'll decide** — *See all the questions at once and set your preferences*
+- **Set everything to default and let me start** — *Skip setup and go straight to your first check-in*
+
+Note: the two "walk me through" option labels are structurally decided (section by section vs. all in one flow) but exact wording is deferred to build. Descriptions avoid "I" or "we" — no interface personification.
+
+**Section intro screens:**
+Each section opens with a brief intro screen before the first question. Contains:
+- Section title (large, no section number)
+- 2–3 sentences describing what the section covers and why
+- Back / Skip this section / Next navigation
+
+Progress bars do not appear on section intro screens — only on question screens.
+
+**Question walkthrough UI:**
+
+Progress display:
+- Two stacked bars, left-aligned, at the top of every question screen
+- Each bar has its label directly above it, in a colour that matches the bar
+- Overall progress: purple label and bar
+- Current section progress: teal label and bar; label shows the actual section name (e.g. "Sleep & Rest") not the generic "This section"
+- No numbers anywhere — bars only
+
+Question screen layout (top to bottom):
+- Progress block (two bars with labels)
+- Question text
+- Plain-language description (always visible, never hidden)
+- Frequency control labelled: *"How often should this question appear in your check-in?"*
+- Three-button toggle: Always (default selected) / Occasional / Off
+- Hint line below toggle: *"Everything starts on Always. You can change this any time in settings."*
+- Edit wording link (quiet, understated — detail deferred to next session)
+- Navigation row: Back / Skip for now / Next
+
+Section name is not repeated above the question — the progress block handles orientation.
 
 **Section-level walkthrough:**
 - Each section introduced with a brief plain-language description
@@ -271,7 +306,9 @@ Body copy (working draft — expected to change substantially after tester feedb
 - **Q42 trigger response copy** — working draft in place as placeholder; expected to iterate substantially after real tester feedback
 - **Q42 trigger response resource layer** — warmline list, scripts alongside each, chat link encoding research needed
 - **Q42 trusted person nudge** — whether onboarding captures a named person; not yet decided
-- Remaining onboarding design — choice screen visual design; question walkthrough UI detail; wording edit scaffolding detail; custom question builder detail
+- **"Walk me through" option labels** — structure decided (section by section / all in one flow); exact wording deferred to build
+- Wording edit scaffolding detail — deferred to Session 11
+- Custom question builder detail — deferred to Session 11
 - Clinician view / export design
 - Flagging logic for changes over time
 - Review existing nd-checkin.html before build — compare question framings for salvageable language and UI patterns (custom question builder in particular)
@@ -297,7 +334,7 @@ Body copy (working draft — expected to change substantially after tester feedb
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
 * GitHub Pages not yet enabled — no HTML to host yet
 * `nd-checkin.html` exists — being reconceived from scratch in design; existing file will be reviewed and compared before build begins
-* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); Q42 onboarding page drafted and approved; Q42 trigger response designed at concept level with working draft copy; Q42 check-in screen fully locked (Session 9); remaining design tasks before build: Q42 deeper exploration feature (deferred), Q42 trigger response resource layer, remaining onboarding UI detail, clinician view
+* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed; Q42 onboarding page drafted and approved; Q42 trigger response designed at concept level with working draft copy; Q42 check-in screen fully locked; onboarding UI substantially designed — choice screen, question walkthrough screen, and section intro screen all locked (Session 10); remaining design tasks before build: wording edit scaffolding, custom question builder, clinician view
 * `q42-onboarding-page-draft.md` exists in repo — working draft, approved, expected to be tweaked during testing
 * Everything else is planned only
 * No Supabase project connected yet

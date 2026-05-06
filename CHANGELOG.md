@@ -2,6 +2,73 @@
 
 ---
 
+## 2026-05-05 — Session 10: Onboarding UI Design (Choice Screen, Question Walkthrough, Section Intro)
+
+### Decisions Made
+
+**Choice screen — locked:**
+
+Framing line: *"There are a few ways to get started."*
+
+Four options on one screen:
+- [label TBD — walk me through, section by section] — *Each question with context, one at a time*
+- [label TBD — walk me through, all in one flow] — *Each question with context, one at a time*
+- **Show me the list, I'll decide** — *See all the questions at once and set your preferences*
+- **Set everything to default and let me start** — *Skip setup and go straight to your first check-in*
+
+Structure decision: organisation preference (section by section vs. all in one flow) is folded into the entry path choice — one screen, four options — rather than two separate screens. The two "walk me through" option labels are structurally decided but exact wording is deferred to build.
+
+Language rule confirmed: no interface personification — option descriptions avoid "I" and "we".
+
+**Question walkthrough screen — locked:**
+
+Progress display:
+- Two stacked bars, left-aligned, at the top of every question screen
+- Each bar has its label directly above it, in a colour matching the bar
+- Overall progress: purple label and bar
+- Current section: teal label showing the actual section name (e.g. "Sleep & Rest"), not "This section"
+- No numbers anywhere — bars only
+
+Question screen layout (top to bottom):
+- Progress block (two labelled bars)
+- Question text
+- Plain-language description — always visible, never hidden
+- Frequency control labelled: *"How often should this question appear in your check-in?"*
+- Three-button toggle: Always (default) / Occasional / Off
+- Hint line: *"Everything starts on Always. You can change this any time in settings."*
+- Edit wording link (quiet, understated)
+- Navigation: Back / Skip for now / Next
+
+Section name is not repeated above the question — the progress block handles orientation.
+
+**Section intro screen — locked:**
+
+- Section title only — no section number (e.g. no "Section 1 of 13")
+- 2–3 sentences describing what the section covers and why
+- Progress bars do not appear on section intro screens — only on question screens
+- Navigation: Back / Skip this section / Next
+
+### Files Updated This Session
+
+* BRIEF.md — choice screen documented and locked; question walkthrough screen documented and locked; section intro screen documented and locked; still open updated; current state updated
+* ROADMAP.md — Session 10 items checked off; remaining tasks updated
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Wording edit scaffolding — recommended first item for Session 11
+* Custom question builder detail — Session 11
+* "Walk me through" option labels — exact wording deferred to build
+* Q42 deeper exploration feature — design deferred; needs its own session
+* Q42 trigger response copy — working draft in place; iterate after tester feedback
+* Q42 trigger response resource layer — warmline list, scripts, chat link encoding research needed
+* Q42 trusted person nudge — not yet decided
+* Clinician view / export design
+* Flagging logic for changes over time
+* Review existing nd-checkin.html before build
+
+---
+
 ## 2026-05-05 — Session 9: Q42 Check-In Screen Finalisation
 
 ### Decisions Made
@@ -84,7 +151,7 @@ Matters most for the Brain Dump / Task Manager arm of the platform. Less critica
 * Q42 trigger response copy — working draft in place as placeholder; expected to change after tester feedback
 * Q42 trigger response resource layer — warmline list, scripts, chat link encoding research needed
 * Q42 trusted person nudge — not yet decided
-* Remaining onboarding UI detail — choice screen visual; walkthrough UI; wording edit scaffolding; custom question builder
+* Remaining onboarding UI detail — choice screen visual design; question walkthrough UI; wording edit scaffolding; custom question builder
 * Clinician view / export design
 * Flagging logic for changes over time
 * Review existing nd-checkin.html before build
