@@ -6,7 +6,7 @@
 *Goal: Working infrastructure and one solid tool*
 
 - [x] Create GitHub repo
-- [ ] Set up GitHub Pages
+- [ ] Set up GitHub Pages — index.html built and ready; enable in repo Settings → Pages
 - [ ] Create Supabase project
 - [ ] Set up Supabase Auth (email login, no password manager friction)
 - [x] Complete nd-checkin question set design (v2 complete)
@@ -19,15 +19,21 @@
 - [x] Q42 check-in screen finalised and locked — framing note, question wording, structure (question first / variations after), full variations list (7 items), notes field prompt; see BRIEF.md
 - [x] Q42 deeper exploration feature designed and locked — "Say more" heading, two entry points, four first-person prompt chips, single open text space, separate storage record, three exit options; see BRIEF.md
 - [x] Q42 resource layer fully designed and locked — NAMI HelpLine, Crisis Text Line, warmline.org directory, 988; resource card format with prep text and script picker; 4 scripts per resource + "Write your own" field with save/session choice; trusted person nudge decision made; see BRIEF.md
-- [x] Onboarding UI — choice screen locked (framing line, four options, descriptions, no interface personification)
-- [x] Onboarding UI — question walkthrough screen locked (two-bar progress, section name in teal bar, frequency toggle with label and hint line, plain-language descriptions always visible, navigation pattern)
-- [x] Onboarding UI — section intro screen locked (title only, no section number, 2–3 sentence description, no progress bars, Skip this section / Next navigation)
-- [x] Wording edit scaffolding designed and locked — inline expansion, frequency toggle collapses while editing, examples block (works / too much), save confirmation fades, per-question revert in settings; Q42 special treatment documented; see BRIEF.md
-- [x] Custom question builder designed and locked — inline form, appears end of onboarding walkthrough, brief intro prompt, four fields (question text / clarifying note / response type / frequency), Add another / Done on save, full management in settings; see BRIEF.md
-- [x] Clinician export designed and locked — PDF download + shareable link (user chooses expiry), user-set date range, header block, Q45 prominent, per-response clinical translations for flagged items + section summaries for rest, five flagging criteria, Flags Summary block before section data; see BRIEF.md
+- [x] Onboarding UI — choice screen locked
+- [x] Onboarding UI — question walkthrough screen locked
+- [x] Onboarding UI — section intro screen locked
+- [x] Wording edit scaffolding designed and locked
+- [x] Custom question builder designed and locked
+- [x] Clinician export designed and locked
 - [x] Existing nd-checkin.html reviewed — salvageable language and UI patterns documented in BRIEF.md; design phase complete
-- [ ] Build nd-checkin from new design (one question at a time, frequency system, Supabase storage)
-- [ ] Deploy to GitHub Pages
+- [x] nd-checkin.html built from scratch — Q1–Q41 and Q43–Q45 fully functional; Q42 placeholder; localStorage persistence; full check-in and low capacity mode; section intros; all response types; summary and JSON export
+- [x] index.html placeholder built — ready to push and enable GitHub Pages
+- [x] supabase-schema.sql written — ready to run in Supabase SQL editor when connecting
+- [ ] Q42 full build in nd-checkin.html (dedicated session — read BRIEF.md Q42 sections before starting)
+- [ ] Test nd-checkin.html and refine based on feedback (Session 15)
+- [ ] Connect nd-checkin.html to Supabase (after UI is stable)
+- [ ] Onboarding build (after check-in UI is stable)
+- [ ] Deploy to GitHub Pages (index.html ready — enable in Settings)
 - [ ] Share with small tester group
 - [ ] Q42 trigger response copy — iterate after real-world tester feedback
 - [ ] Decide on public-facing name for nd-checkin tool (before launch)
@@ -85,8 +91,8 @@ Naming sessions: TBD (after Phase 0 complete)
 
 ## Notes
 - Tool scope is not fully locked — brainstorming is ongoing
-- nd-checkin design phase complete — build is next
-- nd-checkin.html will be built from scratch using the new design; existing file reviewed for salvageable elements (documented in BRIEF.md)
+- nd-checkin first build complete — testing and Q42 build are next
+- Section 8 (Work & Regular Commitments) defaults to visible in current build; will be conditional once onboarding is built
 - Q42 trigger response copy is a working placeholder — expected to change substantially after tester feedback
 - "Walk me through" option labels: structure decided (section by section / all in one flow); exact wording deferred to build
 - Three-tier architecture (Analog Engine / Local Sovereign / Frictionless Cloud) under consideration — not yet decided; matters most for Brain Dump / Task Manager; relevant wherever AI features are designed; non-AI fallback should be designed alongside any AI feature
@@ -96,4 +102,3 @@ Naming sessions: TBD (after Phase 0 complete)
 - Transparency is structural throughout — every step explains itself in plain language
 - No GitHub connector available in claude.ai connector registry; GitHub workflow handled via GitHub Desktop + Claude Code on laptop
 - INSTRUCTIONS.md is currently saved as a .txt file in the repo — rename to INSTRUCTIONS.md when tidying
-- First build session: set up GitHub Pages and Supabase, then begin nd-checkin.html from scratch

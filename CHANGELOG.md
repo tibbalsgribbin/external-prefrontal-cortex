@@ -2,6 +2,72 @@
 
 ---
 
+## 2026-05-06 — Session 14: First Build — nd-checkin.html, index.html, Supabase Schema
+
+### What Was Built
+
+**nd-checkin.html — first complete build:**
+- Full check-in built from scratch using the new design
+- One question at a time — no scrolling wall of text
+- All 45 questions implemented: Q1–Q41 fully functional, Q42 placeholder card, Q43–Q45 fully functional
+- All response types implemented: select-one, frequency scale (8-point), number input, free text, two-part pain, two-part ND (frequency + select-one), two-part special interests (select-one + select-one), two-part shutdown/meltdown (conditional second part), multi-select, communication grid
+- Notes field on every question that has one, with question-specific prompts where designed
+- Section intro cards — shown once per section, first time a question in that section appears
+- Subsection intro for Sense of Reality and Self (Q15)
+- Two progress bars — overall (purple) and current section (teal) with section name label
+- Back / Next / Skip for today navigation on every question
+- Low capacity mode — separate queue (Q3, Q4, Q5, Q10, Q18, Q20, Q40, Q42)
+- Full check-in and low capacity mode both available from start screen
+- Custom questions section — placeholder card at end of full check-in (no custom questions yet)
+- Completion screen with View summary and Download as JSON
+- Summary view — collects all answered questions by section
+- JSON export — downloads latest check-in as dated .json file
+- localStorage persistence — draft saved as you go; completed check-ins saved to history
+- Atkinson Hyperlegible font (body) + DM Serif Display (question text) — per existing design
+- Dark theme throughout, consistent with project aesthetic
+- Salvageable language from existing nd-checkin.html carried in exactly as documented in BRIEF.md
+
+**index.html — GitHub Pages placeholder:**
+- Bare minimum dark-theme page: title + "Coming soon."
+- Ready to push to repo root and enable GitHub Pages
+
+**supabase-schema.sql — initial database schema:**
+- profiles table (extends Supabase auth.users): onboarding state, baseline data, display preferences, frequency settings, wording overrides, low capacity question set
+- custom_questions table
+- checkins table
+- responses table
+- q42_explorations table (separate storage for "Say more" deeper exploration entries)
+- icebox table (for future Brain Dump / Task Manager)
+- Row-level security on all tables
+- Auto-create profile trigger on new user signup
+- Not connected yet — run in Supabase SQL editor when ready
+
+### Decisions Made This Session
+
+- **localStorage for now, Supabase later** — nd-checkin.html uses localStorage for this testing phase; Supabase connection is a separate session once UI is tested and stable
+- **Q1–Q41 + Q43–Q45 built this session; Q42 placeholder** — Q42 gets its own focused session; placeholder card clearly communicates this to the user
+- **Work commitments default to true** — no onboarding yet, so Section 8 (Work & Regular Commitments) always shows in this build; will be conditional once onboarding is built
+- **Section 8 included in full check-in** — shown by default pending onboarding
+
+### Files Delivered This Session
+
+- `nd-checkin.html` — add to repo; this is the primary working file
+- `index.html` — add to repo root; enable GitHub Pages in repo settings
+- `supabase-schema.sql` — keep in repo for reference; run in Supabase SQL editor when ready to connect
+
+### Still Open / Next Session
+
+- Melissa tests nd-checkin.html in browser — all refinement feedback goes to Session 15
+- Q42 full build — dedicated session; read BRIEF.md Q42 sections thoroughly before starting
+- GitHub Pages — enable in repo settings after index.html is pushed
+- Supabase — create project, run schema SQL, connect to nd-checkin.html (later session, after UI is stable)
+- Q42 trigger response copy — working placeholder; iterate after tester feedback
+- nd-checkin public-facing name — before launch
+- Onboarding build — not yet started; Phase 0 item
+- Flagging logic implementation — to be resolved during build
+
+---
+
 ## 2026-05-06 — Session 13: Q42 Resource Layer, Trusted Person Nudge, nd-checkin.html Review
 
 ### Decisions Made
