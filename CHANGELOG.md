@@ -2,6 +2,76 @@
 
 ---
 
+## 2026-05-05 — Session 8: Q42 Trigger Response Design
+
+### Decisions Made
+
+**Trigger response structure:**
+- Two-part response: immediate (in-place, one line) and end-of-check-in (fuller)
+- Immediate response appears right after the user answers Q42; check-in continues normally
+- End-of-check-in response appears when the check-in is complete
+
+**Immediate response — locked:**
+*"Thank you. You can say more at the end if you want to."*
+
+**End-of-check-in response — working draft:**
+
+A development notice appears at the top of this screen, visible to all users including testers:
+*"This part of the tool is still being developed. The response you see here is a placeholder — it will look quite different once we've had feedback from real users. If you have thoughts on what would have felt right, we'd love to hear them."*
+
+Body copy (working draft — acknowledged as needing further iteration with real feedback):
+
+> **That deserves a moment.**
+>
+> Something came up in your check-in today. If it would help to talk to someone, here are some peer-support options — not crisis lines, just people:
+>
+> *[PLACEHOLDER — phone numbers to call or text, with scripts alongside each one.]*
+>
+> If what you're experiencing feels urgent, the 988 Suicide and Crisis Lifeline is available by call or text.
+>
+> You can come back to any of this later — it'll be here.
+>
+> *[Notes field — is there anything you want to say about what came up?]*
+
+**Adjustment for most serious option** ("Yes — these thoughts are frequent or strong"): 988 moves above the peer-support options. Everything else stays the same.
+
+**Notes field placement:** at the end of the trigger response screen, after the resources.
+
+**Voice and language decisions:**
+- "We" as the tool speaking about itself is out. "Let's" is acceptable — it frames the tool and user as partners.
+- "We noticed that" was rejected — too surveillance-adjacent.
+- Immediate response settled on "Thank you" — quiet, doesn't perform personhood, holds the door open.
+
+**Resource layer — concept only, detail TBD:**
+- Warmlines and peer-support lines (not crisis lines) — lower threshold, more appropriate for the range of experiences Q42 catches
+- Phone numbers to call or text, with pre-written scripts alongside each one to reduce friction for users who don't know what to say
+- Chat link encoding to be researched — whether a starting message can be pre-populated into a warmline chat link
+- Trusted person nudge — flagged for later; whether onboarding captures a named person is a separate decision not yet made; for now, a general nudge only
+- Crisis line (988) included but positioned as the escalation option, not the first offer
+
+**Development notice decision:**
+- Trigger response screen carries a visible notice that this section is in active development and will look different after tester feedback
+- Feedback invite included in the notice — testers are explicitly asked what would have felt right
+
+### Files Updated This Session
+
+* BRIEF.md — Q42 trigger response fully documented; resource layer concept documented; development notice decision documented; still open updated; current state updated
+* ROADMAP.md — Q42 trigger response checked off; remaining tasks updated
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Q42 trigger response copy — working draft approved as placeholder; expected to change substantially after real-world feedback
+* Resource layer detail — warmline list, scripts, chat link encoding research needed
+* Trusted person nudge — whether onboarding captures a named person; flagged, not yet decided
+* Q42 check-in screen — framing note wording; final question block
+* Remaining onboarding UI detail — choice screen visual; walkthrough UI; wording edit scaffolding; custom question builder
+* Clinician view / export design
+* Flagging logic for changes over time
+* Review existing nd-checkin.html before build
+
+---
+
 ## 2026-05-05 — Session 7: Q42 In-Context Framing Design
 
 ### Decisions Made

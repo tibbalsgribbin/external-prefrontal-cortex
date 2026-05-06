@@ -133,7 +133,7 @@ Q3 (sleep quality), Q4 (fatigue vs. sleepiness), Q5 (overall energy), Q10 (irrit
 - Default question set flagged for review after testing
 
 **Q42 in-context framing and trigger response language:**
-The way Q42 is introduced within the check-in, and the tone of what happens when someone answers anything other than "No," requires its own careful design. It must feel like a person noticed — not like an alert fired. This is a separate design task to be completed before build. See Still Open below.
+The way Q42 is introduced within the check-in, and the tone of what happens when someone answers anything other than "No," requires its own careful design. It must feel like a person noticed — not like an alert fired. See Q42 trigger response section below.
 
 ### Onboarding Flow
 
@@ -220,7 +220,49 @@ Baseline updates over time as check-in history accumulates.
 - **Safety question (Q42):** Always, locked — cannot be demoted or removed. Trigger logic (non-negative response → gentle acknowledgement + notes field + safety resource) is hard-coded and fires on response option selected, not on question wording. Wording can be edited but the UI makes explicit that the purpose and behaviour of the question are fixed; edits must preserve its seriousness as a genuine safety question. Scaffolding reflects this.
   - **Q42 onboarding page:** Q42 gets its own dedicated page during onboarding, seen once before the first check-in. Full draft complete — see `q42-onboarding-page-draft.md`. The page covers: what the question is asking (full range of experiences including passive ideation, burden, exhaustion, and anger/outward-facing experience); what it isn't asking (explicitly distinguishes from end-of-life belief and assisted dying); that these thoughts are common and often carried alone; the difference between having a thought and meaning it; the person with history who is currently okay; the person who isn't sure if what they're experiencing counts; what happens when you answer; and that this is routine, not reactive.
   - **Q42 check-in screen:** Section 11 has a named header — "Safety" — same weight and visual treatment as every other section. A short framing note appears between the header and the question: purpose is to normalise and establish that this is routine, not reactive. Framing note wording not yet finalised. The check-in screen variations and direct question are substantially developed but final block not yet locked.
-  - **Trigger response:** Not yet designed. Next session. Must feel like a person noticed — not like an alert fired.
+  - **Q42 trigger response:** Designed at concept level. See full detail below.
+
+### Q42 Trigger Response
+
+**Structure:** Two-part — immediate (in-place, one line) and end-of-check-in (fuller). The check-in continues normally after the immediate response.
+
+**Immediate response — locked:**
+*"Thank you. You can say more at the end if you want to."*
+
+**End-of-check-in response — working draft:**
+
+A development notice appears visibly at the top of this screen:
+*"This part of the tool is still being developed. The response you see here is a placeholder — it will look quite different once we've had feedback from real users. If you have thoughts on what would have felt right, we'd love to hear them."*
+
+Body copy (working draft — expected to change substantially after tester feedback):
+
+> **That deserves a moment.**
+>
+> Something came up in your check-in today. If it would help to talk to someone, here are some peer-support options — not crisis lines, just people:
+>
+> *[PLACEHOLDER — phone numbers to call or text, with scripts alongside each one.]*
+>
+> If what you're experiencing feels urgent, the 988 Suicide and Crisis Lifeline is available by call or text.
+>
+> You can come back to any of this later — it'll be here.
+>
+> *[Notes field — is there anything you want to say about what came up?]*
+
+**Adjustment for most serious option** ("Yes — these thoughts are frequent or strong"): 988 moves above the peer-support options. Everything else stays the same.
+
+**Notes field placement:** at the end of the trigger response screen, after the resources.
+
+**Voice and language decisions:**
+- "We" as the tool speaking about itself is out. "Let's" is acceptable — it frames the tool and user as partners.
+- "We noticed that" was rejected as too surveillance-adjacent.
+- Immediate response settled on "Thank you" — quiet, doesn't perform personhood, holds the door open.
+
+**Resource layer — concept defined, detail TBD:**
+- Warmlines and peer-support lines (not crisis lines) — lower threshold, more appropriate for the range of experiences Q42 catches
+- Phone numbers to call or text, with pre-written scripts alongside each one to reduce friction for users who don't know what to say
+- Chat link encoding to be researched — whether a starting message can be pre-populated into a warmline chat link
+- Trusted person nudge — whether onboarding captures a named person is a separate decision not yet made; flagged for later
+- Crisis line (988) included but positioned as the escalation option, not the first offer
 
 ### Clinician Export
 - Organised by section, with clinical translations alongside user's own language
@@ -229,7 +271,9 @@ Baseline updates over time as check-in history accumulates.
 - Diagnosis/exploration information shared only with explicit user permission
 
 ### Still Open
-- **Q42 trigger response design** — what the tool says and does when someone answers anything other than "No." Must feel like a person noticed, not like an alert fired. Next session.
+- **Q42 trigger response copy** — working draft in place as placeholder; expected to iterate substantially after real tester feedback
+- **Q42 trigger response resource layer** — warmline list, scripts alongside each, chat link encoding research needed
+- **Q42 trusted person nudge** — whether onboarding captures a named person; not yet decided
 - **Q42 check-in screen** — framing note wording; final question block
 - Remaining onboarding design — choice screen visual design; question walkthrough UI detail; wording edit scaffolding detail; custom question builder detail
 - Clinician view / export design
@@ -257,7 +301,7 @@ Baseline updates over time as check-in history accumulates.
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
 * GitHub Pages not yet enabled — no HTML to host yet
 * `nd-checkin.html` exists — being reconceived from scratch in design; existing file will be reviewed and compared before build begins
-* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); Q42 onboarding page drafted and approved as working version; remaining design tasks before build: Q42 trigger response, Q42 check-in screen finalisation, remaining onboarding UI detail, clinician view
+* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); Q42 onboarding page drafted and approved; Q42 trigger response designed at concept level with working draft copy; remaining design tasks before build: Q42 trigger response resource layer detail, Q42 check-in screen finalisation, remaining onboarding UI detail, clinician view
 * `q42-onboarding-page-draft.md` exists in repo — working draft, approved, expected to be tweaked during testing
 * Everything else is planned only
 * No Supabase project connected yet
