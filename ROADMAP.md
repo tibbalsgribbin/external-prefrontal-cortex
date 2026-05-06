@@ -23,7 +23,7 @@
 - [x] Wording edit scaffolding designed and locked — inline expansion, frequency toggle collapses while editing, examples block (works / too much), save confirmation fades, per-question revert in settings; Q42 special treatment documented; see BRIEF.md
 - [x] Custom question builder designed and locked — inline form, appears end of onboarding walkthrough, brief intro prompt, four fields (question text / clarifying note / response type / frequency), Add another / Done on save, full management in settings; see BRIEF.md
 - [x] Clinician export designed and locked — PDF download + shareable link (user chooses expiry), user-set date range, header block, Q45 prominent, per-response clinical translations for flagged items + section summaries for rest, five flagging criteria, Flags Summary block before section data; see BRIEF.md
-- [ ] Q42 deeper exploration feature — concept noted; design deferred (needs its own session; must work across all three user tiers)
+- [x] Q42 deeper exploration feature — designed and locked: "Say more" heading, two entry points (inline on trigger response screen + dedicated screen), four first-person prompt chips, single open text space, separate storage record, Save / Save draft / Discard exit options; see BRIEF.md
 - [ ] Q42 trigger response — resource layer detail (warmline list, scripts, chat link encoding research)
 - [ ] Q42 trigger response — trusted person nudge decision (whether onboarding captures a named person)
 - [ ] Q42 trigger response copy — iterate after real-world tester feedback
@@ -87,7 +87,7 @@ Naming sessions: TBD (after Phase 0 complete)
 ## Notes
 - Tool scope is not fully locked — brainstorming is ongoing
 - nd-checkin is being built fresh from new design; existing file will be reviewed for salvageable question framings and UI patterns before build; no longer the reference point for the custom question builder
-- nd-checkin design substantially complete — remaining tasks before build: Q42 deeper exploration feature, Q42 resource layer, Q42 trusted person nudge, review of existing nd-checkin.html
+- nd-checkin design substantially complete — remaining tasks before build: Q42 resource layer, Q42 trusted person nudge, review of existing nd-checkin.html
 - Q42 trigger response is designed at concept level; copy is a working placeholder expected to change after tester feedback; resource layer detail and trusted person nudge decision are still open
 - "Walk me through" option labels: structure decided (section by section / all in one flow); exact wording deferred to build
 - Three-tier architecture (Analog Engine / Local Sovereign / Frictionless Cloud) under consideration — not yet decided; matters most for Brain Dump / Task Manager; relevant wherever AI features are designed; non-AI fallback should be designed alongside any AI feature

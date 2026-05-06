@@ -2,7 +2,43 @@
 
 ---
 
-## 2026-05-06 — Session 11: Wording Edit Scaffolding, Custom Question Builder, Clinician Export
+## 2026-05-06 — Session 12: Q42 Deeper Exploration Feature
+
+### Decisions Made
+
+**Q42 deeper exploration feature — locked:**
+
+- **Heading:** Say more
+- **Entry:** Two ways in — visible on the trigger response screen (scroll down, it's there), and an explicit "Say more" button that opens a dedicated screen; same content either way
+- **Inside the feature:** 4 tappable prompt chips, first person, all optional; tapping a prompt anchors it in the open text space with cursor landing after it; multiple prompts can be combined or ignored; single open text space accumulates everything
+- **The four prompts:**
+  1. *What's happening in my body right now*
+  2. *What brought this up today*
+  3. *Something I want to remember about this*
+  4. *Something I'd want to say to someone*
+- **Storage:** Separate record from the notes field on the trigger response screen; viewable alongside notes in history; no decision required from the user in the moment
+- **Exit options:** Save / Save draft (come back later) / Discard (confirmation prompt if anything has been typed)
+- **Tier note:** Structured prompt version works for all three tiers; AI-enhanced conversational version for cloud-tier is a future consideration, not in current scope
+
+### Files Updated This Session
+
+* BRIEF.md — Q42 deeper exploration documented and locked; Still Open updated; Current State updated
+* ROADMAP.md — Q42 deeper exploration checked off; notes updated
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Q42 trigger response resource layer — warmline list, scripts alongside each, chat link encoding research (Session 13)
+* Q42 trusted person nudge — whether onboarding captures a named person (Session 13)
+* Q42 trigger response copy — working draft in place; iterate after tester feedback
+* "Walk me through" option labels — exact wording deferred to build
+* Review existing nd-checkin.html before build (Session 14)
+* nd-checkin public-facing name — before launch
+* Flagging logic implementation detail — to be resolved during build
+
+---
+
+
 
 ### Decisions Made
 
