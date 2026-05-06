@@ -77,6 +77,18 @@ ND and/or chronically ill adults — particularly late-identified, high-masking,
 
 ---
 
+## Platform Architecture — Three-Tier Model (Under Consideration)
+
+*Not yet a firm decision, but live enough to shape design thinking. Surfaced during early planning. Matters most for the Brain Dump / Task Manager arm. Relevant wherever AI features are offered.*
+
+1. **The Analog Engine** — no AI. Purely manual interface, complete user control, nothing leaves the machine. Less responsive, fewer automated features.
+2. **The Local Sovereign** — downloaded, offline AI model. Full privacy, AI automation, requires more robust hardware.
+3. **The Frictionless Cloud** — cloud-based API (Anthropic/Claude). Top-tier models, RAG memory, frictionless experience. User pays via API key or subscription.
+
+Design implication: wherever an AI feature is designed (e.g. Q42 deeper exploration, Somatic Interviewer, Brain Dump sorting), a structured non-AI fallback should also be designed so the feature works for all tiers.
+
+---
+
 ## ND Wellness Check-In — Design Detail
 
 *This tool is in active early design. An existing nd-checkin.html file exists but is being substantially reconceived.*
@@ -113,114 +125,86 @@ The Always-lock and trigger logic on Q42 are hard-coded and cannot be changed by
 
 ### Low Capacity Mode
 
-A temporary short-form check-in the user can trigger on bad days. Does not change any frequency settings — next check-in returns to normal automatically.
+A temporary short-form the user can trigger on bad days. Does not change frequency settings — those stay locked.
 
-**Trigger:**
-- Available on the check-in start screen before the user begins
-- Also available as an escape hatch mid check-in — a persistent, unobtrusive link at the bottom of every question screen
-- Trigger wording: *"This is too much today"*
-- Answers already given carry over when switching mid check-in
-- Language is deliberately non-clinical and non-judgmental — using it is not framed as a failure
+**Default question set:** Q3 (sleep quality), Q4 (fatigue/sleepiness), Q5 (overall energy), Q10 (irritability), Q18 (concentration), Q20 (freeze response), Q40 (current capacity), Q42 (safety — always included)
 
-**Default question set (8 questions):**
-Q3 (sleep quality), Q4 (fatigue vs. sleepiness), Q5 (overall energy), Q10 (irritability), Q18 (concentration), Q20 (freeze response), Q40 (current capacity), Q42 (safety — always included, locked)
+**Customisable:** user can swap questions in/out; suggested cap of 8, hard cap of 10; Q42 cannot be removed.
 
-**Customisation:**
-- Fixed by default; user can adjust which questions appear
-- Suggested cap of 8 questions; hard cap of 10
-- Q42 always included and cannot be removed
-- Setup is prompted after the first full check-in — not during onboarding, when the experience of the full check-in isn't yet known
-- Default question set flagged for review after testing
+**Trigger:** user-initiated; a clearly visible but low-pressure option on the check-in start screen.
 
-**Q42 in-context framing and trigger response language:**
-The way Q42 is introduced within the check-in, and the tone of what happens when someone answers anything other than "No," requires its own careful design. It must feel like a person noticed — not like an alert fired. See Q42 trigger response section below.
+**Setup timing:** prompted after the first check-in is complete, not during onboarding.
 
 ### Onboarding Flow
 
-Onboarding has four jobs: establish baseline, walk through questions, add custom questions, set up low capacity mode.
+**Welcome screens (3, before onboarding begins):**
+1. What this is and what it's for — platform-level; names the tool, what it tracks, why
+2. Before we start — what onboarding involves; how long, what kind of questions, what it's setting up
+3. A note on Q42 — signals that one question gets its own dedicated page later, and why
 
-**Welcome screens (three screens before onboarding begins):**
+**Baseline questions (5):**
+1. Sleep window — approximate; used to frame sleep questions
+2. Work / study / regular commitments — yes/no; determines whether Section 8 appears
+3. Pain — is pain a regular part of your experience? (yes/no; shapes pain question defaults)
+4. Diagnoses and exploration areas — optional free text; used for clinician export context only; not required, does not change the questions
+5. What brings you here — free text, optional; context only; not used clinically
 
-Screen 1 — Recognition. Leads with the user's experience, not a description of the tool. Named the gap between lived experience and what standard questionnaires capture. No diagnosis required. No right way to use it.
+**Three entry paths into the question walkthrough:**
+Labels are first-person:
+- "Walk me through each one" — full walkthrough with explanation before frequency setting
+- "Show me the list, I'll decide" — condensed view, less scaffolding, same options
+- "Set everything to default and let me start" — skips walkthrough; enters first check-in with all defaults; adjustable in settings
 
-Screen 2 — What it is. Plain description of the check-in: what it tracks, why it's built differently, what it produces. Includes a brief disclaimer, framed as honest information not fine print: this is not a medical tool and doesn't try to be; not peer-reviewed or clinically validated; designed to sit alongside clinical care and bridge the gap, not replace it.
+**Section-level walkthrough:**
+- Each section introduced with a brief plain-language description
+- Questions stepped through one at a time
+- Frequency set per question; wording edits available; custom questions can be added
+- Inheritance rule: section set to Off → individual questions default to Off, but can be overridden; Q42 exempt
 
-Screen 3 — How it works. Private by default. Nothing shared without the user's choice. Works on bad days. User sets it up their own way at their own pace. Brief note that five baseline questions come first and why.
+**Low capacity mode setup:** prompted after first check-in, not during onboarding.
 
-Fuller disclaimer on screen 3: expands on screen 2's brief mention. Framed as part of the explanation of what the tool is — not a caveat appended at the end.
+### Q42 — Safety Question
 
-**Onboarding entry points — choice screen (after welcome screens):**
+**Section header:** Safety — same weight and visual treatment as every other section.
 
-Three genuinely equal paths, presented with first-person labels and plain-language descriptions of what each involves. No path is positioned as the recommended or default option.
+**Framing note (between header and question):**
+*"This is part of every check-in — not a response to anything you've said today."*
+- Very brief. The onboarding page has already laid the foundation.
+- No backward reference to previous check-ins — speaks only to now.
+- Appears from check-in 2 onward, every time.
 
-- *"I like to know what I'm getting into before I start"* — full section-by-section walkthrough before first check-in
-- *"I'd rather figure out what's relevant as I go"* — baseline only upfront, one section of walkthrough offered after each check-in
-- *"I just want to get started"* — baseline only, straight into first check-in, full walkthrough available in settings anytime
+**Question — locked:**
+*"Are you having thoughts about not being here anymore, or about whether you belong here at all?"*
+- Deliberately broad — covers the full range without naming specific examples.
+- The variations list does the anchoring work.
 
-Switching between paths is always possible. The choice screen itself explains what each path involves and why someone might choose it.
+**Structure:** question first, variations after.
 
-**Baseline questions (all three paths, own distinct step before the question walkthrough):**
+**Variations list ("This might include:"):**
+- Feeling like you're a burden to the people around you
+- Feeling like you're taking up space you haven't earned
+- Thoughts that the world would be better without you
+- Thoughts that it would be easier not to exist
+- Going through the motions without knowing why you'd stay
+- A bone-deep exhaustion that isn't physical — more like being tired of being you
+- A feeling that people would be sorry, or would finally understand, if you were gone
 
-Five questions, one per screen. Framed as "a few things we need to get started" — not setup overhead. Each screen explains why that question is being asked and what the answer is used for.
+**Response options:**
+- No — not having thoughts like that
+- Occasionally, but they pass
+- More often — these thoughts come up regularly
+- Yes — these thoughts are frequent or strong
 
-1. Sleep pattern (one block / split / naps / irregular)
-2. Approximate sleep window (reference, not a rule)
-3. Commitments — work, study, or regular responsibilities (yes/no; determines whether Section 8 appears)
-4. Pain baseline — check-in descriptors (no pain / mild / moderate / significant / severe) plus optional free text for type and location; explained as a reference point for contextualising daily check-in responses
-5. Diagnoses / exploration areas — clearly skippable with low-friction skip; explicit that this shapes language surfaced to the user, is not a clinical record, and is not shared without their explicit permission
+**Notes field prompt:** *"Use this space if you'd like to say more about your answer."*
 
-**Question walkthrough (Path 1 in full; Paths 2 and 3 gradually or via settings):**
+**Tier:** Always. Locked. Cannot be demoted or removed.
 
-Section-level: user sees each section name, a one-line description, and sets a default frequency for the whole section. Can expand any section to see and adjust individual questions — but doesn't have to.
+**Trigger logic:** Any response other than the first option triggers a gentle in-app acknowledgement, opens the notes field with a specific prompt, and offers a safety resource. Does not redirect away from the check-in unless the user chooses.
 
-Inheritance: when a user sets a section to Occasional or Off, all questions inside inherit that setting. Individual question overrides take precedence over section setting. Section-level Off nudge makes clear that none of the questions in that section will appear, so the user knows what they're turning off.
+**Q42 onboarding page:** Q42 gets its own dedicated page during onboarding, seen once before the first check-in. Full draft complete — see `q42-onboarding-page-draft.md`. The page covers: what the question is asking (full range of experiences including passive ideation, burden, exhaustion, and anger/outward-facing experience); what it isn't asking (explicitly distinguishes from end-of-life belief and assisted dying); that these thoughts are common and often carried alone; the difference between having a thought and meaning it; the person with history who is currently okay; the person who isn't sure if what they're experiencing counts; what happens when you answer; and that this is routine, not reactive.
 
-Wording edits and custom question builder available throughout the walkthrough.
-
-**Low capacity mode setup:**
-Prompted after the first full check-in. Also accessible from settings at any time.
-
-### Onboarding Baseline
-Before the first check-in, the tool establishes:
-- Sleep pattern (one block, split, naps, irregular)
-- Approximate sleep window (used as a reference, not a rule)
-- Whether the user has work, study, or regular commitments
-- Pain baseline (typical pain on an average day)
-- Relevant diagnoses or areas of exploration (used to surface relevant language — not shared with clinician without permission)
-
-Baseline updates over time as check-in history accumulates.
-
-### Section Structure (v2)
-1. Sleep & Rest
-2. Energy & Physical Capacity
-3. Mood & Emotional Experience *(includes small subsection on derealization/depersonalization)*
-4. Cognitive & Executive Function
-5. Sensory Experience
-6. ND-Specific Experience *(stimming, hyperfocus, special interests, shutdown/meltdown — each with observing vs. distress distinction)*
-7. Social & Communication
-8. Work & Regular Commitments *(conditional on onboarding — shown only if user has commitments)*
-9. Daily Function & Self-Care
-10. Capacity & Crash Risk
-11. Free-Form Entries
-12. Custom Questions
-
-### Key Design Decisions
-- **Sleep:** Accounts for split sleep, naps, very long naps; distinguishes waking during a sleep period from waking for the day; establishes and references individual baseline; clarifies fatigue vs. sleepiness in plain language
-- **Pain:** Captures range across the day (not a snapshot); includes location and type characterisation
-- **Mood:** All questions include physical and behavioural descriptions of what each state might look like; hopelessness question makes the distinction between personal hopelessness and reasonable response to world events visible in the question itself (not a hidden branch) — plain-language description explicitly names both; notes field always visible with prompt to say more; clinician view flags world-events hopelessness as contextual rather than purely symptomatic
-- **Anhedonia:** Framed through special interests and things that used to give energy — not just generic loss of pleasure
-- **Cognitive:** Losing track of time is two separate questions: time-loss from hyperfocus/absorption vs. time-loss from fog/confusion/gaps. Plain-language descriptions distinguish the two clearly.
-- **Freeze response:** Captured explicitly in cognitive/executive function section — framed as freeze driven by overwhelm or fear, not procrastination or not caring
-- **ND-Specific:** Stimming, hyperfocus, special interests, and shutdown/meltdown each carry a secondary scale: "just observing — it's data" vs. "this caused me distress or interfered"
-- **Derealization/depersonalization:** Small named subsection within Section 3 — *Sense of reality and self*. Three questions. Intro text normalises the experience before questions begin. Plain-language descriptions are both recognisable (so people who have it can identify it) and non-alarming (for people who haven't named it before). Questions cover: world feeling unreal/distant, feeling disconnected from self/body/thoughts, and how the person felt about the experience when it happened.
-- **Masking gap:** The check-in includes a question on the effort of holding it together in public and the cost of the crash afterwards — distinct from the standalone Masking Load Tracker tool
-- **Self-concept:** Separate question on how the user feels about themselves as a person — distinct from the burden/broken question
-- **Social:** Interaction broken down by type (text, email, phone, video, in-person 1:1, in-person group) — user indicates which were manageable vs. difficult
-- **Work:** Conditional section covering whether commitments were met, what it cost, what got in the way, and whether the current load is sustainable
-- **Safety question (Q42):** Always, locked — cannot be demoted or removed. Trigger logic (non-negative response → gentle acknowledgement + notes field + safety resource) is hard-coded and fires on response option selected, not on question wording. Wording can be edited but the UI makes explicit that the purpose and behaviour of the question are fixed; edits must preserve its seriousness as a genuine safety question. Scaffolding reflects this.
-  - **Q42 onboarding page:** Q42 gets its own dedicated page during onboarding, seen once before the first check-in. Full draft complete — see `q42-onboarding-page-draft.md`. The page covers: what the question is asking (full range of experiences including passive ideation, burden, exhaustion, and anger/outward-facing experience); what it isn't asking (explicitly distinguishes from end-of-life belief and assisted dying); that these thoughts are common and often carried alone; the difference between having a thought and meaning it; the person with history who is currently okay; the person who isn't sure if what they're experiencing counts; what happens when you answer; and that this is routine, not reactive.
-  - **Q42 check-in screen:** Section 11 has a named header — "Safety" — same weight and visual treatment as every other section. A short framing note appears between the header and the question: purpose is to normalise and establish that this is routine, not reactive. Framing note wording not yet finalised. The check-in screen variations and direct question are substantially developed but final block not yet locked.
-  - **Q42 trigger response:** Designed at concept level. See full detail below.
+**Q42 deeper exploration feature — concept only, design deferred:**
+After Q42, an optional space for the user to explore what answering the question felt like in their body, and what other things came up. Not yet designed. Must work across all three user tiers — a structured prompt version (no AI) and an AI-enhanced conversational version for cloud-tier users.
 
 ### Q42 Trigger Response
 
@@ -264,6 +248,18 @@ Body copy (working draft — expected to change substantially after tester feedb
 - Trusted person nudge — whether onboarding captures a named person is a separate decision not yet made; flagged for later
 - Crisis line (988) included but positioned as the escalation option, not the first offer
 
+### ND-Specific Question Design Notes
+
+- **Anhedonia:** Framed through special interests and things that used to give energy — not just generic loss of pleasure
+- **Cognitive:** Losing track of time is two separate questions: time-loss from hyperfocus/absorption vs. time-loss from fog/confusion/gaps. Plain-language descriptions distinguish the two clearly.
+- **Freeze response:** Captured explicitly in cognitive/executive function section — framed as freeze driven by overwhelm or fear, not procrastination or not caring
+- **ND-Specific:** Stimming, hyperfocus, special interests, and shutdown/meltdown each carry a secondary scale: "just observing — it's data" vs. "this caused me distress or interfered"
+- **Derealization/depersonalization:** Small named subsection within Section 3 — *Sense of reality and self*. Three questions. Intro text normalises the experience before questions begin. Plain-language descriptions are both recognisable (so people who have it can identify it) and non-alarming (for people who haven't named it before). Questions cover: world feeling unreal/distant, feeling disconnected from self/body/thoughts, and how the person felt about the experience when it happened.
+- **Masking gap:** The check-in includes a question on the effort of holding it together in public and the cost of the crash afterwards — distinct from the standalone Masking Load Tracker tool
+- **Self-concept:** Separate question on how the user feels about themselves as a person — distinct from the burden/broken question
+- **Social:** Interaction broken down by type (text, email, phone, video, in-person 1:1, in-person group) — user indicates which were manageable vs. difficult
+- **Work:** Conditional section covering whether commitments were met, what it cost, what got in the way, and whether the current load is sustainable
+
 ### Clinician Export
 - Organised by section, with clinical translations alongside user's own language
 - Flags significant or gradual changes over time
@@ -271,10 +267,10 @@ Body copy (working draft — expected to change substantially after tester feedb
 - Diagnosis/exploration information shared only with explicit user permission
 
 ### Still Open
+- **Q42 deeper exploration feature** — concept noted; design deferred to its own session
 - **Q42 trigger response copy** — working draft in place as placeholder; expected to iterate substantially after real tester feedback
 - **Q42 trigger response resource layer** — warmline list, scripts alongside each, chat link encoding research needed
 - **Q42 trusted person nudge** — whether onboarding captures a named person; not yet decided
-- **Q42 check-in screen** — framing note wording; final question block
 - Remaining onboarding design — choice screen visual design; question walkthrough UI detail; wording edit scaffolding detail; custom question builder detail
 - Clinician view / export design
 - Flagging logic for changes over time
@@ -301,7 +297,7 @@ Body copy (working draft — expected to change substantially after tester feedb
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
 * GitHub Pages not yet enabled — no HTML to host yet
 * `nd-checkin.html` exists — being reconceived from scratch in design; existing file will be reviewed and compared before build begins
-* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); Q42 onboarding page drafted and approved; Q42 trigger response designed at concept level with working draft copy; remaining design tasks before build: Q42 trigger response resource layer detail, Q42 check-in screen finalisation, remaining onboarding UI detail, clinician view
+* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed (welcome screens, baseline questions, three entry paths, low capacity mode complete); Q42 onboarding page drafted and approved; Q42 trigger response designed at concept level with working draft copy; Q42 check-in screen fully locked (Session 9); remaining design tasks before build: Q42 deeper exploration feature (deferred), Q42 trigger response resource layer, remaining onboarding UI detail, clinician view
 * `q42-onboarding-page-draft.md` exists in repo — working draft, approved, expected to be tweaked during testing
 * Everything else is planned only
 * No Supabase project connected yet
