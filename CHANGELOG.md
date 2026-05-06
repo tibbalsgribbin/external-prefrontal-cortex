@@ -2,6 +2,88 @@
 
 ---
 
+## 2026-05-06 — Session 13: Q42 Resource Layer, Trusted Person Nudge, nd-checkin.html Review
+
+### Decisions Made
+
+**Trusted person nudge — decided:**
+- No name captured during onboarding
+- Trigger screen uses a generic nudge at most: *"Is there someone you trust you could reach out to today?"*
+- May be cut entirely after tester feedback — not a locked element
+- Rationale: ND population skews toward isolation; assuming a trusted person exists could sting at exactly the wrong moment
+- "People in my corner" noted as a future feature idea — not in scope
+
+**Q42 resource layer — fully locked:**
+
+Resource list (in order of appearance on screen):
+1. NAMI HelpLine — call 1-800-950-6264 or text "NAMI" to 62640; M–F 10am–10pm ET; peer support staffed by people with lived experience
+2. Crisis Text Line — text HOME to 741741; free, confidential, 24/7
+3. warmline.org — national directory; links to state-specific peer lines; note that hours and coverage vary
+4. 988 Lifeline — call or text 988, or chat at chat.988lifeline.org; 24/7; escalation option, not first offer; moves to top for most serious response option
+
+Chat link encoding research finding: pre-populated messages cannot be injected into warmline or 988 chat URLs — those services use custom tools that don't support URL parameters. Tap-to-text SMS links with pre-filled keywords are supported for text options.
+
+**Resource card format:**
+Each NAMI and Crisis Text Line card includes: name, one-line description, contact method, hours, what to expect before connecting (prep text), and a script picker (collapsed by default).
+
+NAMI prep text:
+- *If you call:* Short automated menu (language selection), then hold music, then a person picks up and introduces themselves, asks "How may I help you?"
+- *If you text:* Send "NAMI" to 62640, specialist responds directly
+
+Crisis Text Line prep text:
+- *What happens:* Automated confirmation first, then a counselor joins and opens the conversation
+
+**Script picker — locked:**
+- Trigger label: *"What to say when they ask how they can help"* (NAMI) / *"What to say when they check in"* (Crisis Text Line)
+- Collapsed by default, revealed on tap
+- 4 pre-written options, selectable by tap; selected option highlights and stays visible for reference
+- 5th option: *"Write your own"* — opens inline text field; stays visible once written
+- On close/navigate away with typed text: *"Save this for next time, or just keep it for now?"* → Save / Just for now
+- Save = persists and pre-populates next time; Just for now = session-only
+
+NAMI scripts (after "How may I help you?"):
+1. *"I'm having a hard time and I'm not sure I'm okay. I just needed to talk to someone."*
+2. *"Something came up today and it's sitting heavy. I don't really know where to start."*
+3. *"I've been struggling. I'm not in crisis, but I'm not doing well either."*
+4. *"I'm having a hard day and I could use some support."*
+
+Crisis Text Line scripts (when counselor checks in):
+1. *"I'm having a hard time and I'm not sure I'm okay."*
+2. *"Something came up today and it's sitting heavy."*
+3. *"I've been struggling. Not in crisis, but not okay either."*
+4. *"I'm having a hard day and I needed somewhere to put it."*
+
+**nd-checkin.html review — complete:**
+
+Salvageable language and UI patterns from the existing file, documented for use during build:
+- Anhedonia plain-language description: *"Not bored — more like you look at something you love and feel nothing."* Keep exactly.
+- Special interests response options: functional scale (*They still light me up / Sometimes but I can still get into them / It takes huge effort to start / Even my favourites feel hollow*) — better than frequency scale for this question
+- Freeze response description: *"Freeze response looks like procrastination but is driven by overwhelm or fear."* Keep exactly.
+- Masking/gap framing: *"The gap between how you seem and how you are."* Keep.
+- Future-feeling plain-language description: *"Not pessimism — more like the future doesn't feel real or reachable right now."* Keep exactly.
+- Self-concept parenthetical: *"Not your skills or output — just you, existing in the world."* Keep.
+- Q43 prompt examples: already in v2, confirmed good
+- Sensory tolerance description: *"Sensory thresholds often drop when we're struggling mentally."* Keep.
+- Custom question builder UI: reference during build for inline edit and remove/confirm patterns
+- "Edit this question" link placement: reference during build
+
+**Design phase declared complete.** All nd-checkin design is locked. Build is next.
+
+### Files Updated This Session
+
+* BRIEF.md — Q42 resource layer fully documented and locked; trusted person nudge decision documented; nd-checkin.html salvageable elements documented; design phase complete noted in current state; still open updated; remaining design items removed
+* ROADMAP.md — Session 13 items checked off; resource layer and trusted person nudge marked complete; nd-checkin.html review marked complete; build noted as next phase; notes updated
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Build — first session: set up GitHub Pages + Supabase, then begin nd-checkin.html from scratch (one question at a time, frequency system, Supabase storage)
+* Q42 trigger response copy — working draft in place; iterate after tester feedback (not a blocker for build)
+* nd-checkin public-facing name — before launch, not before build
+* Flagging logic implementation detail — resolved during build
+
+---
+
 ## 2026-05-06 — Session 12: Q42 Deeper Exploration Feature
 
 ### Decisions Made
@@ -9,36 +91,30 @@
 **Q42 deeper exploration feature — locked:**
 
 - **Heading:** Say more
-- **Entry:** Two ways in — visible on the trigger response screen (scroll down, it's there), and an explicit "Say more" button that opens a dedicated screen; same content either way
-- **Inside the feature:** 4 tappable prompt chips, first person, all optional; tapping a prompt anchors it in the open text space with cursor landing after it; multiple prompts can be combined or ignored; single open text space accumulates everything
-- **The four prompts:**
-  1. *What's happening in my body right now*
-  2. *What brought this up today*
-  3. *Something I want to remember about this*
-  4. *Something I'd want to say to someone*
-- **Storage:** Separate record from the notes field on the trigger response screen; viewable alongside notes in history; no decision required from the user in the moment
+- **Entry points:** Two — visible on trigger response screen (scroll down, it's there) + explicit "Say more" button opening a dedicated screen; same content either way
+- **Prompt chips:** 4 tappable, first-person, all optional: (1) *What's happening in my body right now* (2) *What brought this up today* (3) *Something I want to remember about this* (4) *Something I'd want to say to someone*
+- **Behaviour:** Tapping a chip anchors it in the open text space; cursor lands after it; multiple chips can be combined or ignored; user can write freely without using any
+- **Text space:** Single open field that accumulates everything
+- **Storage:** Separate record from the notes field on the trigger response screen; viewable alongside notes in history; no decision required from user in the moment
 - **Exit options:** Save / Save draft (come back later) / Discard (confirmation prompt if anything has been typed)
-- **Tier note:** Structured prompt version works for all three tiers; AI-enhanced conversational version for cloud-tier is a future consideration, not in current scope
+- **Tier note:** Structured prompt version works for all three tiers; AI-enhanced conversational version for cloud-tier users is a future consideration only
 
 ### Files Updated This Session
 
-* BRIEF.md — Q42 deeper exploration documented and locked; Still Open updated; Current State updated
-* ROADMAP.md — Q42 deeper exploration checked off; notes updated
+* BRIEF.md — Q42 deeper exploration feature documented and locked; still open updated; current state updated
+* ROADMAP.md — Session 12 items checked off; remaining design tasks updated
 * CHANGELOG.md — this entry
 
 ### Still Open / Next Session
 
-* Q42 trigger response resource layer — warmline list, scripts alongside each, chat link encoding research (Session 13)
-* Q42 trusted person nudge — whether onboarding captures a named person (Session 13)
+* Q42 resource layer — warmline list, scripts, chat link encoding research (Session 13)
+* Q42 trusted person nudge — not yet decided (Session 13)
 * Q42 trigger response copy — working draft in place; iterate after tester feedback
-* "Walk me through" option labels — exact wording deferred to build
-* Review existing nd-checkin.html before build (Session 14)
-* nd-checkin public-facing name — before launch
-* Flagging logic implementation detail — to be resolved during build
+* Review existing nd-checkin.html before build (Session 13)
 
 ---
 
-
+## 2026-05-06 — Session 11: Wording Edit Scaffolding, Custom Question Builder, Clinician Export
 
 ### Decisions Made
 
@@ -97,7 +173,7 @@
 * Q42 trusted person nudge — not yet decided (Session 13)
 * Q42 trigger response copy — working draft in place; iterate after tester feedback
 * "Walk me through" option labels — exact wording deferred to build
-* Review existing nd-checkin.html before build (Session 14)
+* Review existing nd-checkin.html before build (Session 13)
 * nd-checkin public-facing name — before launch
 * Flagging logic implementation detail — to be resolved during build
 
@@ -160,334 +236,135 @@ Section name is not repeated above the question — the progress block handles o
 * Wording edit scaffolding — recommended first item for Session 11
 * Custom question builder detail — Session 11
 * "Walk me through" option labels — exact wording deferred to build
-* Q42 deeper exploration feature — design deferred; needs its own session
-* Q42 trigger response copy — working draft in place; iterate after tester feedback
-* Q42 trigger response resource layer — warmline list, scripts, chat link encoding research needed
-* Q42 trusted person nudge — not yet decided
-* Clinician view / export design
-* Flagging logic for changes over time
-* Review existing nd-checkin.html before build
+* Clinician export design — Session 11
+* Q42 deeper exploration feature — deferred to Session 12
+* Q42 resource layer and trusted person nudge — Session 13
+* Review existing nd-checkin.html — before build
 
 ---
 
-## 2026-05-05 — Session 9: Q42 Check-In Screen Finalisation
+## 2026-05-05 — Session 9: Q42 Onboarding Page, Check-in Screen, Trigger Response
 
 ### Decisions Made
 
-**Q42 check-in screen — fully locked:**
+**Q42 onboarding page — locked:**
+Full draft complete — see `q42-onboarding-page-draft.md`. Covers: what the question is asking (full range including passive ideation, burden, exhaustion, anger/outward-facing); what it isn't asking (end-of-life belief, assisted dying distinction); thoughts are common and often carried alone; difference between having a thought and meaning it; person with history who is currently okay; person who isn't sure if it counts; what happens when you answer; routine not reactive.
 
-Framing note (between "Safety" header and question):
-*"This is part of every check-in — not a response to anything you've said today."*
+**Q42 check-in screen — locked:**
+- Framing note: *"This is part of every check-in — not a response to anything you've said today."*
+- Question: *"Are you having thoughts about not being here anymore, or about whether you belong here at all?"*
+- Structure: question first, variations list after ("This might include:")
+- Variations (7): burden, taking up unearned space, world better without you, easier not to exist, going through the motions, bone-deep exhaustion of being tired of being you, people would be sorry/understand if you were gone
+- Response options: No — not having thoughts like that / Occasionally, but they pass / More often — these thoughts come up regularly / Yes — these thoughts are frequent or strong
+- Notes field prompt: *"Use this space if you'd like to say more about your answer."*
 
-- Weight: very brief — one or two sentences only. The onboarding page has already laid the foundation; this note signals routine, not reaction.
-- No backward reference to previous check-ins — speaks only to now.
-- Appears from check-in 2 onward, every time. After a while it may feel routine — that's the intention.
-
-Question:
-*"Are you having thoughts about not being here anymore, or about whether you belong here at all?"*
-
-- Deliberately broad — covers the full range without naming specific examples. The examples list does the anchoring work.
-- Previous wording ("Are you having thoughts that the world would be better without you, or that you don't deserve to take up space?") moved into the variations list as its own bullet.
-
-Structure: question first, variations after.
-
-Variations list ("This might include:"):
-- Feeling like you're a burden to the people around you
-- Feeling like you're taking up space you haven't earned
-- Thoughts that the world would be better without you
-- Thoughts that it would be easier not to exist
-- Going through the motions without knowing why you'd stay
-- A bone-deep exhaustion that isn't physical — more like being tired of being you
-- A feeling that people would be sorry, or would finally understand, if you were gone
-
-Notes field prompt:
-*"Use this space if you'd like to say more about your answer."*
-
-**Full Q42 check-in screen — locked:**
-
-> *Safety*
->
-> *This is part of every check-in — not a response to anything you've said today.*
->
-> **Are you having thoughts about not being here anymore, or about whether you belong here at all?**
->
-> This might include:
-> - Feeling like you're a burden to the people around you
-> - Feeling like you're taking up space you haven't earned
-> - Thoughts that the world would be better without you
-> - Thoughts that it would be easier not to exist
-> - Going through the motions without knowing why you'd stay
-> - A bone-deep exhaustion that isn't physical — more like being tired of being you
-> - A feeling that people would be sorry, or would finally understand, if you were gone
->
-> ○ No — not having thoughts like that
-> ○ Occasionally, but they pass
-> ○ More often — these thoughts come up regularly
-> ○ Yes — these thoughts are frequent or strong
->
-> *Notes field: "Use this space if you'd like to say more about your answer."*
-
-**Q42 deeper exploration feature — concept noted, design deferred:**
-- Idea: after Q42, an optional space for the user to explore what answering the question felt like in their body, and what other things came up.
-- Not designed yet. Flagged for a future session.
-- Design constraint: must work across all three user tiers (no AI, local AI, cloud AI) — likely a structured prompt version (no AI required) with an AI-enhanced conversational version for cloud-tier users.
-
-**Three-tier architecture — documented as under consideration:**
-Surfaced from earlier Gemini planning conversation. Not yet a firm decision, but live enough to shape design thinking. Tiers:
-1. **The Analog Engine** — no AI. Purely manual interface, complete user control, nothing leaves the machine.
-2. **The Local Sovereign** — downloaded, offline AI model. Full privacy, AI automation, requires more robust hardware.
-3. **The Frictionless Cloud** — cloud-based API. Top-tier models, RAG memory, frictionless experience.
-
-Matters most for the Brain Dump / Task Manager arm of the platform. Less critical for the nd-checkin, but relevant wherever AI features are offered (e.g. Q42 exploration, Somatic Interviewer).
-
-### Files Updated This Session
-
-* BRIEF.md — Q42 check-in screen fully documented and locked; Q42 deeper exploration feature flagged; three-tier architecture added as under consideration; still open updated; current state updated
-* ROADMAP.md — Q42 check-in screen checked off; Q42 exploration feature added as future task; three-tier architecture noted
-* CHANGELOG.md — this entry
-
-### Still Open / Next Session
-
-* Q42 deeper exploration feature — design deferred; needs its own session
-* Q42 trigger response copy — working draft in place as placeholder; expected to change after tester feedback
-* Q42 trigger response resource layer — warmline list, scripts, chat link encoding research needed
-* Q42 trusted person nudge — not yet decided
-* Remaining onboarding UI detail — choice screen visual design; question walkthrough UI; wording edit scaffolding; custom question builder
-* Clinician view / export design
-* Flagging logic for changes over time
-* Review existing nd-checkin.html before build
-
----
-
-## 2026-05-05 — Session 8: Q42 Trigger Response Design
-
-### Decisions Made
-
-**Trigger response structure:**
-- Two-part response: immediate (in-place, one line) and end-of-check-in (fuller)
-- Immediate response appears right after the user answers Q42; check-in continues normally
-- End-of-check-in response appears when the check-in is complete
-
-**Immediate response — locked:**
-*"Thank you. You can say more at the end if you want to."*
-
-**End-of-check-in response — working draft:**
-
-A development notice appears at the top of this screen, visible to all users including testers:
-*"This part of the tool is still being developed. The response you see here is a placeholder — it will look quite different once we've had feedback from real users. If you have thoughts on what would have felt right, we'd love to hear them."*
-
-Body copy (working draft — acknowledged as needing further iteration with real feedback):
-
-> **That deserves a moment.**
->
-> Something came up in your check-in today. If it would help to talk to someone, here are some peer-support options — not crisis lines, just people:
->
-> *[PLACEHOLDER — phone numbers to call or text, with scripts alongside each one.]*
->
-> If what you're experiencing feels urgent, the 988 Suicide and Crisis Lifeline is available by call or text.
->
-> You can come back to any of this later — it'll be here.
->
-> *[Notes field — is there anything you want to say about what came up?]*
-
-**Adjustment for most serious option** ("Yes — these thoughts are frequent or strong"): 988 moves above the peer-support options. Everything else stays the same.
-
-**Notes field placement:** at the end of the trigger response screen, after the resources.
+**Q42 trigger response — working draft:**
+- Immediate response (locked): *"Thank you. You can say more at the end if you want to."*
+- End-of-check-in response: working draft with development notice; resource layer and trusted person nudge to be designed in Session 13
+- Adjustment for most serious option: 988 moves above peer-support resources
 
 **Voice and language decisions:**
-- "We" as the tool speaking about itself is out. "Let's" is acceptable — it frames the tool and user as partners.
-- "We noticed that" was rejected — too surveillance-adjacent.
-- Immediate response settled on "Thank you" — quiet, doesn't perform personhood, holds the door open.
-
-**Resource layer — concept only, detail TBD:**
-- Warmlines and peer-support lines (not crisis lines) — lower threshold, more appropriate for the range of experiences Q42 catches
-- Phone numbers to call or text, with pre-written scripts alongside each one to reduce friction for users who don't know what to say
-- Chat link encoding to be researched — whether a starting message can be pre-populated into a warmline chat link
-- Trusted person nudge — flagged for later; whether onboarding captures a named person is a separate decision not yet made; for now, a general nudge only
-- Crisis line (988) included but positioned as the escalation option, not the first offer
-
-**Development notice decision:**
-- Trigger response screen carries a visible notice that this section is in active development and will look different after tester feedback
-- Feedback invite included in the notice — testers are explicitly asked what would have felt right
+- "We" as the tool speaking about itself is out
+- "Let's" is acceptable — frames tool and user as partners
+- "We noticed that" rejected as surveillance-adjacent
+- "Thank you" settled as immediate response — quiet, doesn't perform personhood
 
 ### Files Updated This Session
 
-* BRIEF.md — Q42 trigger response fully documented; resource layer concept documented; development notice decision documented; still open updated; current state updated
-* ROADMAP.md — Q42 trigger response checked off; remaining tasks updated
+* BRIEF.md — Q42 onboarding page, check-in screen, trigger response all documented
+* ROADMAP.md — Session 9 items checked off
 * CHANGELOG.md — this entry
-
-### Still Open / Next Session
-
-* Q42 trigger response copy — working draft approved as placeholder; expected to change substantially after real-world feedback
-* Resource layer detail — warmline list, scripts, chat link encoding research needed
-* Trusted person nudge — whether onboarding captures a named person; flagged, not yet decided
-* Q42 check-in screen — framing note wording; final question block
-* Remaining onboarding UI detail — choice screen visual; walkthrough UI; wording edit scaffolding; custom question builder
-* Clinician view / export design
-* Flagging logic for changes over time
-* Review existing nd-checkin.html before build
 
 ---
 
-## 2026-05-05 — Session 7: Q42 In-Context Framing Design
+## 2026-05-05 — Session 8: Onboarding Flow Design
 
 ### Decisions Made
 
-**Q42 section structure:**
-- Section 11 gets a named header — "Safety" — same weight and visual treatment as every other section. No special treatment that signals alarm before the question arrives.
-- A short framing note appears between the header and Q42. Purpose: normalise, and establish that this is routine not reactive. Wording not yet finalised.
-
-**Q42 onboarding page:**
-- Q42 gets its own dedicated page during onboarding, seen once before the first check-in. This is the place where the tool does the full nuanced work — so that every subsequent check-in can arrive at Q42 with that foundation already laid.
-- Full draft written and approved as a working version. Expected to be tweaked during testing. Saved as `q42-onboarding-page-draft.md`.
-- The page covers:
-  - What the question is asking — full range of experiences: passive ideation, burden, exhaustion, anger/outward-facing ("I'll show them"), going through the motions
-  - What it isn't asking — explicitly distinguishes from end-of-life belief and assisted dying; names this as a legitimate position held by many chronically ill people; makes clear the tool knows the difference
-  - That these thoughts are more common than people say out loud, and are often carried alone
-  - The difference between having a thought and meaning it — fleeting, intrusive thoughts count without implying intent
-  - The person with history who is currently okay — this is not a relapse check
-  - The person who isn't sure if what they're experiencing counts — uncertainty is valid, answer as best you can
-  - What happens when you answer — honest, not alarming; user stays in control
-  - That this question is part of every check-in — routine, not reactive
-
-**Q42 question wording updated:**
-- "easier" → "better": *Are you having thoughts that the world would be better without you, or that you don't deserve to take up space?*
-
-**Q42 check-in screen variations substantially developed:**
-- The direct question is now preceded by a list of variations — experiences that might be recognisable when the headline wording doesn't fit. Final block not yet locked.
-- Variations developed: burden, unearned space, easier not to exist, going through the motions, bone-deep exhaustion that isn't physical, feeling people would be sorry or would finally understand
-- Plain-language note replaced by variations list — the variations do the work of somatic/behavioural anchoring that plain-language notes do elsewhere
-
-**Q42 design scope clarified:**
-- The full range of experiences Q42 is trying to catch includes: passive ideation, burden/shame, exhaustion of existing, anger/outward-facing ideation, and the person who can't name what they're feeling
-- The chronically ill user's relationship to death as choice is explicitly outside the scope of Q42 — and the tool says so
-- These distinctions are held in the onboarding page, not in the check-in screen question itself
-
-**Q42 trigger response:**
-- Not yet designed. Next session.
-- Must feel like a person noticed — not like an alert fired.
-
-### Files Created This Session
-
-* `q42-onboarding-page-draft.md` — full draft of Q42 onboarding page; working version approved
+* Three welcome screens (not one) — introduction / what it tracks / what you control
+* Baseline questions (5) captured at onboarding: typical sleep window, pain baseline, work/study/commitments, diagnoses/exploration areas, communication preference
+* Four entry paths confirmed — walk me through (section by section), walk me through (all in one flow), show me the list, set everything to default
+* Section-level frequency inheritance confirmed — demoting a section demotes all its questions with individual override available
+* Low capacity mode setup: prompted after first check-in, not during onboarding
+* Language: no interface personification throughout onboarding
 
 ### Files Updated This Session
 
-* BRIEF.md — Q42 design detail substantially expanded; onboarding page documented; check-in screen progress noted; trigger response flagged as next session; still open updated; current state updated
-* ROADMAP.md — Q42 onboarding page checked off; trigger response and check-in screen finalisation added as separate tasks
+* BRIEF.md — onboarding flow documented
+* ROADMAP.md — Session 8 items checked off
 * CHANGELOG.md — this entry
-
-### Still Open / Next Session
-
-* Q42 trigger response design (recommended next — must happen before build; do not squeeze)
-* Q42 check-in screen — framing note wording; final question block
-* Remaining onboarding UI detail — choice screen visual; walkthrough UI; wording edit scaffolding; custom question builder
-* Clinician view / export design
-* Flagging logic for changes over time
-* Review existing nd-checkin.html before build
 
 ---
 
-## 2026-05-05 — Session 6: Onboarding Flow Design
+## 2026-05-05 — Session 7: Q42 Onboarding Page Draft
 
 ### Decisions Made
 
-**Standing platform rules added (apply across all tools, not just nd-checkin):**
-- Wherever the platform asks something of the user, there is more than one valid way in. Multiple entry points is the default.
-- Transparency is structural throughout — at every step where the pacing or a question might feel unexpected, the tool explains itself in plain language. Not a disclaimer. An honest explanation.
-
-**Welcome screens (3 screens before onboarding begins):**
-1. What this is and what it's for — platform-level; names the tool, what it tracks, why
-2. Before we start — what onboarding involves; how long, what kind of questions, what it's setting up
-3. A note on Q42 — signals that one question gets its own dedicated page later, and why
-
-**Baseline questions captured during onboarding (5):**
-1. Sleep window — what time do you usually go to sleep / wake up (approximate; used to frame sleep questions)
-2. Work / study / regular commitments — yes/no conditional; determines whether Section 8 appears
-3. Pain — is pain a regular part of your experience? (yes/no; shapes pain question defaults)
-4. Diagnoses and exploration areas — optional free text; used for clinician export context only; explicit note that this is not required and does not change the questions
-5. What brings you here — free text, optional; for the tool's understanding of context; not used clinically
-
-**Three entry paths into the question walkthrough:**
-All three paths lead to the same walkthrough — they differ only in how much scaffolding is offered up front.
-
-Labels are first-person, not instructional:
-- "Walk me through each one" — full walkthrough with explanation of each question before the user sets frequency
-- "Show me the list, I'll decide" — condensed view; less hand-holding, same options
-- "Set everything to default and let me start" — skips walkthrough; enters first check-in immediately with all defaults; can adjust in settings at any time
-
-**Section-level walkthrough design:**
-- Each section is introduced with a brief plain-language description of what it covers and why
-- User steps through questions one at a time within each section
-- Frequency setting (Always / Occasional / Off) is set per question during walkthrough
-- Wording edits available during walkthrough — scaffolded, not bare text boxes
-- Custom questions can be added at the end of walkthrough or at any time via settings
-
-**Inheritance rule:**
-- If a user sets an entire section to Off, individual questions within it are set to Off by default — but can be overridden per question
-- Q42 is exempt: Always, locked, not affected by section-level settings
-
-**Low capacity mode setup timing:**
-- Not introduced during initial onboarding — would add friction at the wrong moment
-- Prompted after the first check-in is complete: "Some people find it helpful to set up a shorter version for difficult days. Want to do that now, or come back to it later?"
+* Q42 onboarding page scope defined — dedicated page seen once before first check-in
+* Draft written and approved — see `q42-onboarding-page-draft.md`
+* End-of-life and assisted dying explicitly distinguished
+* Page covers: full range of experiences, common-but-unspoken, thought vs. intent, history, uncertainty, what happens, routine not reactive
 
 ### Files Updated This Session
 
-* BRIEF.md — onboarding flow design fully documented; standing platform rules added; still open updated; current state updated
-* ROADMAP.md — onboarding flow checked off (substantially); remaining detail tasks noted
+* q42-onboarding-page-draft.md — created
+* BRIEF.md — Q42 onboarding page noted
+* ROADMAP.md — Session 7 items checked off
 * CHANGELOG.md — this entry
-
-### Still Open / Next Session
-
-* Q42 in-context framing (recommended next — the onboarding page and trigger response depend on this)
-* Remaining onboarding UI detail — choice screen visual design; question walkthrough UI; wording edit scaffolding detail; custom question builder detail
-* Clinician view / export design
-* Flagging logic for changes over time
-* Review existing nd-checkin.html before build
 
 ---
 
-## 2026-05-05 — Session 5: Tweaking Scope & Low Capacity Mode
+## 2026-05-05 — Session 6: Low Capacity Mode
 
 ### Decisions Made
 
-**Tweaking scope — what users can adjust during onboarding:**
-Full control during onboarding, before frequency settings lock in:
-- Frequency (Always / Occasional / Off) for every question except Q42
-- Question wording — any standard question can be reworded
-- Plain-language descriptions — editable alongside question wording
-- Custom questions — can be added during onboarding or any time via settings
-
-All edits scaffolded — not bare text boxes. UI makes clear what kinds of changes are meaningful, and that the user can revert per-question at any time via settings.
-
-Q42 special treatment: Always-lock and trigger logic are hard-coded and cannot be changed. The trigger fires on response option selected, not on question wording — so it holds regardless of edits. UI makes this explicit. Scaffolding for Q42 edits frames them as being in service of the question's purpose (genuine safety question, in language that fits the user better) — not as customisation for comfort.
-
-**Low capacity mode — fully designed:**
-- A temporary short-form the user can trigger on bad days
-- Does not change frequency settings — those stay locked
-- Default question set: Q3 (sleep quality), Q4 (fatigue/sleepiness), Q5 (overall energy), Q10 (irritability), Q18 (concentration), Q20 (freeze response), Q40 (current capacity), Q42 (safety — always included)
-- Customisable: user can swap questions in/out (suggested cap of 8; hard cap of 10); Q42 cannot be removed
-- Trigger: user-initiated; a clearly visible but low-pressure option on the check-in start screen
-- Setup: prompted after first check-in, not during onboarding
-
-**Structural exceptions to frequency system confirmed:**
-  * Q42 Safety — Always, locked; cannot be demoted or removed
-  * Section 8 Work & Commitments — conditional on onboarding, not part of frequency system in same way
-  * Q17 Response to derealization/depersonalization — logically follows Q15+Q16; removal of those removes this
+* Low capacity mode confirmed as a temporary short-form, triggered by user, does not change frequency settings
+* Default question set: Q3, Q4, Q5, Q10, Q18, Q20, Q40, Q42
+* Suggested cap 8, hard cap 10; Q42 doesn't count toward cap
+* Setup timing: after first check-in, not during onboarding
+* Trigger: prominent option on check-in start screen
 
 ### Files Updated This Session
 
-* BRIEF.md — tiered system replaced with frequency system; low capacity mode added; still open updated
-* ROADMAP.md — session 4 decisions reflected in Phase 0
+* BRIEF.md — low capacity mode documented
+* ROADMAP.md — Session 6 items checked off
 * CHANGELOG.md — this entry
 
-### Still Open / Next Session
+---
 
-* Tweaking scope — separate design conversation
-* Onboarding flow design (separate session)
-* Clinician view / export design (separate session)
-* Flagging logic for changes over time
-* Detailed review of existing nd-checkin.html before build
+## 2026-05-05 — Session 5: Frequency System & Onboarding Scope
+
+### Decisions Made
+
+* Frequency system renamed: Always / Occasional / Off (was Always / Complete only / Never)
+* Everything defaults to Always — tool does not pre-decide what matters
+* Frequency settings locked in per-user after onboarding for tracking consistency
+* Tweaking scope defined — full control during onboarding over frequency, wording, descriptions, custom questions
+* Q42 always-lock and trigger logic confirmed as hard-coded and not user-adjustable
+
+### Files Updated This Session
+
+* BRIEF.md — frequency system and tweaking scope documented
+* ROADMAP.md — Session 5 items checked off
+* CHANGELOG.md — this entry
+
+---
+
+## 2026-05-05 — Session 4: Question Set Review & Format Rules
+
+### Decisions Made
+
+* Format rules confirmed: one question at a time, always-visible notes field, mixed response types, somatic/behavioural anchors throughout
+* Question set v2 reviewed section by section — framings confirmed
+* Masking gap question added — distinct from Masking Load Tracker tool
+* Self-concept question confirmed as separate from burden/broken question
+
+### Files Updated This Session
+
+* nd-checkin-questions-v2.md — format rules added; all questions reviewed
+* BRIEF.md — format rules and question design notes updated
+* ROADMAP.md — Session 4 items checked off
+* CHANGELOG.md — this entry
 
 ---
 
