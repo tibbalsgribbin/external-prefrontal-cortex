@@ -2,6 +2,71 @@
 
 ---
 
+## 2026-05-06 — Session 11: Wording Edit Scaffolding, Custom Question Builder, Clinician Export
+
+### Decisions Made
+
+**Wording edit scaffolding — locked:**
+
+- **Trigger:** "Edit wording" link on question screen; quiet, understated; appears below plain-language description, above frequency toggle
+- **Behaviour:** Expands inline — no modal, no new screen; frequency toggle collapses while editing is open, restores on save or cancel
+- **What opens:** Question text field + plain-language description field (both open simultaneously), pre-populated with current wording; examples block between the two fields; Save / Cancel buttons
+- **Examples block:**
+  - *Examples of edits that work:* "How did your sleep go?" → "Did I actually sleep, or just lie there?" / "How is your energy right now?" → "How wrecked do I feel right now?"
+  - *Examples that change the meaning too much:* "How is your energy right now?" → "Did I exercise today?" *(this is a different question)*
+- **On save:** Fields close, frequency toggle restores, new wording renders in place; line appears briefly then fades: *"Saved — you can revert this any time in settings."*
+- **On cancel:** Fields close, frequency toggle restores; no changes, no confirmation
+- **Revert:** Per-question in settings, any time; reverts to original standard wording (not to a previous edit)
+
+**Q42 special treatment — same mechanic, different examples block:**
+- *Works:* "Are you having thoughts about not being here anymore..." → "Are you having thoughts that it would be easier to disappear?"
+- *Changes meaning too much:* Changing it to something that no longer asks about these kinds of thoughts
+- Locked note (not editable, visually quieter): *"The way this question works in the background can't be changed. It responds to which answer you choose, not the specific words."*
+
+**Custom question builder — locked:**
+
+- **Where it lives:** End of onboarding question walkthrough (before onboarding completes) + settings any time after onboarding
+- **Onboarding introduction:** Brief prompt after last standard question: *"You can add your own questions to track things the standard set doesn't cover — a specific symptom, a pattern you've noticed, anything you want to keep an eye on. They'll appear at the end of every check-in and chart over time alongside the rest."* Two buttons: Add a question / Skip for now
+- **Builder:** Inline form with four fields: (1) Question text — required, placeholder *"What do you want to track?"*; (2) Clarifying note — optional, placeholder *"A bit more context for yourself, if useful."*; (3) Response type — Frequency scale / Yes–Sometimes–No / Free text; (4) Frequency toggle — Always (default) / Occasional / Off with standard hint line
+- **On save:** Form resets; Add another / Done options appear
+- **On cancel:** Form closes, no changes
+- **Settings management:** Each question listed with response type and frequency; Edit / Change frequency / Delete per question; Delete requires confirmation: *"Remove this question? Your past responses will be kept."*; no limit on number of custom questions
+- **Charting:** Custom questions chart over time in History alongside standard questions
+- **Note:** Existing nd-checkin.html custom question builder was previously flagged as salvageable; builder is now designed from scratch; review existing file before build for useful UI details only — no longer the reference point
+
+**Clinician export — locked:**
+
+- **Format:** PDF download (printable) + shareable link (read-only view) — user chooses at export time
+- **Date range:** User sets manually every time; no assumed default
+- **Shareable link expiry:** User chooses at generation time — expires after set period, or stays live until revoked; revocation available any time in settings
+- **Export header:** Date range / number of check-ins in period / user's name (optional) / diagnosis and exploration areas (only with explicit per-export permission) / Q45 clinician note prominently before all section data
+- **Body:** Per-response clinical translations for flagged/significant items (user's wording shown as-is, clinical reframe alongside); section summary interpretation for the rest; user's own language never replaced, only accompanied; clinical translations neutral and descriptive
+- **Flagging criteria (five):** (1) Response significantly worse than user's personal baseline; (2) Gradual downward trend across multiple check-ins; (3) Any non-first-option response on Q42; (4) Question skipped repeatedly; (5) Significant change in either direction — sudden improvement flagged as well as decline
+- **Flags Summary block:** Collected flags appear immediately after the header, before section data
+
+**Naming noted:**
+- nd-checkin tool needs a public-facing name before launch; internal working name continues for now
+- Naming session TBD after Phase 0 complete
+
+### Files Updated This Session
+
+* BRIEF.md — wording edit scaffolding documented and locked; custom question builder documented and locked; clinician export documented and locked; naming note added; still open updated; current state updated
+* ROADMAP.md — Session 11 items checked off; naming task added to Phase 0; notes updated
+* CHANGELOG.md — this entry
+
+### Still Open / Next Session
+
+* Q42 deeper exploration feature — design deferred; needs its own session (Session 12); must work across all three user tiers
+* Q42 trigger response resource layer — warmline list, scripts, chat link encoding research (Session 13)
+* Q42 trusted person nudge — not yet decided (Session 13)
+* Q42 trigger response copy — working draft in place; iterate after tester feedback
+* "Walk me through" option labels — exact wording deferred to build
+* Review existing nd-checkin.html before build (Session 14)
+* nd-checkin public-facing name — before launch
+* Flagging logic implementation detail — to be resolved during build
+
+---
+
 ## 2026-05-05 — Session 10: Onboarding UI Design (Choice Screen, Question Walkthrough, Section Intro)
 
 ### Decisions Made

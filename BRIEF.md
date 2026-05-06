@@ -1,6 +1,6 @@
 # External Prefrontal Cortex — Project Brief
 
-*Working title. Naming TBD.*
+*Working title. Naming TBD. The nd-checkin tool will also need a public-facing name before launch.*
 
 ---
 
@@ -46,7 +46,7 @@ ND and/or chronically ill adults — particularly late-identified, high-masking,
 
 ### Tracking & Clinical
 
-1. **ND Wellness Check-In** — depression/anxiety reframed for ND. Replaces PHQ-9/GAD-7. *In early design — see below.*
+1. **ND Wellness Check-In** — depression/anxiety reframed for ND. Replaces PHQ-9/GAD-7. *In active design — see below. Needs a public-facing name before launch.*
 2. **Functional Pain Scale** — ADL-based ("can you put on socks?") not 1–10
 3. **Masking Load Tracker** — cumulative cost of performance over time
 4. **Medication/Treatment Tracker** — functional impact over time, not a pill reminder
@@ -91,7 +91,7 @@ Design implication: wherever an AI feature is designed (e.g. Q42 deeper explorat
 
 ## ND Wellness Check-In — Design Detail
 
-*This tool is in active early design. An existing nd-checkin.html file exists but is being substantially reconceived.*
+*This tool is in active early design. An existing nd-checkin.html file exists but is being substantially reconceived. The internal working name "nd-checkin" is used throughout project documents; a public-facing name is needed before launch.*
 
 ### Format
 - One question at a time (not a wall of text)
@@ -117,11 +117,48 @@ During onboarding, before frequency settings lock in, users have full control ov
 - **Plain-language descriptions** — the description underneath each question can also be edited
 - **Custom questions** — users can add their own questions with their own response types
 
-**How editing is handled — applies to all questions:**
-All edits are scaffolded, not bare text boxes. The UI makes clear that edits should be done thoughtfully, suggests what kinds of changes are meaningful (e.g. swapping in language that better fits how a particular state feels for this person), and reminds the user that they can revert to the original wording at any time via settings. Reverting is per-question — not all-or-nothing.
+**How editing is handled — see Wording Edit Scaffolding section below.**
 
 **Q42 (safety question) — special treatment:**
 The Always-lock and trigger logic on Q42 are hard-coded and cannot be changed by the user. The trigger logic fires based on the response option selected, not on the question text — so it holds regardless of how the wording is edited. The UI makes this explicit: the user is told that the purpose and behaviour of this question are fixed. Any wording edits should preserve the seriousness of the question — it must remain a genuine safety question, in language that fits the user better. The scaffolding for Q42 reflects this: edits are framed as being in service of that same purpose, not as customisation for comfort.
+
+### Wording Edit Scaffolding
+
+**Trigger:** "Edit wording" link on the question screen. Quiet, understated. Appears below the plain-language description, above the frequency toggle.
+
+**Behaviour:** Expands inline — no modal, no new screen. Frequency toggle collapses and hides while editing is open; restores on save or cancel.
+
+**What opens:**
+- Question text field (pre-populated with current wording — standard or previously edited)
+- Plain-language description field (pre-populated with current wording)
+- Examples block, between the two fields:
+
+*Examples of edits that work:*
+- "How did your sleep go?" → "Did I actually sleep, or just lie there?"
+- "How is your energy right now?" → "How wrecked do I feel right now?"
+
+*Examples that change the meaning too much:*
+- "How is your energy right now?" → "Did I exercise today?" *(this is a different question)*
+
+- Save / Cancel buttons
+
+**On save:** Fields close, frequency toggle restores. New wording renders in place. A line appears briefly then fades: *"Saved — you can revert this any time in settings."*
+
+**On cancel:** Fields close, frequency toggle restores. No changes. No confirmation needed.
+
+**Revert:** Per-question, in settings, any time. Reverts to original standard wording (not to a previous edit).
+
+**Q42 special treatment — same mechanic, different examples block:**
+
+*Examples of edits that work:*
+- "Are you having thoughts about not being here anymore..." → "Are you having thoughts that it would be easier to disappear?"
+
+*Examples that change the meaning too much:*
+- Changing it to something that no longer asks about these kinds of thoughts
+
+Locked note below the examples (not editable, visually quieter): *"The way this question works in the background can't be changed. It responds to which answer you choose, not the specific words."*
+
+Save / Cancel / revert work identically to every other question.
 
 ### Low Capacity Mode
 
@@ -185,7 +222,7 @@ Question screen layout (top to bottom):
 - Frequency control labelled: *"How often should this question appear in your check-in?"*
 - Three-button toggle: Always (default selected) / Occasional / Off
 - Hint line below toggle: *"Everything starts on Always. You can change this any time in settings."*
-- Edit wording link (quiet, understated — detail deferred to next session)
+- Edit wording link (quiet, understated)
 - Navigation row: Back / Skip for now / Next
 
 Section name is not repeated above the question — the progress block handles orientation.
@@ -197,6 +234,44 @@ Section name is not repeated above the question — the progress block handles o
 - Inheritance rule: section set to Off → individual questions default to Off, but can be overridden; Q42 exempt
 
 **Low capacity mode setup:** prompted after first check-in, not during onboarding.
+
+### Custom Question Builder
+
+**Where it lives:**
+- End of the onboarding question walkthrough, before onboarding completes
+- Settings, any time after onboarding
+
+**Onboarding introduction:**
+
+After the last standard question, a brief prompt appears:
+
+*"You can add your own questions to track things the standard set doesn't cover — a specific symptom, a pattern you've noticed, anything you want to keep an eye on. They'll appear at the end of every check-in and chart over time alongside the rest."*
+
+Two buttons: **Add a question** / **Skip for now**
+
+**The builder — inline form:**
+
+Fields, in order:
+1. **Question text** — text field, required. Placeholder: *"What do you want to track?"*
+2. **Clarifying note** — text field, optional. Placeholder: *"A bit more context for yourself, if useful."*
+3. **Response type** — select one: Frequency scale *(Never → Near constant)* / Yes–Sometimes–No / Free text
+4. **Frequency** — three-button toggle: Always (default) / Occasional / Off. Hint line: *"Everything starts on Always. You can change this any time in settings."*
+
+Save / Cancel buttons.
+
+**On save:** Question added. Form resets. Two options appear: **Add another** / **Done**
+
+**On cancel:** Form closes. No changes.
+
+**Managing custom questions in settings:**
+- Listed with their response type and current frequency setting
+- Each has: Edit / Change frequency / Delete
+- Delete requires a confirmation step: *"Remove this question? Your past responses will be kept."*
+- No limit on number of custom questions
+
+**Charting:** Custom questions chart over time in History alongside standard questions.
+
+**Note:** The existing nd-checkin.html custom question builder was flagged as a potentially salvageable UI pattern. The builder is now designed from scratch; review the existing file before build for any useful UI details, but it is no longer the reference point.
 
 ### Q42 — Safety Question
 
@@ -296,10 +371,37 @@ Body copy (working draft — expected to change substantially after tester feedb
 - **Work:** Conditional section covering whether commitments were met, what it cost, what got in the way, and whether the current load is sustainable
 
 ### Clinician Export
-- Organised by section, with clinical translations alongside user's own language
-- Flags significant or gradual changes over time
-- Free-text field specifically for what the user wants the clinician to know — displayed prominently
-- Diagnosis/exploration information shared only with explicit user permission
+
+**Format:** Two options, user chooses at export time:
+- **Download PDF** — printable, for bringing to an appointment
+- **Generate shareable link** — read-only view for sending to a clinician directly
+
+**Date range:** User sets manually every time. No assumed default.
+
+**Shareable link expiry:** User chooses at generation time — expires after a set period, or stays live until revoked. Revocation available any time in settings.
+
+**Export header (top of document/view):**
+- Date range covered
+- Number of check-ins completed in that period
+- User's name — optional; user decides whether to include
+- Diagnosis/exploration areas — only if user has explicitly permitted this per export
+- **Q45 clinician note — displayed prominently, before all section data**
+
+**Body — organised by section:**
+- Per-response clinical translations for flagged or significant items — user's wording shown as-is, clinical reframe alongside it
+- Section summary interpretation for the rest
+- User's own language is always shown — never replaced by clinical language, only accompanied by it
+- Clinical translations are neutral and descriptive, not interpretive beyond what the data supports
+
+**Flagging:**
+Items flagged in the export:
+1. A response significantly worse than the user's personal baseline
+2. A gradual downward trend across multiple check-ins
+3. Any non-first-option response on Q42
+4. A question skipped repeatedly
+5. A significant change in either direction — sudden improvement flagged as well as decline
+
+Flags appear inline where they occur and are also collected in a **Flags Summary** block immediately after the header, before the section data.
 
 ### Still Open
 - **Q42 deeper exploration feature** — concept noted; design deferred to its own session
@@ -307,11 +409,9 @@ Body copy (working draft — expected to change substantially after tester feedb
 - **Q42 trigger response resource layer** — warmline list, scripts alongside each, chat link encoding research needed
 - **Q42 trusted person nudge** — whether onboarding captures a named person; not yet decided
 - **"Walk me through" option labels** — structure decided (section by section / all in one flow); exact wording deferred to build
-- Wording edit scaffolding detail — deferred to Session 11
-- Custom question builder detail — deferred to Session 11
-- Clinician view / export design
-- Flagging logic for changes over time
-- Review existing nd-checkin.html before build — compare question framings for salvageable language and UI patterns (custom question builder in particular)
+- **nd-checkin public-facing name** — naming to happen before launch
+- Flagging logic implementation detail — how the tool calculates baseline and detects trends (to be resolved during build)
+- Review existing nd-checkin.html before build — compare question framings for salvageable language and UI patterns
 
 ---
 
@@ -334,8 +434,9 @@ Body copy (working draft — expected to change substantially after tester feedb
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
 * GitHub Pages not yet enabled — no HTML to host yet
 * `nd-checkin.html` exists — being reconceived from scratch in design; existing file will be reviewed and compared before build begins
-* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed; Q42 onboarding page drafted and approved; Q42 trigger response designed at concept level with working draft copy; Q42 check-in screen fully locked; onboarding UI substantially designed — choice screen, question walkthrough screen, and section intro screen all locked (Session 10); remaining design tasks before build: wording edit scaffolding, custom question builder, clinician view
+* nd-checkin question set v2 complete; tweaking scope decided; onboarding flow substantially designed; Q42 onboarding page drafted and approved; Q42 trigger response designed at concept level with working draft copy; Q42 check-in screen fully locked; onboarding UI fully designed — choice screen, question walkthrough screen, and section intro screen all locked; wording edit scaffolding designed and locked; custom question builder designed and locked; clinician export designed and locked (Session 11)
 * `q42-onboarding-page-draft.md` exists in repo — working draft, approved, expected to be tweaked during testing
+* Remaining design before build: Q42 deeper exploration feature, Q42 resource layer, Q42 trusted person nudge, review of existing nd-checkin.html
 * Everything else is planned only
 * No Supabase project connected yet
 * Audience: small trusted tester group
