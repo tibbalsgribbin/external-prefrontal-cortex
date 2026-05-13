@@ -1,6 +1,6 @@
 # External Prefrontal Cortex — Project Brief
 
-*Working title. Naming TBD. The nd-checkin tool will also need a public-facing name before launch.*
+*Platform working title — naming still TBD. The check-in tool is named: **No Really. How* Are *You?** (short form: **No Really**).*
 
 ---
 
@@ -46,7 +46,7 @@ ND and/or chronically ill adults — particularly late-identified, high-masking,
 
 ### Tracking & Clinical
 
-1. **ND Wellness Check-In** — depression/anxiety reframed for ND. Replaces PHQ-9/GAD-7. *In active design — see below. Needs a public-facing name before launch.*
+1. **No Really. How *Are* You?** *(the check-in)* — depression/anxiety reframed for the people who don't see themselves in the short forms. Replaces PHQ-9/GAD-7. *Build in progress — first tool MVP in `nd-checkin.html`, testing companion in `no-really-testing.html`. Underlying file/code names retain "nd-checkin" until a clean rename pass.*
 2. **Functional Pain Scale** — ADL-based ("can you put on socks?") not 1–10
 3. **Masking Load Tracker** — cumulative cost of performance over time
 4. **Medication/Treatment Tracker** — functional impact over time, not a pill reminder
@@ -89,9 +89,20 @@ Design implication: wherever an AI feature is designed (e.g. Q42 deeper explorat
 
 ---
 
-## ND Wellness Check-In — Design Detail
+## No Really. How *Are* You? — Design Detail
 
-*Design phase complete. Build is the next phase. The internal working name "nd-checkin" is used throughout project documents; a public-facing name is needed before launch.*
+*Public-facing name locked Session 15. Underlying file is `nd-checkin.html` and code-level references retain "nd-checkin" until a dedicated rename pass. Design phase complete. Build in progress — first version of check-in shipped Session 14; testing companion (`no-really-testing.html`) shipped Session 15. Q42 full build still pending.*
+
+**Tagline / positioning:** *"A long-form mental health check-in for people who don't see themselves in the short forms."* (Locked Session 15.)
+
+**Voice / framing principle (locked Session 15):**
+The check-in does not name its audience inside the questions. Phrases like "for many ND people..." or "especially for ND people" are removed throughout. The audience self-identifies by recognising themselves in the descriptions. Naming the audience is the same move as fake empathy — empathy is structural, not announced. Plain-language clarifications describe the experience precisely; they do not tell the user who they are.
+
+**Abbreviation rule (locked Session 15):**
+"ND" is in-group shorthand. User-facing copy uses *neurodivergent* in full, or — better — describes the experience without labeling the audience at all. Project documents (BRIEF, ROADMAP, CHANGELOG) may continue to use "ND" for brevity.
+
+**No-Really brand voice — short version:**
+Quietly fed-up with tools that don't work. Confident without performing. The cheek lives in the structure (it's a long form because the short ones fail), not in the surface copy. Sister product to *Actually Useful* (separate project, same maker, same voice — both refuse the "this is fine" version of things and rebuild them properly).
 
 ### Format
 - One question at a time (not a wall of text)
@@ -418,10 +429,59 @@ Items flagged in the export:
 
 Flags appear inline where they occur and are also collected in a **Flags Summary** block immediately after the header, before the section data.
 
+### Testing Companion — `no-really-testing.html`
+
+*Built Session 15. Separate file from `nd-checkin.html`. Lives alongside it in the repo.*
+
+**Purpose:** A standalone testing environment that walks testers through the same question set as the real check-in, while capturing structured feedback about each question and the experience overall. Solves the problem of earlier testing rounds where testers' thoughtful comments never reached Melissa.
+
+**How it differs from the real check-in:**
+- Intro screen explicitly names the tool as a testing version, acknowledges the heavier ask (answering + giving feedback), names the future short-form Low Capacity Mode so testers understand the long form is intentional
+- Per-question feedback affordance — *"Thoughts on this question?"* button expands an inline panel with four pre-written prompt chips (*Wording felt off / Something missing / Response options didn't fit / This landed well*) plus an open text field
+- End-of-check-in wrap-up screen with five open-ended prompts covering what stuck, what was missing, what didn't fit, pacing, and anything else
+- Pause-for-now button on every screen with two confirmation flows depending on the tester's save-mode choice
+- Personal answers default to *not saved* — opposite of the real tool; the testing tool is single-session unless the tester opts in
+- No Q42 full flow (placeholder card only — feedback can be left on it, but the trigger response / resource layer / Say More are not built into the testing companion; that's a dedicated future session)
+- No onboarding, no custom questions, no Low Capacity Mode
+
+**Feedback channel:** Google Forms.
+- Form: *No Really — Tester Feedback*, owned by `noreally.howareyou@gmail.com`
+- Responses auto-populate a Google Sheet for sorting/filtering across testers and questions
+- Each submission carries: timestamp, optional tester handle, feedback type (`per_question` or `wrap_up`), question ID, question wording as shown (captures wording at time of feedback), prompts tapped, feedback text, wrap-up responses
+- Submitted via `fetch` POST with `mode: 'no-cors'`
+- Personal answers never transmitted — feedback channel and personal data channel are structurally separate
+
+**Tester identity:** Optional handle, captured once on the intro screen and attached to all subsequent submissions from that browser. No email required. Lets Melissa spot patterns across one tester's feedback without forcing identification.
+
+**Save-mode behaviour:**
+- Default: *Don't save anything — testing only.* Closing the tab clears all answers and progress. Feedback already submitted is unaffected (it lives in the Google Sheet).
+- Opt-in: *Save my answers and progress locally so I can pause and resume.* Returning to the URL on the same browser triggers a resume screen.
+
+**Question source:** Duplicated inside the testing companion file at session 15. The two files (`nd-checkin.html` and `no-really-testing.html`) currently maintain question wording independently. A future refactor may move questions to a shared `questions.json` for single-source-of-truth editing — not in scope yet.
+
+**Critical feedback from first testing session (Melissa, Session 15) — to address Session 16:**
+1. **Notes vs Thoughts confusion** — the per-question Notes field (for the tester's own use) and the "Thoughts on this question?" panel (for feedback to Melissa) are not clearly distinguished. Testers may put feedback into Notes where it never reaches Melissa.
+2. **Pause-and-return** — pause screen tells the tester they can close the tab but does not tell them how to come back. Refreshing the page works but is not surfaced. Add an explicit "Resume now" button and clearer return instructions.
+3. **Frequency scale visual** — the 8-block selector has blocks too large, and the "Never / Near constant" labels plus selected-value text are barely legible against the dark background. Affects every frequency question (9 of 45). Visual fix needed.
+4. **Q42 placeholder is too coy** — current placeholder text is vague about what the question is. Testers familiar with PHQ-9 will recognise the safety question; being indirect violates the tool's voice. Replace with honest gist text until the full Q42 build is done.
+5. **Grey text legibility throughout** — *accessibility issue, not a design preference.* `--text-dim` and `--text-dimmer` are well below WCAG AA against the dark background. This actively excludes users with visual processing differences and screen-fatigue issues — the very people the tool is for. Bump contrast on both throughout the file. Day-mode toggle deferred to v2; the urgent fix is legibility on the existing dark theme.
+6. **Notes persistence + viewability** — Notes are promised to "stay on your device" but there is no UI to view, edit, or confirm them after the fact. Worse: for testers in "don't save" mode, Notes don't persist at all, contradicting the promise. Decision: always persist Notes regardless of save-mode (Notes are a structural promise, not a mode-dependent feature), and add a "View my saved notes" screen accessible from the intro and from the thank-you screen.
+7. **Q39 "unexplained" wording** — for many ND and chronically ill people, the mind-body connection is not unexplained; it's well-known and predictable. Reword without "unexplained."
+8. **Audit and remove "ND" / audience-naming throughout** — see voice/framing principle and abbreviation rule above. Affects: plain-language clarifications, section names ("ND-Specific Experience" renames to something descriptive — *"Stimming, Focus & Special Interests"* is a candidate), section intro text, intro screen positioning. This is content work; expected to take dedicated focus.
+
+**Parked for dedicated session:**
+- Q7 pain question redesign — the question asks for a *range* across the day but the response options are scalar. Restructure (sliders, multi-select, paired low-high, or break into separate questions). Also: add gastrointestinal symptoms somewhere appropriate.
+
+**Parked for v2 / polish pass:**
+- Day-mode / night-mode toggle (separate from the urgent legibility fix on the dark theme)
+- Q2 hours-of-sleep input ergonomics (current half-hour increments are tedious; chips or a sensible default would help)
+- Q29 examples of what shutdown and meltdown look like for highly-masking people
+
+
 ### Still Open
+
 - **Q42 trigger response copy** — working draft in place as placeholder; expected to iterate substantially after real tester feedback
 - **"Walk me through" option labels** — structure decided (section by section / all in one flow); exact wording deferred to build
-- **nd-checkin public-facing name** — naming to happen before launch
 - Flagging logic implementation detail — how the tool calculates baseline and detects trends (to be resolved during build)
 
 ---
@@ -441,12 +501,15 @@ Flags appear inline where they occur and are also collected in a **Flags Summary
 
 ## Current State
 
-* GitHub repo created: tibbalsgribbin/external-prefrontal-cortex
+* GitHub repo: tibbalsgribbin/external-prefrontal-cortex
 * Project documents (BRIEF, ROADMAP, CHANGELOG, INSTRUCTIONS) committed to repo
-* GitHub Pages not yet enabled — no HTML to host yet
-* **Design phase complete.** nd-checkin question set v2 complete; all UI designed and locked; Q42 fully designed end-to-end including trigger response, resource layer, deeper exploration feature; existing nd-checkin.html reviewed and salvageable elements documented
-* `q42-onboarding-page-draft.md` exists in repo — working draft, approved, expected to be tweaked during testing
-* **Next phase: build.** First session — set up GitHub Pages and Supabase, then begin nd-checkin.html from scratch
+* GitHub Pages: index.html ready but Pages not yet enabled
+* **Design phase complete.** Question set v2 complete; all UI designed and locked; Q42 fully designed end-to-end including trigger response, resource layer, deeper exploration feature
+* **Build phase active.** First check-in build shipped Session 14 (`nd-checkin.html`). Testing companion shipped Session 15 (`no-really-testing.html`).
+* **Check-in tool named: No Really. How *Are* You?** (short form: No Really). Locked Session 15.
+* **Testing pipeline live.** Google Form *No Really — Tester Feedback* receives submissions from `no-really-testing.html`; auto-populates a Google Sheet for analysis. Form owned by `noreally.howareyou@gmail.com`.
+* **First tester pass complete** — Melissa walked through all questions in `no-really-testing.html` and confirmed end-to-end submission pipeline working. Generated eight 🔴 critical fixes and a parked list (see Testing Companion section).
+* `q42-onboarding-page-draft.md` exists in repo — working draft, approved
 * No Supabase project connected yet
 * Audience: small trusted tester group
 

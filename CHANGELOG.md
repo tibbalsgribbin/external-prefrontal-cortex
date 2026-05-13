@@ -2,6 +2,93 @@
 
 ---
 
+## 2026-05-13 — Session 15: Name Locked, Testing Companion Built, First Tester Pass
+
+### What Got Done
+
+**Public-facing name for the check-in: locked.**
+- **No Really. How *Are* You?** (short form: *No Really*)
+- Worked through multiple naming directions — clinical / functional, warm / human, metaphorical, plain-descriptive, reclaimed / insider, "Actually" family (sibling to Melissa's other project *Actually Useful*)
+- Final direction came from reframing the question: "what does a friend say differently from a stranger when asking how you are?" Italics on *Are* signal where the stress goes — rejects the cached social-script answer
+- Tagline locked: *"A long-form mental health check-in for people who don't see themselves in the short forms."* — positions by the experience, not the identity label
+- Voice principle: cheek lives in the structure (it's long because the short ones fail), not in surface copy
+
+**Feedback channel: live.**
+- New Google account created: `noreally.howareyou@gmail.com` (separate from Melissa's main account — intentional, for future support/contact identity)
+- Google Form built: *No Really — Tester Feedback*
+- 8 fields: Timestamp (auto), Handle, Feedback type, Question ID, Question wording shown, Prompts tapped, Feedback text, Wrap-up responses
+- Linked Google Sheet auto-populates submissions
+- Email notifications enabled
+- Field IDs extracted and wired into the testing companion
+
+**Testing companion built: `no-really-testing.html`**
+- Separate file from `nd-checkin.html` — sibling, not replacement
+- Walks testers through the full 45-question set (Q42 still placeholder)
+- Per-question feedback affordance: *"Thoughts on this question?"* button expands an inline panel with four prompt chips (*Wording felt off / Something missing / Response options didn't fit / This landed well*) plus an open text field
+- End-of-check-in wrap-up screen: five open prompts (still sitting with you / missing / didn't fit / pacing / anything else)
+- Pause-for-now button on every screen with two confirmation flows (save-mode vs nosave-mode)
+- Optional tester handle captured once on intro, attached to all subsequent submissions
+- Save-mode toggle: defaults to *don't save anything* (opposite of the real tool) — testing version is single-session unless tester opts in
+- Resume detection on page load — if there's a saved session, offers resume vs start-fresh
+- Intro screen acknowledges the heavier ask, names the future Low Capacity Mode so testers understand the long form is intentional
+- Pipeline: `fetch` POST to Google Forms with `mode: 'no-cors'`; personal answers never transmitted
+
+**First tester walkthrough: complete.**
+- Melissa as first tester
+- End-to-end submission pipeline confirmed working — feedback reached the Google Sheet, handle captured, question wording carried through
+- Generated 8 critical fixes for Session 16
+
+### Decisions Made
+
+- **Feedback channel: Google Forms over Formspree** — unlimited free submissions, spreadsheet output enables pattern analysis across testers, owned by a Google account that can outlive any third-party service
+- **Separate Google account (`noreally.howareyou@gmail.com`) over main account** — initially recommended main account for simplicity; Melissa correctly pushed back. Product needs its own contact identity from day one — applies to future support, footer contacts on exports, anywhere a from-address shows up
+- **Question source duplicated, not shared** — `nd-checkin.html` and `no-really-testing.html` each contain their own question data for now. Refactor to shared `questions.json` deferred (parked)
+- **No Q42 full flow in testing companion** — Q42 stays as placeholder card; testers can leave feedback on it but the trigger response / resource layer / Say More flow are not part of this build. Q42 is its own dedicated session
+- **Pause/resume tied to save-mode toggle** — if tester opted to save, pause persists; if not, pause warns them clearly that progress will be lost. Honest mechanics over silent state preservation
+- **No mid-section pause prompts** — pacing message in intro is enough; testers trusted from there
+- **Progress indicator: "Section X of 11"** — gentle framing, no percentages, no "13/45" grade-energy
+- **Voice/framing principle locked** — the check-in does not name its audience inside the questions; *neurodivergent* in full, never "ND"; the experience is described precisely enough that the right people self-identify by recognising themselves
+- **Intro tagline locked** — *"A long-form mental health check-in for people who don't see themselves in the short forms."* — positions by the failure of the alternatives, not by audience identity
+
+### Files Delivered This Session
+
+- `no-really-testing.html` — testing companion; sibling to `nd-checkin.html`. Add to repo at root level alongside `nd-checkin.html`
+- `BRIEF.md` — substantially updated: locked name, voice/framing principle, abbreviation rule, full Testing Companion section, updated Current State
+- `ROADMAP.md` — Session 15 items checked off; eight critical fixes added for Session 16; parked items captured; Naming section updated
+- `CHANGELOG.md` — this entry
+
+### Critical Fixes Triaged for Session 16
+
+Discovered during Melissa's first walkthrough. All eight to be addressed Session 16 before sharing the testing companion with a wider group:
+
+1. **Notes vs Thoughts confusion** — current layout makes it unclear which field is for the tester (Notes) and which is for Melissa (Thoughts on this question). Real cost: Melissa's own Q42 feedback was lost to the wrong field during first walkthrough.
+2. **Pause-and-return** — pause screen says you can close the tab but doesn't tell you how to come back. Refresh works but isn't surfaced. Add explicit "Resume now" affordance.
+3. **Frequency scale visual** — 8-block selector has blocks too large, labels barely legible. Affects every frequency question (9 of 45). Fix block size, label contrast, selected-value text legibility.
+4. **Q42 placeholder is too coy** — vague placeholder violates the tool's voice. Replace with honest gist text until the full Q42 build.
+5. **Grey text legibility throughout** — accessibility issue, not a design preference. `--text-dim` and `--text-dimmer` are below WCAG AA against dark background. Bump contrast.
+6. **Notes persistence + viewability** — Notes promised to stay on device but no UI surfaces them. Worse: nosave-mode users lose Notes entirely. Decision: always persist Notes regardless of save-mode; add a "View my saved notes" screen.
+7. **Q39 "unexplained" wording** — assumes a neurotypical relationship to mind-body connection that doesn't fit the audience. Rewrite without "unexplained."
+8. **Audit and remove "ND" / audience-naming throughout** — plain-language clarifications, section names ("ND-Specific Experience" → e.g. *"Stimming, Focus & Special Interests"*), section intro text. The check-in describes experiences precisely; the audience self-identifies by recognition.
+
+### Parked
+
+- Q7 pain question redesign — the question asks for a *range* across the day but response options are scalar. Plus a gap on gastrointestinal symptoms. Needs its own session.
+- Day-mode / night-mode toggle — separate from the urgent legibility fix
+- Q2 hours-of-sleep input ergonomics — half-hour increments tedious; chips or sensible default
+- Q29 examples for highly-masking shutdowns/meltdowns
+- Refactor question source to shared `questions.json` — eliminates duplication between the two HTML files
+
+### Still Open / Next Session
+
+- Session 16 work: the eight critical fixes above
+- After fixes: share `no-really-testing.html` with wider tester group
+- Q42 full build: still pending, dedicated session
+- Supabase: still not set up
+- GitHub Pages: still not enabled
+- Onboarding build: not yet started
+
+---
+
 ## 2026-05-06 — Session 14: First Build — nd-checkin.html, index.html, Supabase Schema
 
 ### What Was Built
