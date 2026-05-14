@@ -2,7 +2,91 @@
 
 ---
 
-## 2026-05-14 — Session 17: Notes Persistence Foundation, Q42 Rewrite, Tester Nav Tools
+## 2026-05-14 — Session 18: Pause Reframed, GitHub Pages Live, Launch Posts Drafted
+
+### What Got Done
+
+**The last critical fix from the original Session 15 list is closed.** Going into the session, the plan was to add an explicit *"Resume now"* affordance to the paused screen and clarify how testers return after closing the tab. Melissa asked a sharper question before any code was written: *is pausing something that needs to be explicitly done by pushing a button, or does the user just step away and return?*
+
+That question reframed the fix.
+
+**Pause-and-return — solved by removing the Pause button in Remember-me mode.**
+
+Working through the actual code behavior:
+- In Remember-me mode, every answer is already auto-saved as the user goes
+- Closing the tab loses nothing
+- Returning to the URL triggers resume-detection (already worked, never the broken part)
+- The Pause button's "Close now" path did nothing the user couldn't achieve by closing the tab — its presence implied the user needed to take an action, which wasn't true
+- In Start-fresh mode, the Pause button is doing real safety work: warning before progress is lost and offering to send unsent feedback first
+
+The honest fix wasn't to add affordances around the Pause button — it was to remove the Pause button where it wasn't doing real work.
+
+Concrete changes:
+- Pause button now hidden when `S.saveMode === 'save'` (Remember-me mode). Visibility set by new `updatePauseBtnVisibility()` helper called in `beginCheckin()` and `resumeCheckin()`.
+- Remember-me branch of `openPauseModal()` removed; modal now only renders the start-fresh warning copy
+- `confirmPauseSave()` function removed (was dead code after the modal simplification)
+- Dead `'pause-confirmed'` branch in `openNotesView()` removed
+- Remember-me toggle description updated to add *"Close the tab whenever — you'll be offered the option to resume next time."* — gives users the information at the moment they choose the mode, no mode-aware intro logic needed
+- Intro line *"There's a 'Pause for now' button on every screen"* removed entirely — *"Stop when you need to"* already gives permission to stop; the button mention was mechanical detail that wasn't accurate in all modes
+
+**GitHub Pages enabled. Testing companion is live on the public web.**
+
+After pushing Session 18 changes to the repo, GitHub Pages was enabled (Settings → Pages → main branch / root). Smoke test on the live URL confirmed:
+- Root URL serves the *External Prefrontal Cortex / Coming soon* placeholder (`index.html`), as expected
+- `/no-really-testing.html` serves the testing companion, fully functional
+- Feedback submission still reaches the Google Sheet
+
+Public URL for the testing companion:
+**`https://tibbalsgribbin.github.io/external-prefrontal-cortex/no-really-testing.html`**
+
+**Three launch posts drafted.**
+
+Melissa wants to share the testing companion with FB friends, ND-specific subreddits, and creator/founder subreddits. Three audiences need three different framings:
+
+- **FB post** — first-person voice, leans on Melissa's lived experience with the PHQ-9 not fitting. Front-loaded with an apology: an earlier round of sharing had a broken feedback pipeline, so the people who took time to share thoughts didn't reach Melissa. The apology was rewritten when Melissa clarified the bug was about feedback (not response-saving), making it a heavier and more accurate acknowledgment of what went wrong. Final version reformatted for FB's plain-text rendering (no markdown, em-dash separators, bullet characters, spelled-out numerals).
+- **ND subreddit post** — third-person framing for strangers, leads with the *"the short forms aren't built for me"* hook. Explicit content warning, explicit privacy posture, explicit *"not selling anything"* line for Reddit trust.
+- **Creator/founder subreddit post** — for people who'll engage with the build as much as the tool. Includes build-side detail (stack, file structure, Supabase plans, single-file HTML, Claude as coding pair), names what kind of feedback is welcome and what isn't ("not looking for marketing advice or 'have you considered making it shorter'").
+
+Posts captured in `launch-posts-session-18.md` for reuse / iteration.
+
+**Subreddit candidate list compiled.**
+
+A separate `subreddits-to-explore.md` lists candidate subreddits across two audiences:
+- ND-specific: r/AutisticWithADHD, r/AutismInWomen, r/aspergirls, r/AutisticAdults, r/autism, r/ADHD, r/adhdwomen, r/AuDHDWomen, r/neurodiversity, r/CPTSD, r/MentalHealthSupport
+- Creator/builder: r/SideProject, r/IndieDev, r/buildinpublic, r/microsaas, r/EntrepreneurRideAlong, r/ClaudeAI
+
+Each sub has different rules around self-promotion / "looking for testers" posts; Melissa to read sidebar and recent posts before posting in any of them.
+
+### Decisions Made
+
+- **Pause is not an explicit action — it's just stepping away.** When this is true (Remember-me mode), there shouldn't be a button. The button's presence implied action was required, which wasn't true. Removing it is more honest than adding affordances around it.
+- **Keep the Pause button in Start-fresh mode.** It's doing real safety work there (warning about unsent feedback). Start-fresh users have a real failure mode to protect against; Remember-me users don't.
+- **Toggle description carries the close-and-resume information, not the intro.** Putting the information inside the toggle the user is choosing means they get it at the moment of decision, not in generic intro copy they may or may not have read carefully. Avoids mode-aware intro copy.
+- **FB post leads with apology, not with the pitch.** Friends who walked through a broken version won't read past a generic opener to find out the bug is fixed. Putting the apology first respects their time and signals the bug is taken seriously.
+- **FB apology re-scoped when Melissa clarified the bug.** First draft apologized for response-saving; actual bug was feedback submission. Rewriting changed the weight of the apology because the broken thing was the whole point of the post.
+- **Three separate posts, not one universal post.** The three audiences (friends, ND folks, builders) need different framings. A universal post serves none of them well.
+- **GitHub Pages first, wider tester share second.** Pages had been sitting as an open infrastructure item across multiple sessions. With the testing companion ready and a real plan to share it, enabling Pages was the smallest concrete blocker between *"tool is ready"* and *"tester gets a link."*
+
+### What's Where
+
+- `no-really-testing.html` — pause-button-removal edits live here. ~98 KB.
+- `index.html` — unchanged, but now actually serving as the root of the live site.
+- `launch-posts-session-18.md` — all three post drafts.
+- `subreddits-to-explore.md` — subreddit candidate list with notes.
+- `BRIEF.md`, `ROADMAP.md`, `CHANGELOG.md` updated.
+
+### Open / Carried Forward
+
+- **Wider tester round** — now genuinely possible. Posts drafted, URL live, file working. Melissa controls the release; this session ends with the launch ready to fire when she's ready.
+- **Q42 full build** — still its own future session.
+- **The middle path between 8 and 45 questions** — still its own future session(s). Especially relevant once real tester feedback starts coming in around question volume.
+- **Supabase migration** — next major infrastructure work after the wider tester round starts producing data worth migrating.
+- **Historical tracking UI** — data model in place from Session 17; UI work follows Supabase migration.
+- **Content / safety / mental-health protocol around tester submissions** — surfaced as a real question during Session 18 (what happens if a tester writes something concerning?). Not blocking the launch but worth thinking about before submissions volume increases.
+
+---
+
+
 
 ### What Got Done
 

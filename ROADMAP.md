@@ -6,7 +6,7 @@
 *Goal: Working infrastructure and one solid tool*
 
 - [x] Create GitHub repo
-- [ ] Set up GitHub Pages — index.html built and ready; enable in repo Settings → Pages
+- [x] **GitHub Pages live** (Session 18) — `index.html` placeholder serves at the repo root; testing companion live at `/no-really-testing.html`. Smoke-tested.
 - [ ] Create Supabase project
 - [ ] Set up Supabase Auth (email login, no password manager friction)
 - [x] Complete nd-checkin question set design (v2 complete)
@@ -54,15 +54,17 @@
   - [x] Tester-visible *"Skip remaining questions and go directly to final feedback"* link at bottom of every question
   - [x] Hidden dev mode (triple-click section label) — Jump-to-Q#, Jump-to-wrap-up, Jump-to-thanks; opt-in remember-across-reloads; safe-by-default (clears on refresh unless remembered)
   - [x] **Foundation built: append-only record store for future longitudinal features.** sessionId + qVersion + timestamp on every record. Future history view / pattern surfacing / advocacy export will be a port to Supabase, not a redesign.
-- [ ] **Session 18 — finish critical fixes + plan next phase:**
-  - [ ] Pause-and-return — explicit "Resume now" affordance; clearer return instructions (carried from Session 17)
-  - [ ] After this lands — share with wider tester group
+- [x] **Session 18 — Last critical fix + go live:**
+  - [x] Pause-and-return — reframed (after Melissa's reframing question) as: in Remember-me mode, pausing is just stepping away, so the Pause button shouldn't exist there. Button hidden in `save` mode; modal simplified to start-fresh-only; toggle description carries the close-and-resume info; intro line updated. Original eight critical fixes from Session 15 are now all closed.
+  - [x] GitHub Pages enabled — testing companion live at the public URL
+  - [x] Three launch posts drafted (FB / ND subreddits / creator subreddits) — captured in `launch-posts-session-18.md`
+  - [x] Subreddit candidate list compiled — `subreddits-to-explore.md`
+  - [ ] **Next:** Melissa shares the testing companion with FB friends + selected subreddits when ready
 - [ ] **Future dedicated session: The middle path between 8 and 45 questions** *(Session 17)* — current architecture is binary (Low Capacity Mode / Full check-in); users will want a meaningful middle. Core design question touching question architecture, user mental model, advocacy output, and longitudinal data model. Possible directions: section-based picker, "what matters most today" front-loading, curated "core 20." Not a quick fix.
 - [ ] Q7 pain question redesign — dedicated session (range mismatch + gastrointestinal symptoms gap)
 - [ ] Q42 full build in nd-checkin.html (dedicated session — read BRIEF.md Q42 sections before starting)
 - [ ] Connect nd-checkin.html to Supabase (after UI is stable)
 - [ ] Onboarding build (after check-in UI is stable)
-- [ ] Deploy to GitHub Pages (index.html ready — enable in Settings)
 - [ ] Q42 trigger response copy — iterate after real-world tester feedback
 - [ ] **Polish / v2 list (deferred):**
   - [ ] Day-mode / night-mode toggle
