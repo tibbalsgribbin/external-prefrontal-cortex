@@ -459,23 +459,39 @@ Flags appear inline where they occur and are also collected in a **Flags Summary
 
 **Question source:** Duplicated inside the testing companion file at session 15. The two files (`nd-checkin.html` and `no-really-testing.html`) currently maintain question wording independently. A future refactor may move questions to a shared `questions.json` for single-source-of-truth editing — not in scope yet.
 
-**Critical feedback from first testing session (Melissa, Session 15) — to address Session 16:**
-1. **Notes vs Thoughts confusion** — the per-question Notes field (for the tester's own use) and the "Thoughts on this question?" panel (for feedback to Melissa) are not clearly distinguished. Testers may put feedback into Notes where it never reaches Melissa.
-2. **Pause-and-return** — pause screen tells the tester they can close the tab but does not tell them how to come back. Refreshing the page works but is not surfaced. Add an explicit "Resume now" button and clearer return instructions.
-3. **Frequency scale visual** — the 8-block selector has blocks too large, and the "Never / Near constant" labels plus selected-value text are barely legible against the dark background. Affects every frequency question (9 of 45). Visual fix needed.
-4. **Q42 placeholder is too coy** — current placeholder text is vague about what the question is. Testers familiar with PHQ-9 will recognise the safety question; being indirect violates the tool's voice. Replace with honest gist text until the full Q42 build is done.
-5. **Grey text legibility throughout** — *accessibility issue, not a design preference.* `--text-dim` and `--text-dimmer` are well below WCAG AA against the dark background. This actively excludes users with visual processing differences and screen-fatigue issues — the very people the tool is for. Bump contrast on both throughout the file. Day-mode toggle deferred to v2; the urgent fix is legibility on the existing dark theme.
-6. **Notes persistence + viewability** — Notes are promised to "stay on your device" but there is no UI to view, edit, or confirm them after the fact. Worse: for testers in "don't save" mode, Notes don't persist at all, contradicting the promise. Decision: always persist Notes regardless of save-mode (Notes are a structural promise, not a mode-dependent feature), and add a "View my saved notes" screen accessible from the intro and from the thank-you screen.
-7. **Q39 "unexplained" wording** — for many ND and chronically ill people, the mind-body connection is not unexplained; it's well-known and predictable. Reword without "unexplained."
-8. **Audit and remove "ND" / audience-naming throughout** — see voice/framing principle and abbreviation rule above. Affects: plain-language clarifications, section names ("ND-Specific Experience" renames to something descriptive — *"Stimming, Focus & Special Interests"* is a candidate), section intro text, intro screen positioning. This is content work; expected to take dedicated focus.
+**Critical feedback from first testing session (Melissa, Session 15) — status after Session 16:**
+
+✅ **Addressed Session 16:**
+1. **Notes vs Thoughts confusion** ✅ — Notes label changed to *"Your notes (stays on your device)"*; feedback button changed to *"Feedback on this question"*; panel description updated. All "Melissa" references replaced with "the build team" so the tool reads correctly for any tester.
+2. **Frequency scale visual** ✅ — Completely redesigned. Replaced 8 unlabeled squares + tiny readout with 8 word pills (Never, Rarely, Sometimes, Noticeably, Often, Most days, Almost always, Near constant). Auto-wrapping flex layout: 4 across on desktop, 2 on mobile. No separate readout needed — the highlighted pill is the answer. The scale metaphor was the wrong frame; this is a choice of words, not a position on a continuum.
+3. **Q42 placeholder honesty** — *deferred to next session* (not Session 16 after all).
+4. **Grey text legibility throughout** ✅ — Initially bumped contrast on `--text-dim` and `--text-dimmer` to pass WCAG AA, but Melissa correctly pushed back: contrast alone wasn't the issue. The hierarchy convention "dim = secondary" reads as "deprioritized / skip me" against a dark background, especially for the audience this tool is for. Did a second broader pass to promote almost every "content" element to full `--text` color. Things that remain dim are now genuinely secondary actions only: Skip button, Cancel button, the *Feedback on this question* toggle (testing chrome that shouldn't compete with the check-in), and chip default states. **Principle:** if the tool is asking the user to engage with something, it should be readable.
+5. **Q39 "unexplained" wording** ✅ — Rewritten as *"Are you having physical symptoms — headaches, nausea, gut issues, muscle tension, or feeling heavy — that don't have an obvious cause?"*
+6. **Audit and remove "ND" / audience-naming throughout** ✅ — Done across tagline, intro copy, three plain-language descriptions (Q10, Q15, Q39), section name *"ND-Specific Experience"* → *"Stimming, Focus & Special Interests"*, section intro for S6, and all references to *Melissa* in user-facing copy.
+
+🟡 **Refined during Session 16 — extended scope:**
+- Beyond removing "ND," Q26 / Q27 / Q28 (stimming / hyperfocus / special interests) gained plain-language boxes with concrete, varied examples (e.g. for stimming: *"rocking, tapping, fidgeting, humming, chewing, repeating phrases, skin picking, hair twirling or pulling, rubbing fabric, clicking a pen"*). Many people do these without knowing the word; seeing the examples is the recognition moment.
+- Q33 (holding it together in public + crash) was a hidden two-questions-in-one. Split into a two-part question using the `si-two` pattern with custom Part 1 and Part 2 labels.
+- Q41 plain-language now defines *PEM* in line (post-exertional malaise: the delayed crash after pushing too hard, sometimes hitting hours or days later).
+- Q45 reframed away from clinician: *"Is there something you've been carrying that's hard to put into words — even here?"* — the original wording ("hard to say out loud" + "your clinician") contradicted the tool's stance and didn't fit a web interface.
+- During the mutual-exclusivity audit, Q26 / Q27 / Q28 / Q29 Part 2 were switched to multi-select with "mark all that apply" labels. A stim can be both regulating AND distressing in the same day; the original select-one was forcing false simplification. A new `p2multi:true` flag was added to the multi-part question types to support this cleanly without breaking existing single-select Part 2s.
+
+🔴 **Still outstanding for Session 17:**
+1. **Notes persistence + viewability** — Notes need to always persist regardless of save-mode; add a "View my saved notes" screen accessible from intro and thanks screens.
+2. **Pause-and-return** — explicit "Resume now" button on the pause screen; clearer return instructions.
+3. **Q42 placeholder honesty** — replace coy placeholder text with the gist of what Q42 actually asks. (Full Q42 build remains its own dedicated session.)
 
 **Parked for dedicated session:**
 - Q7 pain question redesign — the question asks for a *range* across the day but the response options are scalar. Restructure (sliders, multi-select, paired low-high, or break into separate questions). Also: add gastrointestinal symptoms somewhere appropriate.
+- **Helplessness as a distinct construct from hopelessness** *(surfaced Session 16)* — Q11 currently covers hopelessness ("things won't get better"). Helplessness is conceptually distinct ("nothing I do matters" / loss of agency), often co-occurs with hopelessness but can occur independently, and the pairing is a particularly significant signal in suicidality research. Likely belongs as a new item near Q11 in the Mood & Emotional Experience section.
+- **The empathy-overflow / vicarious distress experience** *(surfaced Session 16)* — Melissa described a specific experience: when distant catastrophic events happen, an autistic / high-empathy response is to immerse, witness, absorb. The protective strategy ("limit exposure when I can't act") is fundamentally a response to *helplessness*, not hopelessness — the closer to a situation, the more agency, the more emotional safety. This experience deserves a question or part-question; design needs to figure out where it lives, how to phrase without leading, and what response options make sense. Likely connected to the helplessness item above; may or may not share an item.
 
 **Parked for v2 / polish pass:**
 - Day-mode / night-mode toggle (separate from the urgent legibility fix on the dark theme)
 - Q2 hours-of-sleep input ergonomics (current half-hour increments are tedious; chips or a sensible default would help)
 - Q29 examples of what shutdown and meltdown look like for highly-masking people
+- **Q29 Part 1 multi-select** *(surfaced Session 16 audit)* — currently uses *"Both"* as a synthetic option to handle the shutdown-AND-meltdown case. Could be cleaner as a real multi-select with logic that auto-deselects "No" when another option is picked.
+- **Q1 sleep multi-select** *(surfaced Session 16 audit)* — some current options can co-occur (e.g. *"Broken"* + *"Napped in addition to overnight sleep"*). Could be a multi-select; structural decision deferred.
 
 
 ### Still Open
@@ -509,6 +525,7 @@ Flags appear inline where they occur and are also collected in a **Flags Summary
 * **Check-in tool named: No Really. How *Are* You?** (short form: No Really). Locked Session 15.
 * **Testing pipeline live.** Google Form *No Really — Tester Feedback* receives submissions from `no-really-testing.html`; auto-populates a Google Sheet for analysis. Form owned by `noreally.howareyou@gmail.com`.
 * **First tester pass complete** — Melissa walked through all questions in `no-really-testing.html` and confirmed end-to-end submission pipeline working. Generated eight 🔴 critical fixes and a parked list (see Testing Companion section).
+* **Session 16 — five of eight critical fixes addressed in `no-really-testing.html`** (audience-naming audit, Notes vs Feedback disambiguation, frequency scale redesign, grey text hierarchy reset, Q39 "unexplained" rewrite). Plus: Q26–Q28 plain-language examples, Q33 split into two parts, Q41 PEM gloss, Q45 reframed, Q26/27/28/29 Part 2 switched to multi-select. Three critical fixes remain for Session 17 (notes persistence + viewer, pause-and-return, Q42 placeholder honesty).
 * `q42-onboarding-page-draft.md` exists in repo — working draft, approved
 * No Supabase project connected yet
 * Audience: small trusted tester group

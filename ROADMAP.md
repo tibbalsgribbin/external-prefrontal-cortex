@@ -29,14 +29,46 @@
 - [x] nd-checkin.html built from scratch — Q1–Q41 and Q43–Q45 fully functional; Q42 placeholder; localStorage persistence; full check-in and low capacity mode; section intros; all response types; summary and JSON export
 - [x] index.html placeholder built — ready to push and enable GitHub Pages
 - [x] supabase-schema.sql written — ready to run in Supabase SQL editor when connecting
+- [x] **Check-in named: No Really. How *Are* You?** (Session 15) — short form: *No Really.* Locked.
+- [x] **Testing companion built — `no-really-testing.html`** (Session 15) — separate file, walks testers through the full question set with per-question feedback panels, wrap-up feedback, pause/resume, optional handle, save-mode toggle. Submits to Google Form.
+- [x] **Feedback channel live** (Session 15) — Google Form *No Really — Tester Feedback* + linked Google Sheet, owned by `noreally.howareyou@gmail.com`
+- [x] **First tester walkthrough complete** (Session 15) — Melissa as first tester; pipeline verified end-to-end; eight critical fixes triaged
+- [x] **Session 16 — Critical fixes to testing companion before wider testing:**
+  - [x] Notes vs Thoughts label confusion — Notes relabelled "Your notes (stays on your device)"; feedback button "Feedback on this question"; panel copy updated; "Melissa" replaced with "the build team" throughout
+  - [ ] Pause-and-return — explicit "Resume now" affordance; clearer return instructions on pause screen *(deferred to Session 17)*
+  - [x] Frequency scale visual — replaced 8-square scale + readout with auto-wrapping word pills (Never / Rarely / Sometimes / Noticeably / Often / Most days / Almost always / Near constant). 4-across on desktop, 2-across on mobile
+  - [ ] Q42 placeholder honesty — replace with gist text until full build *(deferred to Session 17)*
+  - [x] Grey text legibility throughout — two-pass fix: first bumped `--text-dim`/`--text-dimmer` for WCAG AA, then promoted virtually all "content" elements (plain-language, subsection intros, part labels, notes label, notes typed text, placeholder card, grid headers, feedback panel description, tagline, etc.) to full `--text`. Only Skip / Cancel / Feedback-toggle / chip-default stay dim
+  - [ ] Notes persistence + "View my saved notes" screen *(deferred to Session 17)*
+  - [x] Q39 "unexplained" wording — rewritten as "physical symptoms... that don't have an obvious cause"
+  - [x] Audit and remove "ND" / audience-naming throughout — tagline, intro copy, Q10/Q15/Q39 plain-language, section name "ND-Specific Experience" → "Stimming, Focus & Special Interests", section intro for S6
+- [x] **Session 16 — extended scope (not on original list):**
+  - [x] Q26 / Q27 / Q28 gained plain-language boxes with concrete varied examples (recognition, not labels)
+  - [x] Q33 (holding-it-together-in-public + crash) split into a two-part question using `si-two` pattern with custom Part 1 / Part 2 labels
+  - [x] Q41 plain-language now defines PEM (post-exertional malaise) inline
+  - [x] Q45 reframed away from clinician: *"Is there something you've been carrying that's hard to put into words — even here?"*
+  - [x] Q26 / Q27 / Q28 / Q29 Part 2 switched to multi-select (mutual-exclusivity audit). Added `p2multi:true` flag for clean multi-select support in multi-part question types
+- [ ] **Session 17 — finish original critical fixes + carry-forward:**
+  - [ ] Notes persistence + "View my saved notes" screen — Notes always persist regardless of save-mode
+  - [ ] Pause-and-return — explicit "Resume now" affordance; clearer return instructions
+  - [ ] Q42 placeholder honesty — replace with gist text
+- [ ] After Session 16 fixes — share with wider tester group
+- [ ] Q7 pain question redesign — dedicated session (range mismatch + gastrointestinal symptoms gap)
 - [ ] Q42 full build in nd-checkin.html (dedicated session — read BRIEF.md Q42 sections before starting)
-- [ ] Test nd-checkin.html and refine based on feedback (Session 15)
 - [ ] Connect nd-checkin.html to Supabase (after UI is stable)
 - [ ] Onboarding build (after check-in UI is stable)
 - [ ] Deploy to GitHub Pages (index.html ready — enable in Settings)
-- [ ] Share with small tester group
 - [ ] Q42 trigger response copy — iterate after real-world tester feedback
-- [ ] Decide on public-facing name for nd-checkin tool (before launch)
+- [ ] **Polish / v2 list (deferred):**
+  - [ ] Day-mode / night-mode toggle
+  - [ ] Q2 hours-of-sleep input ergonomics (chips or sensible default vs half-hour increments)
+  - [ ] Q29 examples for highly-masking shutdowns/meltdowns
+  - [ ] Refactor question source to a shared `questions.json` (eliminate duplication between nd-checkin.html and no-really-testing.html)
+  - [ ] Q29 Part 1 multi-select consideration *(Session 16 audit)* — "Both" is a synthetic option; real multi-select would be cleaner
+  - [ ] Q1 sleep multi-select consideration *(Session 16 audit)* — some options can co-occur
+- [ ] **Future design sessions (no urgency, but on the radar):**
+  - [ ] Helplessness as a distinct construct from hopelessness *(Session 16)* — likely new item near Q11 in Mood & Emotional Experience
+  - [ ] Empathy-overflow / vicarious distress experience *(Session 16)* — Melissa's "sin-eater" experience; connected to helplessness; design where it lives, how to phrase, response structure
 
 ---
 
@@ -83,15 +115,18 @@
 ---
 
 ## Naming
-Working title: External Prefrontal Cortex
-nd-checkin tool: needs a public-facing name before launch
-Naming sessions: TBD (after Phase 0 complete)
+- Platform working title: External Prefrontal Cortex (TBD — may be renamed; not customer-facing yet)
+- Check-in tool: **No Really. How *Are* You?** (short form: **No Really**) — locked Session 15
+- Other tools: working titles only, naming sessions TBD as each tool approaches build
 
 ---
 
 ## Notes
 - Tool scope is not fully locked — brainstorming is ongoing
-- nd-checkin first build complete — testing and Q42 build are next
+- nd-checkin first build complete (Session 14); testing companion built and feedback pipeline live (Session 15)
+- Underlying file is still `nd-checkin.html` — code-level references retain "nd-checkin" until a dedicated rename pass; user-facing surface uses *No Really. How* Are *You?*
+- Testing companion (`no-really-testing.html`) is a sibling file, separate from the real check-in; both load their question data independently for now
+- **Voice/framing principle (Session 15):** the check-in does not name its audience inside the questions; *neurodivergent* is the word in full; "ND" abbreviation is removed from user-facing copy
 - Section 8 (Work & Regular Commitments) defaults to visible in current build; will be conditional once onboarding is built
 - Q42 trigger response copy is a working placeholder — expected to change substantially after tester feedback
 - "Walk me through" option labels: structure decided (section by section / all in one flow); exact wording deferred to build
@@ -102,3 +137,4 @@ Naming sessions: TBD (after Phase 0 complete)
 - Transparency is structural throughout — every step explains itself in plain language
 - No GitHub connector available in claude.ai connector registry; GitHub workflow handled via GitHub Desktop + Claude Code on laptop
 - INSTRUCTIONS.md is currently saved as a .txt file in the repo — rename to INSTRUCTIONS.md when tidying
+- Google account for tester feedback: `noreally.howareyou@gmail.com` (separate from Melissa's main Google account; intentional, so future support emails and contact addresses have the right brand identity from day one)

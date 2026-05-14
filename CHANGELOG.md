@@ -2,6 +2,90 @@
 
 ---
 
+## 2026-05-13 — Session 16: Critical Fixes Pass on Testing Companion
+
+### What Got Done
+
+**Five of the eight critical fixes from Session 15 closed.** Three deferred to Session 17 (notes persistence, pause-and-return, Q42 placeholder honesty). Extended scope significantly during the audience-naming audit — Melissa surfaced additional notes from a pre-Session-15 review that overlapped with and refined the original list.
+
+**Audience-naming audit — done.**
+- Tagline updated to *"A long-form mental health check-in for people who don't see themselves in the short forms."* (locked Session 15 wording, now applied in file)
+- About-this-test intro: *"for ND and chronically ill people"* → *"for a lot of people"*
+- Section *"ND-Specific Experience"* → *"Stimming, Focus & Special Interests"*; intro for section S6 rewritten to describe what's inside without naming an audience
+- Plain-language for Q10 (irritability), Q15 (derealization subsection intro), Q39 (somatic symptoms) — all "ND" references removed
+- All four references to *Melissa* in user-facing copy replaced with *the build team* — the tool reads the same way for any tester, not just people who know Melissa
+
+**Q26 / Q27 / Q28 — descriptions over labels.**
+- Each gained a plain-language box with concrete varied examples. Stimming: *"rocking, tapping, fidgeting, humming, chewing, repeating phrases, skin picking, hair twirling or pulling, rubbing fabric, clicking a pen."* Hyperfocus: *"Getting absorbed in something so deeply that hours pass, you forget to eat, you don't hear people talking to you — sometimes called hyperfocus or a flow state."* Special interests: *"The topics, subjects, or activities that pull you in deeply — the things you can think about, read about, or do for hours without it costing you. Sometimes called special interests."*
+- Many people do these without knowing the clinical word. Seeing the examples is the recognition moment. Clinical term included with *"sometimes called..."* — present for the people who know it, not assumed.
+
+**Q33 — split.**
+- *"How much effort is it to hold it together in public — and how hard is the crash afterwards?"* was a hidden two-questions-in-one with a single set of blended options. Now uses `si-two` (two-part select-one) with custom Part 1 / Part 2 labels (*"How much effort"* / *"And the crash afterwards"*).
+- To support this, the multi-part question types (`nd-two`, `si-two`, `sm-two`) gained per-question `p1label` / `p2label` overrides — backward-compatible refactor; existing questions keep their original hardcoded labels via fallback.
+
+**Q41 — PEM defined inline.**
+- Plain-language now opens with *"PEM = post-exertional malaise: the delayed crash after pushing too hard, sometimes hitting hours or days later."*
+
+**Q45 — reframed away from clinician.**
+- Was: *"Is there anything you want your clinician to know that you find hard to say out loud?"* Two problems — *"out loud"* doesn't fit a web interface, and naming the clinician contradicts the tool's stance (this is a personal check-in, not a clinical intake).
+- Now: *"Is there something you've been carrying that's hard to put into words — even here?"* with notesPrompt *"Sometimes the thing we most need to say is the thing we can't quite reach. No pressure — just space if you want it."*
+
+**Q39 — "unexplained" out.**
+- Was: *"Are you having unexplained physical symptoms..."* For many of the audience, the mind-body connection isn't unexplained — it's well-known and predictable.
+- Now: *"Are you having physical symptoms — headaches, nausea, gut issues, muscle tension, or feeling heavy — that don't have an obvious cause?"*
+
+**Mutual-exclusivity audit — Q26 / Q27 / Q28 / Q29 Part 2 → multi-select.**
+- Melissa flagged on Q29: "*It passed and I'm okay / I'm still recovering / It caused me significant distress / It affected my relationships*" — these aren't mutually exclusive. Audit found the same problem on Q26 / Q27 / Q28 Part 2 options.
+- All four switched to multi-select with *"(mark all that apply)"* in the Part 2 label.
+- New `p2multi:true` flag added to the multi-part renderers (`nd-two`, `si-two`, `sm-two`) plus a part-aware `multiselPart()` renderer and `toggleMultiPart()` handler. Saves to `.part2` as an array. Backward-compatible.
+
+**Notes vs Feedback disambiguation.**
+- Personal Notes field: label changed from generic *"Notes"* to *"Your notes (stays on your device)"*. Tells the user what the field is for and where the data goes.
+- Testing feedback button: changed from *"Thoughts on this question?"* to *"Feedback on this question"*. Less ambiguous about which field is which.
+- Panel description updated: *"...Your feedback goes to the build team — your personal answers stay on your device."*
+
+**Frequency scale — fully redesigned.**
+- Considered four alternatives to the existing 8-square scale (thin tick bars, dotted scale, numbered cells, word pills). Picked word pills — drops the "place yourself on a continuum" inference task, makes the eight values the answer directly.
+- Removed: 8 unlabeled squares, the "Never / Near constant" end labels, and the tiny dim selected-value readout below.
+- Added: 8 rounded pills showing the actual labels (Never, Rarely, Sometimes, Noticeably, Often, Most days, Almost always, Near constant). Selected pill fills teal with bold dark text. Auto-wrapping flex layout — 4 across on desktop, 2 across on mobile. No separate readout — the pill highlight is the answer.
+
+**Grey text hierarchy — two-pass fix.**
+- **First pass:** bumped `--text-dim` from #888880 (5.41:1 — passing AA) to #a8a89e (8.05:1) and `--text-dimmer` from #555550 (2.58:1 — failing AA) to #808078 (4.85:1 — passing). Then bumped freq-scale labels, value readout, freq blocks shorter. Brighter, more legible, technically compliant.
+- **Melissa's pushback:** *"the grey text still looks like it's secondary or not important... I'm not seeing these as being less important or genuinely secondary features."* Correct — contrast alone wasn't the problem. The hierarchy convention "grey on dark = less important" reads as deprioritized regardless of contrast ratio, especially for the audience this tool is for. The honest framing: if we're asking the user to engage with something, it should be readable.
+- **Second pass:** promoted to full `--text` color: plain-language boxes, subsection intros, section intro paragraphs, save-mode toggle descriptions, field hints, tagline, hero subtitle, notes label, notes typed text, part labels, Q42 placeholder card (body and bold header), number unit, grid table headers + row labels, intro section dim paragraphs, modal dim paragraphs, summary-q labels, feedback panel description, feedback status, pause button, wrap-up intro, thanks card paragraphs, "you can close this tab" lines.
+- **What remains dim** (and intentionally so): Skip button, Cancel button, the *Feedback on this question* toggle button (testing chrome that shouldn't compete with the actual check-in), chip default state (brightens when selected), and `.btn-ghost` secondary action styling.
+
+### Decisions Made
+
+- **Word pills over scale metaphor for frequency questions** — the 8-square scale was asking users to infer position on a continuum from spatial information. The pill design is more honest about what the question is: pick the word that fits. Trade-off: loses the "spectrum" feel; gains: no inference task, no guess about what tick-4-vs-tick-5 means, more accessible across processing styles.
+- **"If we're asking for it, it matters"** — new working principle for visual hierarchy on this tool. Dark backgrounds amplify the "deprioritized" signal that grey-on-light merely suggests; using dim text for anything we're asking the user to engage with reads as "go away." Hierarchy through size, weight, position, and color — not by greying things out.
+- **`p2multi:true` over per-question type explosion** — could have added new multi-part types (`nd-two-multi`, `si-two-multi`, `sm-two-multi`). Instead added a single boolean flag. Cleaner, fewer code paths, backward-compatible.
+- **Q26 / Q27 / Q28 keep the clinical term in the question text, examples in the plain-language box** — Melissa's choice from B1/B2/B3 options. Preserves the term for people who recognise it, defines through examples for people who don't, doesn't bury the term in a parenthetical, doesn't drop it entirely.
+- **Helplessness and the sin-eater experience belong as future design work, not editing** — both surfaced organically during this session (sin-eater early on from Melissa's first-pass notes; helplessness later when Melissa asked whether hopelessness and helplessness usually live together in screening tools). The right move was to capture them and park them rather than rush a question into the testing version.
+
+### Files Delivered This Session
+
+- `no-really-testing.html` — all edits from this session combined into one file. Replaces the existing copy in the repo root
+- `BRIEF.md` — Testing Companion section updated with Session 16 status, refined scope, new parked design topics (helplessness, empathy-overflow); Current State updated
+- `ROADMAP.md` — Session 16 checklist updated (five checked, three carried forward as Session 17); new Session 16 extended-scope items added; Session 17 stub added; future design sessions section added
+- `CHANGELOG.md` — this entry
+- `HANDOVER-session-17.md` — handover prompt for next session
+
+### Carried Forward to Session 17
+
+1. **Notes persistence + "View my saved notes" screen** — Notes always persist regardless of save-mode; add viewing screen accessible from intro and thanks screens
+2. **Pause-and-return** — explicit "Resume now" button; clearer return instructions on pause screen
+3. **Q42 placeholder honesty** — replace coy text with the gist of what Q42 actually asks (full Q42 build remains its own dedicated session)
+
+### Parked (new this session)
+
+- **Helplessness as a distinct construct from hopelessness** — likely a new item near Q11 in Mood & Emotional Experience
+- **Empathy-overflow / vicarious distress** — the "sin-eater" experience Melissa described; connected to helplessness; needs design thinking on placement, phrasing, and response structure
+- **Q29 Part 1 multi-select consideration** — currently uses *"Both"* as a synthetic option; cleaner as real multi-select
+- **Q1 sleep multi-select consideration** — some options can co-occur (e.g. *"Broken"* + *"Napped in addition"*)
+
+---
+
 ## 2026-05-13 — Session 15: Name Locked, Testing Companion Built, First Tester Pass
 
 ### What Got Done

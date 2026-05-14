@@ -10,7 +10,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0e0e0e;--surface:#181818;--surface2:#222222;--border:#2e2e2e;
-  --text:#e4e0d8;--text-dim:#888880;--text-dimmer:#555550;
+  --text:#e4e0d8;--text-dim:#a8a89e;--text-dimmer:#808078;
   --teal:#5ebfb0;--teal-dim:#3a8f84;--purple:#9b7fc7;--purple-dim:#6b5490;
   --amber:#c9a84c;--danger:#c06060;--radius:10px;--radius-sm:6px;
   --font-body:'Atkinson Hyperlegible',sans-serif;--font-serif:'DM Serif Display',serif;
@@ -30,30 +30,29 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .section-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:.75rem}
 .question-text{font-family:var(--font-serif);font-size:1.35rem;line-height:1.4;color:var(--text);margin-bottom:1rem}
-.plain-language{font-size:.88rem;color:var(--text-dim);line-height:1.55;padding:.75rem 1rem;background:var(--surface2);border-radius:var(--radius-sm);border-left:3px solid var(--border);margin-bottom:1.5rem}
+.plain-language{font-size:.88rem;color:var(--text);line-height:1.55;padding:.75rem 1rem;background:var(--surface2);border-radius:var(--radius-sm);border-left:3px solid var(--border);margin-bottom:1.5rem}
 .options-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem}
 .option-btn{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.95rem;line-height:1.4;cursor:pointer;text-align:left;transition:border-color .15s,background .15s}
 .option-btn:hover{border-color:var(--teal-dim)}.option-btn.selected{border-color:var(--teal);background:rgba(94,191,176,.08)}
 .option-dot{flex-shrink:0;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);margin-top:2px;transition:border-color .15s,background .15s}
 .option-btn.selected .option-dot{border-color:var(--teal);background:var(--teal)}
 .freq-scale{margin-bottom:1.5rem}
-.freq-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--text-dimmer);margin-bottom:.4rem;padding:0 2px}
-.freq-options{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
-.freq-btn{aspect-ratio:1;border:1px solid var(--border);border-radius:4px;background:var(--surface2);cursor:pointer;transition:border-color .15s,background .15s}
-.freq-btn:hover{border-color:var(--teal-dim)}.freq-btn.selected{border-color:var(--teal);background:var(--teal)}
-.freq-value{font-size:.6rem;color:var(--text-dimmer);text-align:center;margin-top:.3rem;line-height:1.2;min-height:1rem}
+.freq-options{display:flex;flex-wrap:wrap;gap:.5rem}
+.freq-btn{flex:1 1 auto;min-width:140px;padding:.6rem .9rem;background:var(--surface2);border:1px solid var(--border);border-radius:999px;color:var(--text);font-family:var(--font-body);font-size:.92rem;line-height:1.2;cursor:pointer;text-align:center;transition:border-color .15s,background .15s,color .15s}
+.freq-btn:hover{border-color:var(--teal-dim)}
+.freq-btn.selected{background:var(--teal);border-color:var(--teal);color:var(--bg);font-weight:700}
 .number-input-wrap{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
 .number-input{width:100px;padding:.6rem .75rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:1.1rem;text-align:center}
 .number-input:focus{outline:none;border-color:var(--teal)}
-.number-unit{color:var(--text-dim);font-size:.9rem}
+.number-unit{color:var(--text);font-size:.9rem}
 .free-text{width:100%;min-height:80px;padding:.75rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.95rem;line-height:1.5;resize:vertical;margin-bottom:1rem}
 .free-text:focus{outline:none;border-color:var(--teal)}
 .grid-wrap{overflow-x:auto;margin-bottom:1.5rem}
 .grid-table{width:100%;border-collapse:collapse;font-size:.82rem}
-.grid-table th{color:var(--text-dim);font-weight:400;padding:.4rem .5rem;text-align:center;border-bottom:1px solid var(--border)}
+.grid-table th{color:var(--text);font-weight:400;padding:.4rem .5rem;text-align:center;border-bottom:1px solid var(--border)}
 .grid-table th:first-child{text-align:left}
 .grid-table td{padding:.5rem .5rem;border-bottom:1px solid var(--border);text-align:center;vertical-align:middle}
-.grid-table td:first-child{text-align:left;color:var(--text-dim)}
+.grid-table td:first-child{text-align:left;color:var(--text)}
 .grid-table tr:last-child td{border-bottom:none}
 .grid-cell-btn{width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--surface2);cursor:pointer;margin:auto;display:block;transition:border-color .15s,background .15s}
 .grid-cell-btn.selected{border-color:var(--teal);background:var(--teal)}
@@ -64,24 +63,24 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
 .check-btn.selected .check-box{border-color:var(--teal);background:var(--teal)}
 .check-btn.selected .check-box::after{content:'✓';color:var(--bg);font-size:11px;font-weight:700}
 .notes-wrap{margin-top:1rem}
-.notes-label{font-size:.78rem;color:var(--text-dimmer);margin-bottom:.4rem;letter-spacing:.03em}
-.notes-area{width:100%;min-height:70px;padding:.65rem .75rem;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-dim);font-family:var(--font-body);font-size:.88rem;line-height:1.5;resize:vertical}
+.notes-label{font-size:.78rem;color:var(--text);margin-bottom:.4rem;letter-spacing:.03em}
+.notes-area{width:100%;min-height:70px;padding:.65rem .75rem;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.88rem;line-height:1.5;resize:vertical}
 .notes-area:focus{outline:none;border-color:var(--text-dimmer)}
-.part-label{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dimmer);margin-bottom:.5rem;margin-top:1.25rem}
-.subsection-note{font-size:.85rem;color:var(--text-dim);font-style:italic;padding:.75rem 1rem;border-left:3px solid var(--teal-dim);margin-bottom:1.5rem;line-height:1.5}
+.part-label{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text);margin-bottom:.5rem;margin-top:1.25rem}
+.subsection-note{font-size:.85rem;color:var(--text);font-style:italic;padding:.75rem 1rem;border-left:3px solid var(--teal-dim);margin-bottom:1.5rem;line-height:1.5}
 .nav-row{display:flex;gap:.75rem;align-items:center;margin-top:.5rem}
 .btn{padding:.65rem 1.4rem;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;font-weight:700;cursor:pointer;border:none;transition:opacity .15s,background .15s}
 .btn-primary{background:var(--teal);color:var(--bg)}.btn-primary:hover{opacity:.85}
 .btn-ghost{background:transparent;color:var(--text-dim);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--text-dim);color:var(--text)}
 .btn-skip{background:transparent;color:var(--text-dimmer);border:none;font-size:.85rem;font-weight:400;margin-left:auto;padding:.65rem 0;cursor:pointer}.btn-skip:hover{color:var(--text-dim)}
-.placeholder-card{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem;text-align:center;color:var(--text-dimmer);font-size:.9rem;line-height:1.6}
-.placeholder-card strong{display:block;color:var(--text-dim);font-size:1rem;margin-bottom:.5rem}
+.placeholder-card{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem;text-align:center;color:var(--text);font-size:.9rem;line-height:1.6}
+.placeholder-card strong{display:block;color:var(--text);font-size:1rem;margin-bottom:.5rem}
 .section-intro-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem;animation:fadeUp .25s ease}
 .section-intro-card h2{font-family:var(--font-serif);font-size:1.6rem;color:var(--teal);margin-bottom:.75rem}
-.section-intro-card p{color:var(--text-dim);font-size:.92rem;line-height:1.6}
+.section-intro-card p{color:var(--text);font-size:.92rem;line-height:1.6}
 .hero-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem 2rem;text-align:center;margin-top:2rem}
 .hero-card h1{font-family:var(--font-serif);font-size:2rem;color:var(--text);margin-bottom:.75rem;font-weight:400}
-.hero-card .subtitle{color:var(--text-dim);font-size:.95rem;margin-bottom:2rem;line-height:1.6}
+.hero-card .subtitle{color:var(--text);font-size:.95rem;margin-bottom:2rem;line-height:1.6}
 .hero-card .meta{font-size:.8rem;color:var(--text-dimmer);margin-bottom:1.5rem}
 .mode-options{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem;text-align:left}
 .mode-btn{padding:1rem 1.25rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.92rem;cursor:pointer;text-align:left;transition:border-color .15s}
@@ -90,23 +89,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
 .summary-section h3{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem}
 .summary-row{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.88rem}
 .summary-row:last-child{border-bottom:none}
-.summary-q{color:var(--text-dim);flex:1}.summary-a{color:var(--text);text-align:right;font-style:italic;max-width:50%}
-@media(max-width:480px){.question-text{font-size:1.15rem}.freq-options{gap:2px}.grid-table{font-size:.75rem}.question-card{padding:1.5rem}}
+.summary-q{color:var(--text);flex:1}.summary-a{color:var(--text);text-align:right;font-style:italic;max-width:50%}
+@media(max-width:480px){.question-text{font-size:1.15rem}.freq-options{gap:.4rem}.freq-btn{min-width:calc(50% - .2rem);font-size:.88rem;padding:.55rem .6rem}.grid-table{font-size:.75rem}.question-card{padding:1.5rem}}
 
 /* ── Testing companion additions ─────────────────────────── */
 .intro-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;animation:fadeUp .25s ease}
 .intro-card h1{font-family:var(--font-serif);font-size:1.8rem;color:var(--text);margin-bottom:.25rem;font-weight:400;line-height:1.2}
 .intro-card h1 em{font-style:italic;color:var(--teal)}
-.intro-card .tagline{color:var(--text-dim);font-size:.92rem;margin-bottom:1.75rem;line-height:1.5}
+.intro-card .tagline{color:var(--text);font-size:.92rem;margin-bottom:1.75rem;line-height:1.5}
 .intro-section{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
 .intro-section:last-of-type{border-bottom:none}
 .intro-section h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:.6rem}
 .intro-section p{color:var(--text);font-size:.92rem;line-height:1.6;margin-bottom:.6rem}
 .intro-section p:last-child{margin-bottom:0}
-.intro-section .dim{color:var(--text-dim);font-size:.88rem}
+.intro-section .dim{color:var(--text);font-size:.88rem}
 .intro-form{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
 .intro-form label{display:block;font-size:.85rem;color:var(--text);font-weight:700;margin-bottom:.4rem}
-.intro-form .field-hint{font-size:.8rem;color:var(--text-dim);margin-bottom:.5rem;line-height:1.5}
+.intro-form .field-hint{font-size:.8rem;color:var(--text);margin-bottom:.5rem;line-height:1.5}
 .intro-form .field-block{margin-bottom:1.5rem}
 .intro-form input[type=text]{width:100%;padding:.6rem .75rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.95rem}
 .intro-form input[type=text]:focus{outline:none;border-color:var(--teal)}
@@ -118,14 +117,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
 .toggle-option.selected .toggle-radio{border-color:var(--teal);background:var(--teal)}
 .toggle-option .toggle-body{flex:1}
 .toggle-option .toggle-title{font-size:.92rem;color:var(--text);font-weight:700;margin-bottom:.2rem}
-.toggle-option .toggle-desc{font-size:.83rem;color:var(--text-dim);line-height:1.45}
+.toggle-option .toggle-desc{font-size:.83rem;color:var(--text);line-height:1.45}
 .feedback-block{margin-top:1.5rem;padding-top:1rem;border-top:1px dashed var(--border)}
 .feedback-toggle{display:flex;align-items:center;gap:.5rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:.5rem .9rem;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font-body);font-size:.85rem;transition:border-color .15s,color .15s}
 .feedback-toggle:hover{border-color:var(--teal-dim);color:var(--text)}
 .feedback-toggle.open{border-color:var(--teal);color:var(--teal)}
 .feedback-toggle .ft-icon{font-size:.9rem}
 .feedback-panel{margin-top:1rem;padding:1.25rem;background:var(--surface2);border:1px solid var(--teal-dim);border-radius:var(--radius-sm);animation:fadeUp .2s ease}
-.feedback-panel-label{font-size:.78rem;color:var(--text-dim);margin-bottom:.75rem;line-height:1.5}
+.feedback-panel-label{font-size:.78rem;color:var(--text);margin-bottom:.75rem;line-height:1.5}
 .feedback-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
 .chip{padding:.4rem .75rem;background:var(--surface);border:1px solid var(--border);border-radius:99px;color:var(--text-dim);font-family:var(--font-body);font-size:.8rem;cursor:pointer;transition:all .15s}
 .chip:hover{border-color:var(--teal-dim);color:var(--text)}
@@ -138,30 +137,30 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
 .btn-feedback:disabled{opacity:.4;cursor:not-allowed}
 .btn-cancel{background:transparent;color:var(--text-dimmer);border:none;font-size:.82rem;cursor:pointer;padding:.5rem .25rem}
 .btn-cancel:hover{color:var(--text-dim)}
-.feedback-status{font-size:.8rem;color:var(--text-dim);margin-left:auto}
+.feedback-status{font-size:.8rem;color:var(--text);margin-left:auto}
 .feedback-status.success{color:var(--teal)}
 .feedback-status.error{color:var(--danger)}
-.pause-btn{position:fixed;top:1rem;right:1rem;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);padding:.45rem .85rem;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.8rem;cursor:pointer;transition:all .15s;z-index:50}
-.pause-btn:hover{border-color:var(--text-dim);color:var(--text)}
+.pause-btn{position:fixed;top:1rem;right:1rem;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:.45rem .85rem;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.8rem;cursor:pointer;transition:all .15s;z-index:50}
+.pause-btn:hover{border-color:var(--text);color:var(--text)}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;padding:1rem;animation:fadeIn .2s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .modal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;max-width:520px;width:100%;animation:fadeUp .25s ease}
 .modal-card h2{font-family:var(--font-serif);font-size:1.4rem;color:var(--text);margin-bottom:1rem;font-weight:400}
 .modal-card p{color:var(--text);font-size:.92rem;line-height:1.6;margin-bottom:1rem}
-.modal-card p.dim{color:var(--text-dim);font-size:.88rem}
+.modal-card p.dim{color:var(--text);font-size:.88rem}
 .modal-actions{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--teal);color:var(--teal);padding:.75rem 1.25rem;border-radius:var(--radius-sm);font-size:.9rem;z-index:200;animation:toastIn .3s ease}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
 .wrap-up-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;animation:fadeUp .25s ease}
 .wrap-up-card h2{font-family:var(--font-serif);font-size:1.6rem;color:var(--teal);margin-bottom:.75rem;font-weight:400}
-.wrap-up-card .intro{color:var(--text-dim);font-size:.92rem;line-height:1.6;margin-bottom:1.5rem}
+.wrap-up-card .intro{color:var(--text);font-size:.92rem;line-height:1.6;margin-bottom:1.5rem}
 .wrap-up-field{margin-bottom:1.5rem}
 .wrap-up-field label{display:block;font-family:var(--font-serif);font-size:1.05rem;color:var(--text);margin-bottom:.5rem;line-height:1.4}
 .wrap-up-field textarea{width:100%;min-height:80px;padding:.65rem .75rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.92rem;line-height:1.5;resize:vertical}
 .wrap-up-field textarea:focus{outline:none;border-color:var(--teal)}
 .thanks-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3rem 2rem;margin-top:2rem;text-align:center}
 .thanks-card h1{font-family:var(--font-serif);font-size:1.8rem;color:var(--text);margin-bottom:1rem;font-weight:400}
-.thanks-card p{color:var(--text-dim);font-size:.95rem;line-height:1.6;margin-bottom:.75rem}
+.thanks-card p{color:var(--text);font-size:.95rem;line-height:1.6;margin-bottom:.75rem}
 .banner{padding:.5rem 1rem;background:rgba(155,127,199,.1);border:1px solid var(--purple-dim);border-radius:var(--radius-sm);color:var(--purple);font-size:.78rem;text-align:center;margin-bottom:1.5rem;letter-spacing:.03em}
 </style>
 </head>
@@ -172,11 +171,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
   <div class="banner">TESTING VERSION — your feedback shapes the real tool</div>
   <div class="intro-card">
     <h1>No Really. How <em>Are</em> You?</h1>
-    <p class="tagline">A long-form mental health check-in for ND and chronically ill people.</p>
+    <p class="tagline">A long-form mental health check-in for people who don't see themselves in the short forms.</p>
 
     <div class="intro-section">
       <h3>What this is</h3>
-      <p>A mental health check-in built because the standard forms — PHQ-9, GAD-7, the short ones — don't capture what's actually going on for ND and chronically ill people.</p>
+      <p>A mental health check-in built because the standard forms — PHQ-9, GAD-7, the short ones — don't capture what's actually going on for a lot of people.</p>
     </div>
 
     <div class="intro-section">
@@ -200,19 +199,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
     <div class="intro-form">
       <div class="field-block">
         <label for="handle-input">Handle (optional)</label>
-        <p class="field-hint">A name, initials, anything. Stays in your browser. Helps Melissa spot patterns across your feedback. Skip if you'd rather stay fully anonymous.</p>
+        <p class="field-hint">A name, initials, anything. Stays in your browser. Helps the build team spot patterns across your feedback. Skip if you'd rather stay fully anonymous.</p>
         <input type="text" id="handle-input" placeholder="e.g. Sam, MK, raccoon" maxlength="40">
       </div>
 
       <div class="field-block">
         <label>What about your answers?</label>
-        <p class="field-hint">Feedback you submit always reaches Melissa. Your personal answers are separate.</p>
+        <p class="field-hint">Feedback you submit always reaches the build team. Your personal answers are separate.</p>
         <div class="toggle-row" id="save-toggle">
           <div class="toggle-option" data-value="nosave" onclick="pickSaveMode('nosave')">
             <div class="toggle-radio"></div>
             <div class="toggle-body">
               <div class="toggle-title">Don't save anything — testing only</div>
-              <div class="toggle-desc">Single session. Closing this tab clears your answers. Feedback still reaches Melissa. (Default)</div>
+              <div class="toggle-desc">Single session. Closing this tab clears your answers. Feedback still reaches the build team. (Default)</div>
             </div>
           </div>
           <div class="toggle-option" data-value="save" onclick="pickSaveMode('save')">
@@ -304,7 +303,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
   <div class="thanks-card">
     <h1>Thank you.</h1>
     <p>Your feedback shapes the real tool.</p>
-    <p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text-dimmer)">You can close this tab any time.</p>
+    <p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab any time.</p>
   </div>
 </div>
 
@@ -318,7 +317,7 @@ const SECTIONS=[
   {id:'S3',name:'Mood & Emotional Experience',qs:['Q8','Q9','Q10','Q11','Q12','Q13','Q14','Q15','Q16','Q17']},
   {id:'S4',name:'Cognitive & Executive Function',qs:['Q18','Q19','Q20','Q21','Q22','Q23']},
   {id:'S5',name:'Sensory Experience',qs:['Q24','Q25']},
-  {id:'S6',name:'ND-Specific Experience',qs:['Q26','Q27','Q28','Q29']},
+  {id:'S6',name:'Stimming, Focus & Special Interests',qs:['Q26','Q27','Q28','Q29']},
   {id:'S7',name:'Social & Communication',qs:['Q30','Q31','Q32','Q33']},
   {id:'S8',name:'Work & Regular Commitments',qs:['Q34','Q35','Q36','Q37'],conditional:'work'},
   {id:'S9',name:'Daily Function & Self-Care',qs:['Q38','Q39']},
@@ -364,7 +363,7 @@ Q9:{section:'Mood & Emotional Experience',text:'Have your special interests or t
   plain:'Not bored — more like you look at something you love and feel nothing.',notes:true},
 
 Q10:{section:'Mood & Emotional Experience',text:'Have you been more irritable, snappy, or faster to reach your limit with people or noise?',type:'frequency',
-  plain:'For many ND people, depression and anxiety show up as irritability first — before sadness.',notes:true},
+  plain:'Depression and anxiety often show up as irritability first — before sadness.',notes:true},
 
 Q11:{section:'Mood & Emotional Experience',text:'How much have you been experiencing a sense of hopelessness?',type:'frequency',
   plain:'This might feel like things won\'t get better, that there\'s no point, or that you can\'t see a way forward. It can also show up as going through the motions without expecting anything to change.<br><br>Hopelessness can mean different things — it might be about your own life or situation, or it might be a reasonable response to what\'s happening in the world right now. Both count here.',
@@ -382,7 +381,7 @@ Q14:{section:'Mood & Emotional Experience',text:'When you imagine the future, do
   plain:'Not pessimism — more like the future doesn\'t feel real or reachable right now.',notes:true},
 
 Q15:{section:'Mood & Emotional Experience',
-  subsectionIntro:'These questions are about experiences that can be hard to describe. They\'re more common than most people realise, especially for ND people and people with chronic illness or pain. There are no wrong answers here.',
+  subsectionIntro:'These questions are about experiences that can be hard to describe. They\'re more common than most people realise, especially for people dealing with chronic illness, pain, or sustained stress. There are no wrong answers here.',
   text:'Have you had moments where the world around you felt unreal, distant, or like you were watching it through glass?',type:'frequency',
   plain:'Things might look flat, washed out, or unfamiliar. Familiar places might feel strange. It can feel like being in a dream while awake, or like there\'s a barrier between you and everything else.',notes:true},
 
@@ -419,17 +418,24 @@ Q24:{section:'Sensory Experience',text:'Is your sensory tolerance lower than usu
 Q25:{section:'Sensory Experience',text:'Are you finding yourself seeking out particular sensations more than usual? (Specific textures, sounds, movement, pressure, temperature)',type:'frequency',
   plain:'This might be comforting, regulating, or just noticeable — not necessarily a problem.',notes:true},
 
-Q26:{section:'ND-Specific Experience',text:'Have you been stimming more than usual, or noticing stimming you don\'t usually do?',type:'nd-two',
-  p2opts:['Just noticing it — it\'s data','It\'s been helpful or regulating','It\'s caused me some distress or got in the way'],notes:true},
+Q26:{section:'Stimming, Focus & Special Interests',text:'Have you been stimming more than usual, or noticing stimming you don\'t usually do?',type:'nd-two',
+  p2label:'What to make of it (mark all that apply)',p2multi:true,
+  p2opts:['Just noticing it — it\'s data','It\'s been helpful or regulating','It\'s caused me some distress or got in the way'],
+  plain:'Self-regulating movements or sounds — rocking, tapping, fidgeting, humming, chewing, repeating phrases, skin picking, hair twirling or pulling, rubbing fabric, clicking a pen.',notes:true},
 
-Q27:{section:'ND-Specific Experience',text:'Have you been going into hyperfocus — getting locked into something to the exclusion of other things?',type:'nd-two',
-  p2opts:['Just noticing it — it\'s data','It felt good or productive','It caused me distress or interfered with things I needed to do'],notes:true},
+Q27:{section:'Stimming, Focus & Special Interests',text:'Have you been going into hyperfocus — getting locked into something to the exclusion of other things?',type:'nd-two',
+  p2label:'What to make of it (mark all that apply)',p2multi:true,
+  p2opts:['Just noticing it — it\'s data','It felt good or productive','It caused me distress or interfered with things I needed to do'],
+  plain:'Getting absorbed in something so deeply that hours pass, you forget to eat, you don\'t hear people talking to you — sometimes called hyperfocus or a flow state.',notes:true},
 
-Q28:{section:'ND-Specific Experience',text:'How have your special interests been — are they accessible and engaging?',type:'si-two',
+Q28:{section:'Stimming, Focus & Special Interests',text:'How have your special interests been — are they accessible and engaging?',type:'si-two',
+  p2label:'What to make of it (mark all that apply)',p2multi:true,
   p1opts:['Engaging as usual','Variable — sometimes yes, sometimes no','Hard to access right now','Completely flat — no pull at all'],
-  p2opts:['Just noticing it — it\'s data','It\'s been a source of comfort or energy','The change has caused me distress'],notes:true},
+  p2opts:['Just noticing it — it\'s data','It\'s been a source of comfort or energy','The change has caused me distress'],
+  plain:'The topics, subjects, or activities that pull you in deeply — the things you can think about, read about, or do for hours without it costing you. Sometimes called special interests.',notes:true},
 
-Q29:{section:'ND-Specific Experience',text:'Have you had a shutdown or meltdown, or come close to one?',type:'sm-two',
+Q29:{section:'Stimming, Focus & Special Interests',text:'Have you had a shutdown or meltdown, or come close to one?',type:'sm-two',
+  p2label:'How did it land? (mark all that apply)',p2multi:true,
   p1opts:['No','Came close but didn\'t tip over','Had a shutdown (withdrawal, going quiet, going offline)','Had a meltdown (losing control of emotional or physical responses)','Both'],
   p2opts:['It passed and I\'m okay','I\'m still recovering','It caused me significant distress','It affected my relationships or commitments'],notes:true},
 
@@ -442,9 +448,11 @@ Q32:{section:'Social & Communication',text:'Are you withdrawing from people, con
   opts:['About my normal social level','A bit more withdrawn than usual','Noticeably pulling back — avoiding quite a bit','Almost completely withdrawn'],
   plain:'Ghosting messages, cancelling plans, or not reaching out when you usually would.',notes:true},
 
-Q33:{section:'Social & Communication',text:'How much effort is it to hold it together in public — and how hard is the crash afterwards?',type:'select-one',
-  opts:['Not much of a gap right now','Masking more than usual — crashes manageable','Big gap — I seem okay but I\'m not, crashes are hard','The masking is constant and crashes wipe me out'],
-  plain:'Performing okay-ness when you\'re not. The gap between how you seem and how you are.',notes:true},
+Q33:{section:'Social & Communication',text:'How much effort is it to hold it together in public — and how hard is the crash afterwards?',type:'si-two',
+  p1label:'How much effort',p2label:'And the crash afterwards',
+  p1opts:['Not much — I\'m about myself in public','Some effort — more than usual but manageable','A lot of effort — there\'s a big gap between how I seem and how I am','Constant effort — I\'m always performing'],
+  p2opts:['No real crash — I\'m fine after','Mild crash — I need a bit of recovery time','Hard crash — I\'m wiped out for hours or longer','Wiping me out — recovery takes a day or more'],
+  plain:'Performing okay-ness when you\'re not. Two things matter here: how much it costs you to maintain in public, and what it takes to recover after.',notes:true},
 
 Q34:{section:'Work & Regular Commitments',text:'Were you able to meet your commitments (work, study, regular responsibilities) this period?',type:'select-one',
   opts:['Yes — I did what I needed to do','Mostly — some things slipped but I managed the important stuff','Partially — I\'m behind or missed things','No — I wasn\'t able to meet my commitments'],notes:true},
@@ -462,15 +470,15 @@ Q38:{section:'Daily Function & Self-Care',text:'Are basic self-care tasks (eatin
   opts:['Mostly managing them','Some are slipping, but I\'m getting by','A lot are slipping — I\'m skipping things I need','Very difficult — barely managing basics'],
   plain:'Not laziness — the brain sometimes can\'t sequence or initiate even when you want it to.',notes:true},
 
-Q39:{section:'Daily Function & Self-Care',text:'Are you having unexplained physical symptoms — headaches, nausea, gut issues, muscle tension, or feeling heavy?',type:'frequency',
-  plain:'Anxiety and depression often live in the body first, especially for ND people. These symptoms are real even when there\'s no clear physical cause.',notes:true},
+Q39:{section:'Daily Function & Self-Care',text:'Are you having physical symptoms — headaches, nausea, gut issues, muscle tension, or feeling heavy — that don\'t have an obvious cause?',type:'frequency',
+  plain:'Anxiety and depression often live in the body first. These symptoms are real even when there\'s no clear physical cause.',notes:true},
 
 Q40:{section:'Capacity & Crash Risk',text:'Right now, how much capacity do you have left today?',type:'select-one',
   opts:['Plenty — I have room to do more','Some — I can handle things but I\'m not full','Running low — I need to conserve','At or past my limit — I need to stop'],notes:true},
 
 Q41:{section:'Capacity & Crash Risk',text:'Based on how today has gone, how worried are you about crashing (PEM, burnout spike, shutdown) in the next day or two?',type:'select-one',
   opts:['Not worried — I\'m within my envelope','A little — I pushed it but probably okay','Quite worried — I may have overdone it','Already crashing or crashed'],
-  plain:'This is about your sense of where you are relative to your own limits — not a clinical assessment.',notes:true},
+  plain:'PEM = post-exertional malaise: the delayed crash after pushing too hard, sometimes hitting hours or days later. This is about your sense of where you are relative to your own limits — not a clinical assessment.',notes:true},
 
 Q42:{section:'Safety',text:'Safety',type:'placeholder'},
 
@@ -480,8 +488,8 @@ Q43:{section:'Free-Form Entries',text:'Is there a way you\'d describe how you\'v
 Q44:{section:'Free-Form Entries',text:'Has anything happened recently that you think is connected to how you\'ve been feeling?',type:'free-text',
   notesPrompt:'Big things or small things — a build-up of small things often matters most. Optional — share as much or as little as you want.'},
 
-Q45:{section:'Free-Form Entries',text:'Is there anything you want your clinician to know that you find hard to say out loud?',type:'free-text',
-  notesPrompt:'This goes directly into the clinician summary.'},
+Q45:{section:'Free-Form Entries',text:'Is there something you\'ve been carrying that\'s hard to put into words — even here?',type:'free-text',
+  notesPrompt:'Sometimes the thing we most need to say is the thing we can\'t quite reach. No pressure — just space if you want it.'},
 };
 
 // ── GOOGLE FORMS CONFIG ──────────────────────────────────────
@@ -611,7 +619,7 @@ function render(){
   if(q.notes!==false){
     const np=q.notesPrompt||'Anything you want to add — optional.';
     const sn=S.responses[qId]?.notes||'';
-    html+=`<div class="notes-wrap"><div class="notes-label">Notes</div>
+    html+=`<div class="notes-wrap"><div class="notes-label">Your notes (stays on your device)</div>
       <textarea class="notes-area" id="notes-${qId}" placeholder="${esc(np)}" oninput="saveNotes('${qId}')">${esc(sn)}</textarea></div>`;
   }
   // Feedback affordance — testing companion only
@@ -623,7 +631,7 @@ function render(){
 function buildFeedbackBlock(qId,q){
   return `<div class="feedback-block">
     <button class="feedback-toggle" id="ftog-${qId}" onclick="toggleFeedback('${qId}')">
-      <span class="ft-icon">💬</span><span>Thoughts on this question?</span>
+      <span class="ft-icon">💬</span><span>Feedback on this question</span>
     </button>
     <div id="fpanel-${qId}" style="display:none"></div>
   </div>`;
@@ -646,7 +654,7 @@ function toggleFeedback(qId){
 function renderFeedbackPanel(qId){
   const chips=['Wording felt off','Something missing','Response options didn\'t fit','This landed well'];
   let h=`<div class="feedback-panel">
-    <div class="feedback-panel-label">Tap any that apply, add a note, or both. Your feedback goes to Melissa — your personal answers stay on your device.</div>
+    <div class="feedback-panel-label">Tap any that apply, add a note, or both. Your feedback goes to the build team — your personal answers stay on your device.</div>
     <div class="feedback-chips" id="chips-${qId}">`;
   chips.forEach((c,i)=>{
     h+=`<button class="chip" data-chip="${esc(c)}" onclick="toggleChip(this)">${esc(c)}</button>`;
@@ -733,7 +741,7 @@ const SEC_DESCS={
   S3:'Questions about mood, emotional experience, and sense of reality. Some of these cover things that can be hard to name — take them at your own pace.',
   S4:'Questions about thinking, focus, and executive function — starting things, making decisions, keeping track.',
   S5:'Questions about sensory experience — both sensitivity and seeking.',
-  S6:'Questions specific to ND experience — stimming, hyperfocus, special interests, and shutdowns or meltdowns.',
+  S6:'Questions about self-regulating behaviors, focus patterns, things that pull you in, and moments when you\'ve gone offline or lost control. Some people will recognize these immediately. Others might be encountering some of them as named experiences for the first time.',
   S7:'Questions about social energy and communication.',
   S8:'Questions about your work, study, or regular commitments this period.',
   S9:'Questions about daily function and self-care.',
@@ -758,11 +766,18 @@ function buildResponse(qId,q){
     const hasPain=r.part1&&r.part1!=='No pain / not relevant for me';
     return`<div class="part-label">Range across the day</div>${selectOne(qId+'_p1',q.opts,r.part1,true)}<div id="pain2" style="display:${hasPain?'block':'none'}"><div class="part-label">Type and location (optional)</div><textarea class="free-text" id="inp-${qId}_p2" placeholder="Where is it, and what does it feel like?" oninput="savePart('${qId}','part2',this.value)">${esc(r.part2||'')}</textarea></div>`;
   }
-  if(q.type==='nd-two')return`<div class="part-label">How often</div>${freqScale(qId+'_p1',r.part1,true)}<div class="part-label">What to make of it</div>${selectOne(qId+'_p2',q.p2opts,r.part2,true)}`;
-  if(q.type==='si-two')return`<div class="part-label">Accessibility and engagement</div>${selectOne(qId+'_p1',q.p1opts,r.part1,true)}<div class="part-label">What to make of it</div>${selectOne(qId+'_p2',q.p2opts,r.part2,true)}`;
+  if(q.type==='nd-two'){
+    const p2=q.p2multi?multiselPart(qId,q.p2opts,r.part2):selectOne(qId+'_p2',q.p2opts,r.part2,true);
+    return`<div class="part-label">${esc(q.p1label||'How often')}</div>${freqScale(qId+'_p1',r.part1,true)}<div class="part-label">${esc(q.p2label||'What to make of it')}</div>${p2}`;
+  }
+  if(q.type==='si-two'){
+    const p2=q.p2multi?multiselPart(qId,q.p2opts,r.part2):selectOne(qId+'_p2',q.p2opts,r.part2,true);
+    return`<div class="part-label">${esc(q.p1label||'Accessibility and engagement')}</div>${selectOne(qId+'_p1',q.p1opts,r.part1,true)}<div class="part-label">${esc(q.p2label||'What to make of it')}</div>${p2}`;
+  }
   if(q.type==='sm-two'){
     const show=r.part1&&r.part1!=='No';
-    return`${selectOne(qId+'_p1',q.p1opts,r.part1,true)}<div id="sm2" style="display:${show?'block':'none'}"><div class="part-label">How did it land?</div>${selectOne(qId+'_p2',q.p2opts,r.part2,true)}</div>`;
+    const p2=q.p2multi?multiselPart(qId,q.p2opts,r.part2):selectOne(qId+'_p2',q.p2opts,r.part2,true);
+    return`${selectOne(qId+'_p1',q.p1opts,r.part1,true)}<div id="sm2" style="display:${show?'block':'none'}"><div class="part-label">${esc(q.p2label||'How did it land?')}</div>${p2}</div>`;
   }
   if(q.type==='multiselect')return multisel(qId,q.opts,r.value);
   if(q.type==='comm-grid')return commGrid(qId,r.grid);
@@ -780,9 +795,9 @@ function selectOne(id,opts,saved,isPart){
 
 function freqScale(id,saved,isPart){
   const si=saved?FREQ_SCALE.indexOf(saved):-1;
-  let h=`<div class="freq-scale"><div class="freq-labels"><span>Never</span><span>Near constant</span></div><div class="freq-options" id="freq-${id}">`;
-  FREQ_SCALE.forEach((l,i)=>h+=`<button class="freq-btn ${i===si?'selected':''}" title="${l}" onclick="pickFreq('${eid(id)}',${i},'${ejs(l)}',${!!isPart})"></button>`);
-  h+=`</div><div class="freq-value" id="fv-${id}">${esc(saved||'')}</div></div>`;
+  let h=`<div class="freq-scale"><div class="freq-options" id="freq-${id}">`;
+  FREQ_SCALE.forEach((l,i)=>h+=`<button class="freq-btn ${i===si?'selected':''}" onclick="pickFreq('${eid(id)}',${i},'${ejs(l)}',${!!isPart})">${esc(l)}</button>`);
+  h+=`</div></div>`;
   return h;
 }
 
@@ -790,6 +805,14 @@ function multisel(id,opts,saved){
   const arr=saved?(Array.isArray(saved)?saved:[saved]):[];
   let h=`<div class="multiselect-list" id="multi-${id}">`;
   opts.forEach(o=>h+=`<button class="check-btn ${arr.includes(o)?'selected':''}" onclick="toggleMulti('${eid(id)}','${ejs(o)}')"><span class="check-box"></span><span>${esc(o)}</span></button>`);
+  return h+`</div>`;
+}
+
+function multiselPart(qId,opts,saved){
+  const arr=Array.isArray(saved)?saved:(saved?[saved]:[]);
+  const id=qId+'_p2';
+  let h=`<div class="multiselect-list" id="multi-${id}">`;
+  opts.forEach(o=>h+=`<button class="check-btn ${arr.includes(o)?'selected':''}" onclick="toggleMultiPart('${ejs(qId)}','part2','${ejs(o)}')"><span class="check-box"></span><span>${esc(o)}</span></button>`);
   return h+`</div>`;
 }
 
@@ -840,7 +863,6 @@ function pickOpt(id,idx,val,isPart){
 
 function pickFreq(id,idx,label,isPart){
   document.querySelectorAll(`#freq-${id} .freq-btn`).forEach((b,i)=>b.classList.toggle('selected',i===idx));
-  const fv=document.getElementById('fv-'+id);if(fv)fv.textContent=label;
   const qId=S.queue[S.idx];
   if(!S.responses[qId])S.responses[qId]={};
   if(isPart){const p=id.endsWith('_p2')?'part2':'part1';S.responses[qId][p]=label;}
@@ -854,6 +876,18 @@ function toggleMulti(id,val){
   if(!S.responses[qId].value)S.responses[qId].value=[];
   const arr=S.responses[qId].value;
   const i=arr.indexOf(val);i===-1?arr.push(val):arr.splice(i,1);
+  document.querySelectorAll(`#multi-${id} .check-btn`).forEach(btn=>{
+    btn.classList.toggle('selected',arr.includes(btn.querySelector('span:last-child').textContent));
+  });
+  persist();
+}
+
+function toggleMultiPart(qId,part,val){
+  if(!S.responses[qId])S.responses[qId]={};
+  if(!Array.isArray(S.responses[qId][part]))S.responses[qId][part]=[];
+  const arr=S.responses[qId][part];
+  const i=arr.indexOf(val);i===-1?arr.push(val):arr.splice(i,1);
+  const id=qId+'_p'+(part==='part2'?'2':'1');
   document.querySelectorAll(`#multi-${id} .check-btn`).forEach(btn=>{
     btn.classList.toggle('selected',arr.includes(btn.querySelector('span:last-child').textContent));
   });
@@ -993,7 +1027,7 @@ function confirmPauseSave(){
   // Just show a gentle thanks screen — they can close the tab whenever
   showScreen('screen-thanks');
   const tc=document.querySelector('#screen-thanks .thanks-card');
-  if(tc)tc.innerHTML=`<h1>Paused.</h1><p>Your progress is saved. Come back any time on this device.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text-dimmer)">You can close this tab now.</p>`;
+  if(tc)tc.innerHTML=`<h1>Paused.</h1><p>Your progress is saved. Come back any time on this device.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab now.</p>`;
   window.scrollTo(0,0);
 }
 
@@ -1002,7 +1036,7 @@ function confirmPauseNoSave(){
   closePauseModal();
   showScreen('screen-thanks');
   const tc=document.querySelector('#screen-thanks .thanks-card');
-  if(tc)tc.innerHTML=`<h1>Closed.</h1><p>Your answers have been cleared. Thank you for what you've shared so far.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text-dimmer)">You can close this tab now.</p>`;
+  if(tc)tc.innerHTML=`<h1>Closed.</h1><p>Your answers have been cleared. Thank you for what you've shared so far.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab now.</p>`;
   window.scrollTo(0,0);
 }
 
