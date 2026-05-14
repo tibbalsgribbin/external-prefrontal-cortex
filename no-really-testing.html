@@ -264,7 +264,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
     <div class="intro-section">
       <h3>What we're asking</h3>
       <p>Two things at once: answer the questions honestly, <em>and</em> tell us what you think of each one as you go.</p>
-      <p>That's a lot — more than the real tool will ever ask of a real user. Take your time. Stop when you need to. There's a "Pause for now" button on every screen.</p>
+      <p>That's a lot — more than the real tool will ever ask of a real user. Take your time. Stop when you need to.</p>
     </div>
 
     <div class="intro-section">
@@ -296,7 +296,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
             <div class="toggle-radio"></div>
             <div class="toggle-body">
               <div class="toggle-title">Remember me on this device</div>
-              <div class="toggle-desc">Your answers and notes stay in this browser, on this device. No account, no cloud, nobody else can see them. You can view, edit, or delete them any time.</div>
+              <div class="toggle-desc">Your answers and notes stay in this browser, on this device. Close the tab whenever — you'll be offered the option to resume next time. No account, no cloud, nobody else can see them. You can view, edit, or delete them any time.</div>
             </div>
           </div>
         </div>
@@ -764,6 +764,16 @@ function pickSaveMode(mode){
   });
 }
 
+// Pause button is only shown in 'nosave' mode, where closing the tab loses
+// progress and the button does real safety work (warning about unsent feedback).
+// In 'save' mode, closing the tab is safe — answers are auto-saved, and the
+// URL offers to resume on return. No pause action needed.
+function updatePauseBtnVisibility(){
+  const btn=document.querySelector('.pause-btn');
+  if(!btn)return;
+  btn.style.display=(S.saveMode==='save')?'none':'';
+}
+
 function beginCheckin(){
   if(!S.saveMode)S.saveMode='nosave';
   const handleInput=document.getElementById('handle-input');
@@ -775,12 +785,14 @@ function beginCheckin(){
   S.sessionId=newSessionId();
   if(S.saveMode==='save')persist();
   showScreen('screen-checkin');
+  updatePauseBtnVisibility();
   render();
 }
 
 function resumeCheckin(){
   // S already loaded from localStorage at page load
   showScreen('screen-checkin');
+  updatePauseBtnVisibility();
   render();
 }
 
@@ -1316,25 +1328,16 @@ function finishUp(){
 }
 
 // ── PAUSE FLOW ───────────────────────────────────────────────
+// The Pause button is only shown in 'nosave' mode. In 'save' mode the user
+// can simply close the tab — progress is auto-saved and the URL will offer
+// to resume. So this modal only ever runs the start-fresh branch.
 function openPauseModal(){
-  const isSave=S.saveMode==='save';
   const hasNotes=hasAnyNotes();
   const notesLink=hasNotes?`<div class="pause-notes-link"><a href="#" onclick="openNotesView('pause-modal');return false;">View what I've written so far →</a></div>`:'';
   const modal=document.createElement('div');
   modal.className='modal-overlay';
   modal.id='pause-modal';
-  modal.innerHTML=isSave?`
-    <div class="modal-card">
-      <h2>Pause for now</h2>
-      <p>Your progress is saved. Come back any time on this device — you'll be offered the option to resume.</p>
-      <p class="dim">Anything you've submitted as feedback has reached us already.</p>
-      <div class="modal-actions">
-        <button class="btn btn-primary" onclick="confirmPauseSave()">Close now</button>
-        <button class="btn btn-ghost" onclick="closePauseModal()">Keep going</button>
-      </div>
-      ${notesLink}
-    </div>
-  `:`
+  modal.innerHTML=`
     <div class="modal-card">
       <h2>Pause for now</h2>
       <p>You chose to start fresh, which means closing this page now will clear your progress.</p>
@@ -1352,16 +1355,6 @@ function openPauseModal(){
 
 function closePauseModal(){
   const m=document.getElementById('pause-modal');if(m)m.remove();
-}
-
-function confirmPauseSave(){
-  closePauseModal();
-  // Just show a gentle thanks screen — they can close the tab whenever
-  showScreen('screen-thanks');
-  const tc=document.querySelector('#screen-thanks .thanks-card');
-  const notesLink=hasAnyNotes()?`<div class="thanks-notes-link"><a href="#" onclick="openNotesView('thanks');return false;">See everything you captured →</a></div>`:'';
-  if(tc)tc.innerHTML=`<h1>Paused.</h1><p>Your progress is saved. Come back any time on this device.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab now.</p>${notesLink}`;
-  window.scrollTo(0,0);
 }
 
 function confirmPauseNoSave(){
@@ -1398,7 +1391,7 @@ function openNotesViewFromResume(){
 
 function openNotesView(from){
   // Determine return screen based on where the user invoked the view
-  if(from==='thanks'||from==='pause-confirmed'){
+  if(from==='thanks'){
     notesReturnScreen='screen-thanks';
   }else if(from==='pause-modal'){
     // From the pause modal, return to where they were (check-in)
