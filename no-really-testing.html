@@ -162,6 +162,84 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
 .thanks-card h1{font-family:var(--font-serif);font-size:1.8rem;color:var(--text);margin-bottom:1rem;font-weight:400}
 .thanks-card p{color:var(--text);font-size:.95rem;line-height:1.6;margin-bottom:.75rem}
 .banner{padding:.5rem 1rem;background:rgba(155,127,199,.1);border:1px solid var(--purple-dim);border-radius:var(--radius-sm);color:var(--purple);font-size:.78rem;text-align:center;margin-bottom:1.5rem;letter-spacing:.03em}
+
+/* ── View Notes Screen ──────────────────────────────────────── */
+.intro-notes-link{text-align:center;padding-top:1.25rem;border-top:1px solid var(--border)}
+.intro-notes-link a{color:var(--teal);text-decoration:none;font-size:.88rem;border-bottom:1px solid var(--teal-dim);padding-bottom:1px}
+.intro-notes-link a:hover{border-bottom-color:var(--teal)}
+.notes-screen-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;animation:fadeUp .25s ease}
+.notes-screen-card h1{font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:.75rem;font-weight:400}
+.notes-screen-intro{color:var(--text);font-size:.9rem;line-height:1.6;margin-bottom:.5rem}
+.notes-screen-promise{font-size:.82rem;color:var(--text);line-height:1.55;padding:.85rem 1rem;background:var(--surface2);border-left:3px solid var(--teal-dim);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:2rem}
+.notes-screen-back{display:flex;gap:.75rem;align-items:center;margin-bottom:1.5rem}
+.notes-day-group{margin-bottom:2rem}
+.notes-day-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.notes-note{padding:1rem 0;border-bottom:1px solid var(--border)}
+.notes-note:last-child{border-bottom:none}
+.notes-note-qtext{font-size:.85rem;color:var(--text-dim);line-height:1.5;margin-bottom:.5rem;font-style:italic}
+.notes-note-body{color:var(--text);font-size:.92rem;line-height:1.55;white-space:pre-wrap;word-wrap:break-word}
+.notes-note-meta{display:flex;justify-content:space-between;align-items:center;margin-top:.5rem;gap:1rem}
+.notes-note-time{font-size:.75rem;color:var(--text-dimmer)}
+.notes-note-actions-toggle{background:none;border:none;color:var(--text-dimmer);font-size:.85rem;cursor:pointer;padding:.25rem .5rem;border-radius:var(--radius-sm)}
+.notes-note-actions-toggle:hover{color:var(--text);background:var(--surface2)}
+.notes-note-actions{display:none;margin-top:.75rem;gap:.5rem;flex-wrap:wrap;padding-top:.75rem;border-top:1px dashed var(--border)}
+.notes-note-actions.open{display:flex}
+.notes-note-edit-area{width:100%;min-height:80px;padding:.65rem .75rem;background:var(--surface2);border:1px solid var(--teal-dim);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.9rem;line-height:1.5;resize:vertical;margin-top:.5rem}
+.notes-note-edit-area:focus{outline:none;border-color:var(--teal)}
+.notes-empty{text-align:center;padding:2rem 1rem;color:var(--text-dim);font-size:.9rem;font-style:italic}
+.notes-bulk{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.75rem}
+.notes-bulk-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dimmer);font-weight:700;margin-bottom:.25rem}
+.btn-small{padding:.5rem 1rem;font-size:.85rem;border-radius:var(--radius-sm);font-family:var(--font-body);font-weight:400;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);text-align:left}
+.btn-small:hover{border-color:var(--text)}
+.btn-danger{color:var(--danger);border-color:rgba(220,82,82,.4)}
+.btn-danger:hover{border-color:var(--danger)}
+.pause-notes-link{display:block;margin-top:1rem;font-size:.85rem;color:var(--text-dim);text-align:center}
+.pause-notes-link a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-dim)}
+.pause-notes-link a:hover{border-bottom-color:var(--teal)}
+.thanks-notes-link{margin-top:1.5rem;font-size:.9rem}
+.thanks-notes-link a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-dim);padding-bottom:1px}
+.thanks-notes-link a:hover{border-bottom-color:var(--teal)}
+
+/* ── Tester shortcut link (visible to all testers) ─────────── */
+.tester-shortcut-row{margin-top:1.5rem;padding-top:1rem;border-top:1px dashed var(--border);text-align:center}
+.tester-shortcut-link{color:var(--text-dimmer);text-decoration:none;font-size:.82rem;line-height:1.4;border-bottom:1px dotted var(--text-dimmer);padding-bottom:1px}
+.tester-shortcut-link:hover{color:var(--text-dim);border-bottom-color:var(--text-dim)}
+.tester-tag{font-size:.72rem;opacity:.7;margin-left:.2rem}
+
+/* ── Dev panel (hidden, you-only) ──────────────────────────── */
+.dev-panel{position:fixed;top:1rem;left:1rem;background:var(--surface);border:1px solid var(--purple-dim);border-radius:var(--radius-sm);padding:.75rem 1rem;z-index:60;font-size:.8rem;max-width:280px;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.dev-panel-header{display:flex;justify-content:space-between;align-items:center;font-weight:700;color:var(--purple);margin-bottom:.6rem;font-size:.8rem;letter-spacing:.05em}
+.dev-close{background:none;border:none;color:var(--text-dimmer);font-size:1.1rem;cursor:pointer;padding:0 .25rem;line-height:1}
+.dev-close:hover{color:var(--text)}
+.dev-row{display:flex;gap:.4rem;align-items:center;margin-bottom:.5rem;flex-wrap:wrap}
+.dev-row label{font-size:.78rem;color:var(--text-dim);margin:0}
+.dev-row input[type=number]{width:60px;padding:.3rem .4rem;background:var(--surface2);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:var(--font-body);font-size:.82rem}
+.dev-row input[type=number]:focus{outline:none;border-color:var(--purple)}
+.dev-row button{padding:.3rem .65rem;background:var(--surface2);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:var(--font-body);font-size:.78rem;cursor:pointer}
+.dev-row button:hover{border-color:var(--purple);color:var(--purple)}
+.dev-row-meta{padding-top:.5rem;border-top:1px dashed var(--border)}
+.dev-row-meta label{display:flex;align-items:center;gap:.4rem;font-size:.76rem;cursor:pointer}
+.dev-disable{color:var(--danger)!important;border-color:rgba(220,82,82,.4)!important}
+.dev-disable:hover{border-color:var(--danger)!important}
+.section-label.dev-clickable{cursor:default}
+
+/* ── Q42 placeholder card ──────────────────────────────────── */
+.q42-card{background:var(--surface);border:1px solid var(--purple-dim);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem;line-height:1.6}
+.q42-heading{font-family:var(--font-serif);font-size:1.4rem;color:var(--purple);margin-bottom:1rem;font-weight:400}
+.q42-body{color:var(--text);font-size:.92rem;line-height:1.65;margin-bottom:1rem}
+.q42-body:last-of-type{margin-bottom:1.75rem}
+.q42-body strong{color:var(--text);font-weight:700}
+.q42-prompt{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.q42-prompt:last-of-type{border-bottom:none}
+.q42-prompt label{display:block;font-family:var(--font-serif);font-size:1.05rem;color:var(--text);margin-bottom:.5rem;line-height:1.4;font-weight:400}
+.q42-phq9-quote{font-size:.88rem;color:var(--text);padding:.75rem 1rem;background:var(--surface2);border-left:3px solid var(--purple-dim);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:.75rem;line-height:1.55}
+.q42-phq9-quote em{color:var(--text);font-style:italic}
+.q42-prompt-hint{font-size:.85rem;color:var(--text);margin-bottom:.6rem;line-height:1.5}
+.q42-textarea{width:100%;min-height:90px;padding:.75rem .85rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.92rem;line-height:1.55;resize:vertical}
+.q42-textarea:focus{outline:none;border-color:var(--purple-dim)}
+.q42-submit-row{display:flex;gap:.75rem;align-items:center;margin-top:.5rem;flex-wrap:wrap}
+.q42-footer{font-size:.82rem;color:var(--text-dim);margin-top:1.25rem;font-style:italic;line-height:1.55}
+
 </style>
 </head>
 <body>
@@ -210,21 +288,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
           <div class="toggle-option" data-value="nosave" onclick="pickSaveMode('nosave')">
             <div class="toggle-radio"></div>
             <div class="toggle-body">
-              <div class="toggle-title">Don't save anything — testing only</div>
-              <div class="toggle-desc">Single session. Closing this tab clears your answers. Feedback still reaches the build team. (Default)</div>
+              <div class="toggle-title">Start fresh every time</div>
+              <div class="toggle-desc">Nothing is saved on this device. When you close this tab, it's gone. Feedback you submit still reaches the build team. (Default)</div>
             </div>
           </div>
           <div class="toggle-option" data-value="save" onclick="pickSaveMode('save')">
             <div class="toggle-radio"></div>
             <div class="toggle-body">
-              <div class="toggle-title">Save my answers and progress locally</div>
-              <div class="toggle-desc">So I can pause and resume. Stored only on this device. Clear any time.</div>
+              <div class="toggle-title">Remember me on this device</div>
+              <div class="toggle-desc">Your answers and notes stay in this browser, on this device. No account, no cloud, nobody else can see them. You can view, edit, or delete them any time.</div>
             </div>
           </div>
         </div>
       </div>
 
       <button class="btn btn-primary" onclick="beginCheckin()" style="margin-top:.5rem">Begin</button>
+
+      <div id="intro-notes-link" class="intro-notes-link" style="display:none;margin-top:1.25rem">
+        <a href="#" onclick="openNotesView('intro');return false;">View notes from previous sessions →</a>
+      </div>
     </div>
   </div>
 </div>
@@ -240,12 +322,35 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
       <button class="btn btn-primary" onclick="resumeCheckin()">Pick up where I left off</button>
       <button class="btn btn-ghost" onclick="startFresh()">Start fresh (clears saved progress)</button>
     </div>
+    <div id="resume-notes-link" class="intro-notes-link" style="display:none;margin-top:1.5rem">
+      <a href="#" onclick="openNotesViewFromResume();return false;">View notes from previous sessions →</a>
+    </div>
   </div>
 </div>
 
 <div id="screen-checkin" class="screen">
   <div class="banner">TESTING VERSION — feedback shapes the real tool</div>
   <button class="pause-btn" onclick="openPauseModal()" title="Pause for now">⏸ Pause for now</button>
+
+  <div id="dev-panel" class="dev-panel" style="display:none">
+    <div class="dev-panel-header">⚡ Dev tools <button class="dev-close" onclick="hideDevPanel()" title="Hide">×</button></div>
+    <div class="dev-row">
+      <label>Jump to Q#:</label>
+      <input type="number" id="dev-jump-input" min="1" placeholder="e.g. 23">
+      <button onclick="devJumpToQuestion()">Go</button>
+    </div>
+    <div class="dev-row">
+      <button onclick="devJumpToWrapup()">Jump to wrap-up</button>
+      <button onclick="devJumpToThanks()">Jump to thanks</button>
+    </div>
+    <div class="dev-row dev-row-meta">
+      <label><input type="checkbox" id="dev-remember" onchange="toggleDevRemember()"> Remember across reloads</label>
+    </div>
+    <div class="dev-row dev-row-meta">
+      <button class="dev-disable" onclick="disableDevMode()">Disable dev mode</button>
+    </div>
+  </div>
+
   <div class="progress-block">
     <div class="progress-row">
       <div class="progress-label overall" id="overall-label">Section 1 of 11</div>
@@ -261,6 +366,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
     <button class="btn btn-ghost" id="btn-back" onclick="goBack()">Back</button>
     <button class="btn btn-primary" id="btn-next" onclick="goNext()">Next</button>
     <button class="btn-skip" onclick="skipCurrent()">Skip for today</button>
+  </div>
+  <div class="tester-shortcut-row">
+    <a href="#" class="tester-shortcut-link" onclick="confirmSkipToWrapUp();return false;">Skip remaining questions and go directly to final feedback <span class="tester-tag">(testing)</span></a>
   </div>
 </div>
 
@@ -304,6 +412,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
     <h1>Thank you.</h1>
     <p>Your feedback shapes the real tool.</p>
     <p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab any time.</p>
+    <div class="thanks-notes-link" id="thanks-notes-link" style="display:none">
+      <a href="#" onclick="openNotesView('thanks');return false;">See everything you captured →</a>
+    </div>
+  </div>
+</div>
+
+<div id="screen-notes" class="screen">
+  <div class="notes-screen-card">
+    <div class="notes-screen-back">
+      <button class="btn btn-ghost" onclick="closeNotesView()">← Back</button>
+    </div>
+    <h1>Your notes</h1>
+    <p class="notes-screen-intro">Everything you've written in the "Your notes" field across check-ins.</p>
+    <p class="notes-screen-promise">These notes live in this browser, on this device. No account, no cloud — nobody else can see them. You can edit, delete, or copy them any time.</p>
+    <div id="notes-list"></div>
+    <div class="notes-bulk" id="notes-bulk" style="display:none">
+      <div class="notes-bulk-label">All-at-once actions</div>
+      <button class="btn-small" onclick="copyAllNotes()">Copy all my notes to clipboard</button>
+      <button class="btn-small btn-danger" onclick="confirmDeleteAllNotes()">Delete all my notes</button>
+    </div>
   </div>
 </div>
 
@@ -480,7 +608,7 @@ Q41:{section:'Capacity & Crash Risk',text:'Based on how today has gone, how worr
   opts:['Not worried — I\'m within my envelope','A little — I pushed it but probably okay','Quite worried — I may have overdone it','Already crashing or crashed'],
   plain:'PEM = post-exertional malaise: the delayed crash after pushing too hard, sometimes hitting hours or days later. This is about your sense of where you are relative to your own limits — not a clinical assessment.',notes:true},
 
-Q42:{section:'Safety',text:'Safety',type:'placeholder'},
+Q42:{section:'Safety',text:'Safety',type:'placeholder',notes:false},
 
 Q43:{section:'Free-Form Entries',text:'Is there a way you\'d describe how you\'ve been feeling that the questions above didn\'t capture?',type:'free-text',
   notesPrompt:'Metaphors, images, textures — anything that feels true. e.g. \'Like wading through mud\', \'Everything is muffled\', \'Watching my life through a window\''},
@@ -506,8 +634,103 @@ const FIELDS={
 };
 
 // ── STATE ────────────────────────────────────────────────────
-let S={queue:[],idx:0,responses:{},introShown:{},handle:'',saveMode:'nosave'};
+let S={queue:[],idx:0,responses:{},introShown:{},handle:'',saveMode:'nosave',sessionId:''};
 const STORAGE_KEY='nr_testing_v1';
+const RECORDS_KEY='nr_records_v1';
+const Q_VERSION=1; // Bump when questions change meaningfully — preserves historical context
+
+// ── LIFETIME RECORDS STORE ───────────────────────────────────
+// Append-only store for notes (always) and answers (when save-mode is 'save').
+// Notes survive across sessions. This is the foundation for future history/patterns features.
+function loadRecords(){
+  try{
+    const raw=localStorage.getItem(RECORDS_KEY);
+    if(!raw)return[];
+    const parsed=JSON.parse(raw);
+    return Array.isArray(parsed)?parsed:[];
+  }catch(e){console.warn('Records load failed',e);return[];}
+}
+function saveRecords(records){
+  try{localStorage.setItem(RECORDS_KEY,JSON.stringify(records));}
+  catch(e){console.warn('Records save failed',e);}
+}
+function newSessionId(){
+  return 's_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+}
+// Append or update a record. For notes, we update the most recent record for this
+// (sessionId, qId) pair rather than appending a new one on every keystroke.
+function recordNote(qId,value){
+  const trimmed=(value||'').trim();
+  let records=loadRecords();
+  // Find existing note record for this (sessionId, qId)
+  const existingIdx=records.findIndex(r=>r.type==='note'&&r.sessionId===S.sessionId&&r.qId===qId);
+  if(!trimmed){
+    // Empty: remove any existing record, don't create one
+    if(existingIdx>=0){
+      records.splice(existingIdx,1);
+      saveRecords(records);
+    }
+    return;
+  }
+  if(existingIdx>=0){
+    records[existingIdx].value=value;
+    records[existingIdx].timestamp=new Date().toISOString();
+  }else{
+    records.push({
+      type:'note',sessionId:S.sessionId,qId,qVersion:Q_VERSION,
+      timestamp:new Date().toISOString(),value
+    });
+  }
+  saveRecords(records);
+}
+function recordAnswer(qId,value){
+  if(S.saveMode!=='save')return; // Answers respect save-mode; notes don't
+  const records=loadRecords();
+  // Update most recent answer for this (sessionId, qId), or append
+  let updated=false;
+  for(let i=records.length-1;i>=0;i--){
+    const r=records[i];
+    if(r.type==='answer'&&r.sessionId===S.sessionId&&r.qId===qId){
+      r.value=value;
+      r.timestamp=new Date().toISOString();
+      updated=true;
+      break;
+    }
+  }
+  if(!updated){
+    records.push({
+      type:'answer',sessionId:S.sessionId,qId,qVersion:Q_VERSION,
+      timestamp:new Date().toISOString(),value
+    });
+  }
+  saveRecords(records);
+}
+function getAllNotes(){
+  return loadRecords().filter(r=>r.type==='note'&&r.value&&r.value.trim());
+}
+function hasAnyNotes(){
+  return getAllNotes().length>0;
+}
+function deleteNoteRecord(sessionId,qId,timestamp){
+  const records=loadRecords();
+  const filtered=records.filter(r=>!(r.type==='note'&&r.sessionId===sessionId&&r.qId===qId&&r.timestamp===timestamp));
+  saveRecords(filtered);
+}
+function deleteAllNotes(){
+  const records=loadRecords().filter(r=>r.type!=='note');
+  saveRecords(records);
+}
+function updateNoteRecord(sessionId,qId,timestamp,newValue){
+  const records=loadRecords();
+  for(const r of records){
+    if(r.type==='note'&&r.sessionId===sessionId&&r.qId===qId&&r.timestamp===timestamp){
+      r.value=newValue;
+      r.timestamp=new Date().toISOString();
+      break;
+    }
+  }
+  saveRecords(records);
+}
 
 // ── QUEUE ────────────────────────────────────────────────────
 function buildQueue(){
@@ -549,6 +772,7 @@ function beginCheckin(){
   S.idx=0;
   S.responses={};
   S.introShown={};
+  S.sessionId=newSessionId();
   if(S.saveMode==='save')persist();
   showScreen('screen-checkin');
   render();
@@ -562,17 +786,20 @@ function resumeCheckin(){
 
 function startFresh(){
   localStorage.removeItem(STORAGE_KEY);
-  S={queue:[],idx:0,responses:{},introShown:{},handle:'',saveMode:'nosave'};
+  S={queue:[],idx:0,responses:{},introShown:{},handle:'',saveMode:'nosave',sessionId:''};
   // Reset intro toggles
   document.querySelectorAll('#save-toggle .toggle-option').forEach(el=>el.classList.remove('selected'));
   const hi=document.getElementById('handle-input');if(hi)hi.value='';
   showScreen('screen-start');
+  updateIntroNotesLink();
 }
 
 // On page load: check if there's a saved session
 function init(){
   // Default selection: nosave
   pickSaveMode('nosave');
+  checkDevModeOnLoad();
+  updateIntroNotesLink();
   try{
     const saved=localStorage.getItem(STORAGE_KEY);
     if(saved){
@@ -585,12 +812,14 @@ function init(){
           responses:data.responses||{},
           introShown:data.introShown||{},
           handle:data.handle||'',
-          saveMode:'save'
+          saveMode:'save',
+          sessionId:data.sessionId||newSessionId()
         };
         const info=document.getElementById('resume-info');
         const answered=Object.keys(S.responses).length;
         const sec=getSec(S.queue[S.idx]);
         info.textContent=`You were on ${sec?sec.name:'a question'} — ${answered} of ${S.queue.length} questions answered.`;
+        updateResumeNotesLink();
         showScreen('screen-resume');
       }
     }
@@ -613,7 +842,7 @@ function render(){
   if(q.subsectionIntro)html+=`<div class="subsection-note">${q.subsectionIntro}</div>`;
   html+=`<div class="question-card">`;
   html+=`<div class="section-label">${esc(q.section)}</div>`;
-  html+=`<div class="question-text">${esc(q.text)}</div>`;
+  if(q.type!=='placeholder')html+=`<div class="question-text">${esc(q.text)}</div>`;
   if(q.plain)html+=`<div class="plain-language">${q.plain}</div>`;
   html+=buildResponse(qId,q);
   if(q.notes!==false){
@@ -755,9 +984,97 @@ function secIntro(sec){
   return`<div class="section-intro-card"><h2>${esc(sec.name)}</h2>${SEC_DESCS[sec.id]?`<p>${SEC_DESCS[sec.id]}</p>`:''}</div>`;
 }
 
+function buildQ42Card(qId){
+  const r=S.responses[qId]||{};
+  const v1=esc(r.q42_lived||'');
+  const v2=esc(r.q42_phq9||'');
+  const v3=esc(r.q42_better||'');
+  return `<div class="q42-card">
+    <div class="q42-heading">Safety — Q42</div>
+    <p class="q42-body">This question asks about thoughts of self-harm or not wanting to be alive. It's a designed conversation with multiple variations, trigger responses, and resource access — too important to fold into this testing round. The full Q42 build is its own session.</p>
+    <p class="q42-body"><strong>Your input on this one matters more than usual.</strong> If you're willing, share your thoughts on each of the prompts below.</p>
+
+    <div class="q42-prompt">
+      <label for="q42-lived">What is your lived experience of these thoughts? What do they actually feel like for you?</label>
+      <textarea id="q42-lived" class="q42-textarea" oninput="saveQ42Part('q42_lived',this.value)" placeholder="Whatever you want to share \u2014 metaphors, descriptions, fragments. Optional.">${v1}</textarea>
+    </div>
+
+    <div class="q42-prompt">
+      <label for="q42-phq9">How do you feel when you encounter the question on the PHQ-9?</label>
+      <p class="q42-phq9-quote">The PHQ-9 phrases it as: <em>"thoughts that you would be better off dead, or of hurting yourself in some way."</em></p>
+      <p class="q42-prompt-hint">What does that question get right or wrong? How does it make you feel to read it, to answer it?</p>
+      <textarea id="q42-phq9" class="q42-textarea" oninput="saveQ42Part('q42_phq9',this.value)" placeholder="Your honest response. Optional.">${v2}</textarea>
+    </div>
+
+    <div class="q42-prompt">
+      <label for="q42-better">What would a better version of this question look like?</label>
+      <p class="q42-prompt-hint">What would make you feel met rather than flagged?</p>
+      <textarea id="q42-better" class="q42-textarea" oninput="saveQ42Part('q42_better',this.value)" placeholder="What you'd want to be asked, and how. Optional.">${v3}</textarea>
+    </div>
+
+    <div class="q42-submit-row">
+      <button class="btn btn-primary" onclick="submitQ42Feedback()">Submit my feedback</button>
+      <span id="q42-status" class="feedback-status"></span>
+    </div>
+    <p class="q42-footer">The real question and its full surrounding flow will be built around what people tell us here.</p>
+  </div>`;
+}
+
+function saveQ42Part(field,val){
+  const qId='Q42';
+  if(!S.responses[qId])S.responses[qId]={};
+  S.responses[qId][field]=val;
+  persist();
+  // Also record to lifetime store if save-mode is on (treat as an answer)
+  recordAnswer(qId,S.responses[qId]);
+}
+
+async function submitQ42Feedback(){
+  const statusEl=document.getElementById('q42-status');
+  const lived=document.getElementById('q42-lived').value.trim();
+  const phq9=document.getElementById('q42-phq9').value.trim();
+  const better=document.getElementById('q42-better').value.trim();
+  if(!lived&&!phq9&&!better){
+    statusEl.textContent='Add something to at least one prompt, then submit.';
+    statusEl.className='feedback-status error';
+    return;
+  }
+  statusEl.textContent='Sending...';
+  statusEl.className='feedback-status';
+  // Send each prompt as a separate feedback entry, tagged distinctly
+  const submissions=[
+    {tag:'q42_lived_experience',label:'Lived experience',text:lived},
+    {tag:'q42_phq9_response',label:'Response to PHQ-9 wording',text:phq9},
+    {tag:'q42_better_version',label:'What a better version looks like',text:better}
+  ].filter(s=>s.text);
+  let allOk=true;
+  for(const s of submissions){
+    const data={
+      [FIELDS.timestamp]:new Date().toISOString(),
+      [FIELDS.handle]:S.handle||'',
+      [FIELDS.feedbackType]:s.tag,
+      [FIELDS.questionId]:'Q42',
+      [FIELDS.questionWording]:s.label,
+      [FIELDS.promptsTapped]:'',
+      [FIELDS.feedbackText]:s.text,
+      [FIELDS.wrapUp]:''
+    };
+    const ok=await submitToForm(data);
+    if(!ok)allOk=false;
+  }
+  if(allOk){
+    statusEl.textContent='Sent. Thank you.';
+    statusEl.className='feedback-status success';
+    showToast('Q42 feedback sent. Thank you.');
+  }else{
+    statusEl.textContent='Some submissions didn\'t go through. Please try again.';
+    statusEl.className='feedback-status error';
+  }
+}
+
 function buildResponse(qId,q){
   const r=S.responses[qId]||{};
-  if(q.type==='placeholder')return`<div class="placeholder-card"><strong>Safety — Q42</strong>This section is being built and will appear here in the next session. Your check-in continues after this.</div>`;
+  if(q.type==='placeholder')return buildQ42Card(qId);
   if(q.type==='select-one')return selectOne(qId,q.opts,r.value);
   if(q.type==='frequency')return freqScale(qId,r.value);
   if(q.type==='number')return`<div class="number-input-wrap"><input type="number" class="number-input" id="inp-${qId}" min="0" max="24" step="0.5" value="${esc(r.value||'')}" placeholder="—" oninput="saveVal('${qId}',this.value)"><span class="number-unit">${esc(q.unit||'')}</span></div>`;
@@ -843,6 +1160,7 @@ function updateProgress(qId){
     const ovLabel=document.getElementById('overall-label');
     if(ovLabel)ovLabel.textContent=`Section ${getSecIndex(qId)} of ${totalSections()}`;
   }
+  wireDevModeTriggers();
 }
 
 // ── HANDLERS ─────────────────────────────────────────────────
@@ -859,6 +1177,7 @@ function pickOpt(id,idx,val,isPart){
     if(sm2)sm2.style.display=(val!=='No')?'block':'none';
   }else{S.responses[qId].value=val;}
   persist();
+  recordAnswer(qId,S.responses[qId]);
 }
 
 function pickFreq(id,idx,label,isPart){
@@ -868,6 +1187,7 @@ function pickFreq(id,idx,label,isPart){
   if(isPart){const p=id.endsWith('_p2')?'part2':'part1';S.responses[qId][p]=label;}
   else S.responses[qId].value=label;
   persist();
+  recordAnswer(qId,S.responses[qId]);
 }
 
 function toggleMulti(id,val){
@@ -880,6 +1200,7 @@ function toggleMulti(id,val){
     btn.classList.toggle('selected',arr.includes(btn.querySelector('span:last-child').textContent));
   });
   persist();
+  recordAnswer(qId,S.responses[qId]);
 }
 
 function toggleMultiPart(qId,part,val){
@@ -892,6 +1213,7 @@ function toggleMultiPart(qId,part,val){
     btn.classList.toggle('selected',arr.includes(btn.querySelector('span:last-child').textContent));
   });
   persist();
+  recordAnswer(qId,S.responses[qId]);
 }
 
 function pickGrid(id,type,col){
@@ -908,22 +1230,27 @@ function pickGrid(id,type,col){
     }
   });
   persist();
+  recordAnswer(qId,S.responses[qId]);
 }
 
 function saveNotes(qId){
   const el=document.getElementById('notes-'+qId);if(!el)return;
   if(!S.responses[qId])S.responses[qId]={};
-  S.responses[qId].notes=el.value;persist();
+  S.responses[qId].notes=el.value;
+  persist();
+  recordNote(qId,el.value); // Notes always recorded, regardless of save-mode
 }
 
 function saveVal(qId,val){
   if(!S.responses[qId])S.responses[qId]={};
   S.responses[qId].value=val;persist();
+  recordAnswer(qId,val);
 }
 
 function savePart(qId,part,val){
   if(!S.responses[qId])S.responses[qId]={};
   S.responses[qId][part]=val;persist();
+  recordAnswer(qId,S.responses[qId]);
 }
 
 // ── NAVIGATION ───────────────────────────────────────────────
@@ -983,6 +1310,7 @@ function skipWrapUp(){
 function finishUp(){
   // Clear stored progress regardless of mode (session is complete)
   localStorage.removeItem(STORAGE_KEY);
+  updateThanksNotesLink();
   showScreen('screen-thanks');
   window.scrollTo(0,0);
 }
@@ -990,6 +1318,8 @@ function finishUp(){
 // ── PAUSE FLOW ───────────────────────────────────────────────
 function openPauseModal(){
   const isSave=S.saveMode==='save';
+  const hasNotes=hasAnyNotes();
+  const notesLink=hasNotes?`<div class="pause-notes-link"><a href="#" onclick="openNotesView('pause-modal');return false;">View what I've written so far →</a></div>`:'';
   const modal=document.createElement('div');
   modal.className='modal-overlay';
   modal.id='pause-modal';
@@ -1002,17 +1332,19 @@ function openPauseModal(){
         <button class="btn btn-primary" onclick="confirmPauseSave()">Close now</button>
         <button class="btn btn-ghost" onclick="closePauseModal()">Keep going</button>
       </div>
+      ${notesLink}
     </div>
   `:`
     <div class="modal-card">
       <h2>Pause for now</h2>
-      <p>You chose not to save locally. Closing this page now will clear your progress.</p>
+      <p>You chose to start fresh, which means closing this page now will clear your progress.</p>
       <p>Any feedback you've already sent has reached us. Anything you've typed in a feedback panel but not sent will be lost.</p>
-      <p class="dim">Tip: if you have unsent feedback open, send it before closing.</p>
+      <p class="dim">Tip: if you have unsent feedback open, send it before closing. Your written notes are saved separately and will still be here.</p>
       <div class="modal-actions">
         <button class="btn btn-primary" onclick="closePauseModal()">Keep going</button>
         <button class="btn btn-ghost" onclick="confirmPauseNoSave()">Close anyway</button>
       </div>
+      ${notesLink}
     </div>
   `;
   document.body.appendChild(modal);
@@ -1027,7 +1359,8 @@ function confirmPauseSave(){
   // Just show a gentle thanks screen — they can close the tab whenever
   showScreen('screen-thanks');
   const tc=document.querySelector('#screen-thanks .thanks-card');
-  if(tc)tc.innerHTML=`<h1>Paused.</h1><p>Your progress is saved. Come back any time on this device.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab now.</p>`;
+  const notesLink=hasAnyNotes()?`<div class="thanks-notes-link"><a href="#" onclick="openNotesView('thanks');return false;">See everything you captured →</a></div>`:'';
+  if(tc)tc.innerHTML=`<h1>Paused.</h1><p>Your progress is saved. Come back any time on this device.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab now.</p>${notesLink}`;
   window.scrollTo(0,0);
 }
 
@@ -1036,8 +1369,320 @@ function confirmPauseNoSave(){
   closePauseModal();
   showScreen('screen-thanks');
   const tc=document.querySelector('#screen-thanks .thanks-card');
-  if(tc)tc.innerHTML=`<h1>Closed.</h1><p>Your answers have been cleared. Thank you for what you've shared so far.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab now.</p>`;
+  const notesLink=hasAnyNotes()?`<div class="thanks-notes-link"><a href="#" onclick="openNotesView('thanks');return false;">See everything you captured →</a></div>`:'';
+  if(tc)tc.innerHTML=`<h1>Closed.</h1><p>Your answers have been cleared. Thank you for what you've shared so far.</p><p class="dim" style="font-size:.85rem;margin-top:1.5rem;color:var(--text)">You can close this tab now.</p>${notesLink}`;
   window.scrollTo(0,0);
+}
+
+// ── VIEW NOTES SCREEN ────────────────────────────────────────
+let notesReturnScreen='screen-start';
+
+function updateIntroNotesLink(){
+  const link=document.getElementById('intro-notes-link');
+  if(link)link.style.display=hasAnyNotes()?'block':'none';
+}
+function updateThanksNotesLink(){
+  const link=document.getElementById('thanks-notes-link');
+  if(link)link.style.display=hasAnyNotes()?'block':'none';
+}
+function updateResumeNotesLink(){
+  const link=document.getElementById('resume-notes-link');
+  if(link)link.style.display=hasAnyNotes()?'block':'none';
+}
+function openNotesViewFromResume(){
+  notesReturnScreen='screen-resume';
+  renderNotesScreen();
+  showScreen('screen-notes');
+  window.scrollTo(0,0);
+}
+
+function openNotesView(from){
+  // Determine return screen based on where the user invoked the view
+  if(from==='thanks'||from==='pause-confirmed'){
+    notesReturnScreen='screen-thanks';
+  }else if(from==='pause-modal'){
+    // From the pause modal, return to where they were (check-in)
+    notesReturnScreen='screen-checkin';
+  }else{
+    notesReturnScreen='screen-start';
+  }
+  // If coming from pause modal, close it first
+  closePauseModal();
+  renderNotesScreen();
+  showScreen('screen-notes');
+  window.scrollTo(0,0);
+}
+
+function closeNotesView(){
+  showScreen(notesReturnScreen);
+  updateIntroNotesLink();
+  updateThanksNotesLink();
+  updateResumeNotesLink();
+  window.scrollTo(0,0);
+}
+
+function formatDateLabel(iso){
+  try{
+    const d=new Date(iso);
+    const today=new Date();
+    const yest=new Date();yest.setDate(today.getDate()-1);
+    const sameDay=(a,b)=>a.toDateString()===b.toDateString();
+    if(sameDay(d,today))return 'Today';
+    if(sameDay(d,yest))return 'Yesterday';
+    return d.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:d.getFullYear()===today.getFullYear()?undefined:'numeric'});
+  }catch(e){return iso;}
+}
+function formatTimeLabel(iso){
+  try{return new Date(iso).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});}
+  catch(e){return '';}
+}
+function getQuestionText(qId){
+  const q=Q[qId];
+  if(!q)return qId;
+  return q.text||qId;
+}
+
+function renderNotesScreen(){
+  const listEl=document.getElementById('notes-list');
+  const bulkEl=document.getElementById('notes-bulk');
+  const notes=getAllNotes();
+  if(!notes.length){
+    listEl.innerHTML='<div class="notes-empty">You haven\'t written any notes yet. When you do, they\'ll show up here.</div>';
+    bulkEl.style.display='none';
+    return;
+  }
+  bulkEl.style.display='flex';
+  // Sort newest first
+  notes.sort((a,b)=>b.timestamp.localeCompare(a.timestamp));
+  // Group by day (YYYY-MM-DD of timestamp)
+  const groups={};
+  notes.forEach(n=>{
+    const day=n.timestamp.slice(0,10);
+    if(!groups[day])groups[day]=[];
+    groups[day].push(n);
+  });
+  const dayKeys=Object.keys(groups).sort((a,b)=>b.localeCompare(a));
+  let html='';
+  dayKeys.forEach(day=>{
+    html+=`<div class="notes-day-group"><div class="notes-day-label">${esc(formatDateLabel(groups[day][0].timestamp))}</div>`;
+    groups[day].forEach(n=>{
+      const key=`${n.sessionId}__${n.qId}__${n.timestamp}`;
+      html+=`<div class="notes-note" data-key="${esc(key)}">
+        <div class="notes-note-qtext">${esc(getQuestionText(n.qId))}</div>
+        <div class="notes-note-body" id="body-${esc(key)}">${esc(n.value)}</div>
+        <div class="notes-note-meta">
+          <span class="notes-note-time">${esc(formatTimeLabel(n.timestamp))}</span>
+          <button class="notes-note-actions-toggle" onclick="toggleNoteActions('${ejs(key)}')">Edit / Delete</button>
+        </div>
+        <div class="notes-note-actions" id="actions-${esc(key)}">
+          <button class="btn-small" onclick="startEditNote('${ejs(key)}','${ejs(n.sessionId)}','${ejs(n.qId)}','${ejs(n.timestamp)}')">Edit</button>
+          <button class="btn-small btn-danger" onclick="confirmDeleteNote('${ejs(n.sessionId)}','${ejs(n.qId)}','${ejs(n.timestamp)}')">Delete</button>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  listEl.innerHTML=html;
+}
+
+function toggleNoteActions(key){
+  const el=document.getElementById('actions-'+key);
+  if(el)el.classList.toggle('open');
+}
+
+function startEditNote(key,sessionId,qId,timestamp){
+  const bodyEl=document.getElementById('body-'+key);
+  if(!bodyEl)return;
+  const currentText=bodyEl.textContent;
+  bodyEl.innerHTML=`<textarea class="notes-note-edit-area" id="edit-${key}">${esc(currentText)}</textarea>
+    <div style="display:flex;gap:.5rem;margin-top:.5rem">
+      <button class="btn-small" onclick="saveEditedNote('${ejs(key)}','${ejs(sessionId)}','${ejs(qId)}','${ejs(timestamp)}')">Save changes</button>
+      <button class="btn-small" onclick="renderNotesScreen()">Cancel</button>
+    </div>`;
+  const ta=document.getElementById('edit-'+key);
+  if(ta){ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);}
+}
+
+function saveEditedNote(key,sessionId,qId,timestamp){
+  const ta=document.getElementById('edit-'+key);
+  if(!ta)return;
+  const newValue=ta.value;
+  if(!newValue.trim()){
+    // Empty edit = delete
+    deleteNoteRecord(sessionId,qId,timestamp);
+  }else{
+    updateNoteRecord(sessionId,qId,timestamp,newValue);
+  }
+  renderNotesScreen();
+  showToast('Note updated');
+}
+
+function confirmDeleteNote(sessionId,qId,timestamp){
+  if(!confirm('Delete this note? This can\'t be undone.'))return;
+  deleteNoteRecord(sessionId,qId,timestamp);
+  renderNotesScreen();
+  showToast('Note deleted');
+}
+
+function confirmDeleteAllNotes(){
+  if(!confirm('Delete all your notes? This will permanently remove every note you\'ve written across every session. This can\'t be undone.'))return;
+  deleteAllNotes();
+  renderNotesScreen();
+  showToast('All notes deleted');
+}
+
+function copyAllNotes(){
+  const notes=getAllNotes();
+  if(!notes.length)return;
+  notes.sort((a,b)=>a.timestamp.localeCompare(b.timestamp));
+  let text='My notes from No Really. How Are You?\n\n';
+  let lastDay='';
+  notes.forEach(n=>{
+    const day=formatDateLabel(n.timestamp);
+    if(day!==lastDay){
+      text+=`\n--- ${day} ---\n\n`;
+      lastDay=day;
+    }
+    text+=`Q: ${getQuestionText(n.qId)}\n`;
+    text+=`${n.value}\n`;
+    text+=`(${formatTimeLabel(n.timestamp)})\n\n`;
+  });
+  // Try clipboard API; fall back to a textarea trick
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>showToast('Notes copied to clipboard')).catch(()=>fallbackCopy(text));
+  }else{
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.left='-9999px';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');showToast('Notes copied to clipboard');}
+  catch(e){showToast('Couldn\'t copy. Try again or copy manually.');}
+  document.body.removeChild(ta);
+}
+
+function showToast(msg){
+  const existing=document.querySelector('.toast');
+  if(existing)existing.remove();
+  const t=document.createElement('div');
+  t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2400);
+}
+
+// ── TESTER: SKIP TO WRAP-UP ──────────────────────────────────
+function confirmSkipToWrapUp(){
+  const answered=Object.keys(S.responses).filter(k=>!S.responses[k].skipped).length;
+  const total=S.queue.length;
+  const remaining=total-S.idx-1;
+  const msg=`Skip the remaining ${remaining} question${remaining===1?'':'s'} and go straight to the final feedback?\n\nYour ${answered} answer${answered===1?'':'s'} so far will be kept. You can still leave feedback on the questions you didn't reach by going back, but tapping OK takes you to the wrap-up now.`;
+  if(!confirm(msg))return;
+  showScreen('screen-wrapup');
+  window.scrollTo(0,0);
+}
+
+// ── DEV MODE (hidden, build-team only) ───────────────────────
+// Activate by triple-clicking the section label.
+// Persists across reloads only if 'Remember across reloads' is checked.
+const DEV_FLAG_KEY='nr_dev_mode';
+let devModeActive=false;
+let devPanelOpen=false;
+let devClickCount=0;
+let devClickTimer=null;
+
+function checkDevModeOnLoad(){
+  try{
+    if(localStorage.getItem(DEV_FLAG_KEY)==='1'){
+      devModeActive=true;
+      devPanelOpen=true; // Remembered mode: panel visible from the start
+    }
+  }catch(e){}
+}
+
+function handleSectionLabelClick(){
+  devClickCount++;
+  clearTimeout(devClickTimer);
+  devClickTimer=setTimeout(()=>{devClickCount=0;},600);
+  if(devClickCount>=3){
+    devClickCount=0;
+    devModeActive=true;
+    devPanelOpen=true;
+    showDevPanel();
+  }
+}
+
+function showDevPanel(){
+  const panel=document.getElementById('dev-panel');
+  if(!panel)return;
+  panel.style.display='block';
+  devPanelOpen=true;
+  const remember=document.getElementById('dev-remember');
+  if(remember){
+    try{remember.checked=localStorage.getItem(DEV_FLAG_KEY)==='1';}catch(e){}
+  }
+}
+
+function hideDevPanel(){
+  const panel=document.getElementById('dev-panel');
+  if(panel)panel.style.display='none';
+  devPanelOpen=false;
+}
+
+function toggleDevRemember(){
+  const remember=document.getElementById('dev-remember');
+  try{
+    if(remember&&remember.checked){
+      localStorage.setItem(DEV_FLAG_KEY,'1');
+    }else{
+      localStorage.removeItem(DEV_FLAG_KEY);
+    }
+  }catch(e){}
+}
+
+function disableDevMode(){
+  devModeActive=false;
+  devPanelOpen=false;
+  try{localStorage.removeItem(DEV_FLAG_KEY);}catch(e){}
+  hideDevPanel();
+}
+
+function devJumpToQuestion(){
+  const input=document.getElementById('dev-jump-input');
+  if(!input)return;
+  const num=parseInt(input.value,10);
+  if(isNaN(num)||num<1){alert('Enter a question number (1-'+S.queue.length+')');return;}
+  const qId='Q'+num;
+  const idx=S.queue.indexOf(qId);
+  if(idx===-1){alert('Question '+qId+' is not in the current queue. Available range: Q1\u2013Q'+S.queue.length+' (note: Q42 is a placeholder and some Qs may be skipped by the queue).');return;}
+  S.idx=idx;
+  render();
+  window.scrollTo(0,0);
+  persist();
+}
+
+function devJumpToWrapup(){
+  showScreen('screen-wrapup');
+  window.scrollTo(0,0);
+}
+
+function devJumpToThanks(){
+  updateThanksNotesLink();
+  showScreen('screen-thanks');
+  window.scrollTo(0,0);
+}
+
+// Wire up triple-click on section label and (re)show panel if user wanted it open
+function wireDevModeTriggers(){
+  const label=document.getElementById('section-label');
+  if(label&&!label.dataset.devWired){
+    label.addEventListener('click',handleSectionLabelClick);
+    label.dataset.devWired='1';
+    label.title='';
+  }
+  // Only auto-show the panel if the user has it explicitly open
+  if(devModeActive&&devPanelOpen){showDevPanel();}
 }
 
 // ── UTILITIES ────────────────────────────────────────────────
@@ -1045,7 +1690,7 @@ function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classL
 function persist(){
   if(S.saveMode!=='save')return;
   localStorage.setItem(STORAGE_KEY,JSON.stringify({
-    idx:S.idx,responses:S.responses,queue:S.queue,introShown:S.introShown,handle:S.handle
+    idx:S.idx,responses:S.responses,queue:S.queue,introShown:S.introShown,handle:S.handle,sessionId:S.sessionId
   }));
 }
 function esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'):''}

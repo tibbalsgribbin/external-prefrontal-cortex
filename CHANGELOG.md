@@ -2,6 +2,122 @@
 
 ---
 
+## 2026-05-14 — Session 17: Notes Persistence Foundation, Q42 Rewrite, Tester Nav Tools
+
+### What Got Done
+
+**Two of the three remaining critical fixes from Session 15 closed. Pause-and-return deferred to Session 18.** Scope expanded mid-session: a question from Melissa about historical tracking turned Fix #1 (notes persistence) from a simple separate-key change into a foundation for all future longitudinal features. Then Melissa requested a tester navigation shortcut, which became two tools — one tester-visible, one hidden dev mode. The Q42 placeholder rewrite also grew from "honest copy swap" into a structured three-prompt feedback card.
+
+**Notes persistence — built on a foundation, not bolted on.**
+
+The handover called for "separate localStorage key for notes." During design discussion Melissa surfaced the right question: *what about the future user interacting with this over time? What do we want to measure so patterns become visible?* That reframed the work. The data model decision being made now would lock in or unlock everything downstream.
+
+Decision: introduce an append-only `nr_records_v1` localStorage store, separate from the in-progress-resume key (`nr_testing_v1`, untouched). Every note (always) and every answer (when save-mode is on) gets a record with `{ type, sessionId, qId, qVersion, timestamp, value }`. The current UI only surfaces notes — no UI yet for answer history or longitudinal patterns. But the data is accumulating in the right shape, which means future history view / pattern surfacing / advocacy export becomes a port to Supabase, not a redesign.
+
+Concrete pieces:
+- New `nr_records_v1` localStorage key, append-only. Never wiped by session completion.
+- `Q_VERSION = 1` constant — bumpable when question wording changes meaningfully, preserves historical context for old responses
+- `sessionId` generated per check-in sitting (`s_<base36 timestamp>_<random>`), stamped on every record
+- Helper functions: `loadRecords`, `saveRecords`, `recordNote`, `recordAnswer`, `getAllNotes`, `hasAnyNotes`, `deleteNoteRecord`, `deleteAllNotes`, `updateNoteRecord`
+- All existing save functions (`saveNotes`, `saveVal`, `savePart`, `pickOpt`, `pickFreq`, `toggleMulti`, `toggleMultiPart`, `pickGrid`) now also call `recordAnswer` (which respects save-mode for answers). `saveNotes` calls `recordNote` (which ignores save-mode — notes are structural).
+- Existing `STORAGE_KEY` / `persist()` / resume detection untouched — in-progress-resume keeps working exactly as before.
+
+**Save-mode toggle — reworded for the new behaviour.**
+
+The old labels (*"Don't save anything — testing only"* / *"Save my answers and progress locally"*) described the mechanism. The new labels describe the experience:
+- *"Start fresh every time"* — *"Nothing is saved on this device. When you close this tab, it's gone. Feedback you submit still reaches the build team. (Default)"*
+- *"Remember me on this device"* — *"Your answers and notes stay in this browser, on this device. No account, no cloud, nobody else can see them. You can view, edit, or delete them any time."*
+
+The new framing is *what does this choice mean for me*, not *what does the data do.* Drafted seven options across different framings (action-focused, privacy-focused, what-happens-when, trust-and-control, etc.); Melissa picked the experience-focused one.
+
+**"View my saved notes" screen — maximalist with progressive disclosure.**
+
+Melissa wanted maximalist (view + edit + delete + bulk). The risk was cognitive overload. Threading principle: more power, not more decisions per screen.
+
+Concrete:
+- Notes list shown first, grouped by day (*Today / Yesterday / Wednesday May 13* etc.), newest first
+- Each note shows the question text for context, then the note body, then a small timestamp
+- Per-note *"Edit / Delete"* affordance tucked at the end of each note — quiet by default. Tapping reveals Edit + Delete buttons for that note only.
+- Edit-in-place via textarea; empty edit = deletion
+- Bulk actions live at the bottom of the screen, visually separated by a divider:
+  - *"Copy all my notes to clipboard"* — formatted as readable text with day headers and question context
+  - *"Delete all my notes"* — destructive, confirmation required
+- Structural promise displayed prominently at the top: *"These notes live in this browser, on this device. No account, no cloud — nobody else can see them. You can edit, delete, or copy them any time."*
+- Toast confirmations on every action
+- Empty state: *"You haven't written any notes yet. When you do, they'll show up here."*
+
+Entry points — link only renders when notes actually exist (no notes = no link = no cognitive load for first-time users):
+- Intro screen — *"View notes from previous sessions →"*
+- Resume screen — same link
+- Pause modal — *"View what I've written so far →"*
+- Thanks screen (and both pause-confirmed screens) — *"See everything you captured →"*
+
+**Q42 placeholder — rewritten as a structured feedback card.**
+
+The original placeholder text (*"Safety — Q42. This section is being built and will appear here in the next session. Your check-in continues after this."*) was coy about what Q42 actually asks. The handover's draft direction named the question honestly; Melissa added the move that turned it from "sorry, not yet built" into "this is the moment we most need your input."
+
+Final shape:
+- Heading *"Safety — Q42"*
+- Body: *"This question asks about thoughts of self-harm or not wanting to be alive. It's a designed conversation with multiple variations, trigger responses, and resource access — too important to fold into this testing round. The full Q42 build is its own session."* (Melissa accepted Claude's substitution of *"too important to fold in"* for the handover's *"too much to fold in"* — the latter risked reading as *"we're not bothering."*)
+- Invitation: *"Your input on this one matters more than usual. If you're willing, share your thoughts on each of the prompts below."* (bold)
+- Three labeled prompts, each with its own text area (Melissa's call — separate boxes preserve structure that a single box would lose):
+  1. *"What is your lived experience of these thoughts? What do they actually feel like for you?"*
+  2. *"How do you feel when you encounter the question on the PHQ-9?"* — followed by the verbatim PHQ-9 item 9 wording (*"thoughts that you would be better off dead, or of hurting yourself in some way"*) in a quote block. *"What does that question get right or wrong? How does it make you feel to read it, to answer it?"*
+  3. *"What would a better version of this question look like? What would make you feel met rather than flagged?"*
+- *"Submit my feedback"* button — sends all three together (not auto-save on blur). Honesty signal: explicit submission lets the tester decide their answer is ready, not the tool reading over their shoulder.
+- Footer: *"The real question and its full surrounding flow will be built around what people tell us here."*
+- Each prompt submits as a separate feedback entry to the Google Form, tagged distinctly (`q42_lived_experience` / `q42_phq9_response` / `q42_better_version`) for sorting in the Sheet
+- `notes:false` added to Q42 question definition so the standard *Your notes* field doesn't compete with the three prompts
+- Suppressed the generic *question-text* heading on placeholder-type cards since the Q42 card has its own internal heading
+
+**Tester navigation tools — two distinct affordances for two distinct jobs.**
+
+Melissa's initial ask was *"a way for ME to skip to the end or jump to a question."* On reflection: the tester-jumping job (helping testers reach wrap-up before they fade) and the build-team-jumping job (verifying flows, debugging specific questions) are different jobs with different audiences. Built both.
+
+*Tester-visible — "Skip to final feedback":*
+- Quiet dim link at the bottom of every question, below the standard Back/Next/Skip nav, separated by a dashed divider
+- Label: *"Skip remaining questions and go directly to final feedback (testing)"* with a small *(testing)* qualifier
+- Tapping shows a confirmation dialog naming how many questions are being skipped and how many answers exist so far; existing answers are preserved
+- Sends the tester straight to the wrap-up screen
+
+*Hidden dev mode — triple-click activated:*
+- No visible affordance until activated. Triple-clicking the section label (e.g. *"Sleep & Rest"*) within 600ms opens a small purple-tinted panel in the top-left corner
+- Panel provides: Jump-to-Q# field, Jump-to-wrap-up button, Jump-to-thanks button, *Remember across reloads* checkbox (off by default), *Disable dev mode* button
+- Visually distinct (purple, top-left, small) — obviously a dev tool, not real UI
+- Persists across reloads only when *Remember* is checked; otherwise clears on refresh, so accidental activations don't strand a tester
+- Panel visibility tracked separately from dev mode activation — `devPanelOpen` flag prevents the panel from re-popping on every render after the user hides it (caught and fixed mid-session: clicking Next after hiding was re-opening it)
+
+### Decisions Made
+
+- **Append-only record store over per-feature persistence.** The minimum fix for Fix #1 was "separate key for notes." The decision to build the full lifetime-records foundation came from Melissa's question about the future user. The cost is ~30 minutes of additional engineering; the buy is that every future longitudinal feature becomes possible without a data-model rewrite. *"Build the foundation now, ship the minimum UI on top of it."*
+- **Notes follow save-mode toggle's intent, with one structural exception clarified.** Initially considered making notes ignore save-mode entirely ("stays on your device" is a structural promise). On reflection: that violates user choice if the user explicitly says *"start fresh."* Better framing: the toggle controls **all** persistence (answers and notes). The *"stays on your device"* label promise is about *where* the data lives (this device, no cloud) regardless of whether it stays at all. Both modes are honest.
+- **Notes-field label stays static — *"Your notes (stays on your device)"* — in both modes.** Since notes accumulate in `nr_records_v1` regardless of save-mode, the label is accurate in both. Reconsidered making it mode-aware; landed on: the label describes where the data lives, not the duration. Accurate enough to not need to change.
+- **Maximalist view-notes with progressive disclosure over a minimum viable version.** Per-note edit/delete revealed on tap. Bulk actions live at the bottom of the screen, visually separated — destructive bulk action requires scrolling past one's notes to reach. Wall-of-buttons avoided.
+- **View-notes link only renders when notes exist.** First-time users never see the affordance; no new cognitive load on the intro for someone who has never written a note.
+- **Save-mode wording: experience-focused over mechanism-focused.** *"Start fresh every time"* and *"Remember me on this device"* describe what the choice means for the user, not what the data does.
+- **Q42 placeholder: structured three-box submission, not one combined box.** Each prompt does different work (lived experience / response to existing PHQ-9 / vision for better question). Merging the answers loses the structure. Three separate boxes preserve which prompt each answer came from.
+- **Q42 submission: explicit Submit button, not auto-save on blur.** Honesty signal for a question about self-harm — the user decides their answer is ready, not the tool.
+- **Quote PHQ-9 item 9 wording verbatim in the Q42 card.** Including the standard PHQ-9 phrasing (*"thoughts that you would be better off dead, or of hurting yourself in some way"*) grounds the question concretely so testers know what they're reacting to. Reading it on the screen is a heavy moment in itself; that's appropriate to the content.
+- **Two tester navigation tools, not one.** The tester-visible *"Skip to wrap-up"* serves the tester whose energy is fading and wants to deliver wrap-up feedback before they fold — protects feedback quality. The hidden dev mode serves Melissa for verifying flows. Combining them into one visible tool would force testers to parse build-team affordances, subtly changing their relationship to the tool.
+- **Dev mode triple-click activation, not URL hash or keyboard shortcut.** Triple-click is muscle-memory for Melissa (the same gesture as selecting a paragraph in many editors); doesn't require typing anything; doesn't leave a URL artefact that could persist if Melissa shares a link. Auto-clears on refresh unless explicitly remembered.
+- **Pause-and-return (Fix #2) carried forward to Session 18.** Session 17 grew beyond its original three-fix scope (foundation work, tester nav tools, expanded Q42). Forcing pause-and-return into this session would have meant a tired Melissa rubber-stamping pause-modal copy decisions at the end of a long day. Better to start Session 18 fresh on it.
+
+### Open Questions / For Future Sessions
+
+- **The middle path between 8 and 45 questions.** Surfaced organically by Melissa late in the session: *"it's becoming clearer that 45 questions is A LOT, and users are almost certainly going to want something between 8 questions and all of them."* Touches question architecture (do questions get tagged with categories / dimensions / weight?), user mental model (what are they choosing from — sections, topics, a pre-curated middle?), advocacy output (does export differ for the focused version?), Low Capacity Mode itself (still fixed-8 or flex from a starting point?), and the longitudinal data model (different subsets each time → data shape implications). Possible directions: section-based picker, "what matters most today" front-loading, curated "core 20." Claude proposed early ideas in conversation but resisted solving in the last hour of a session. Deserves its own dedicated session — probably more than one. Captured in BRIEF and ROADMAP.
+- **Historical tracking UI.** Data model is now in place (append-only records with full metadata). No UI yet for viewing answer history, longitudinal patterns, or advocacy export. Will come when it comes. Not a blocker for wider tester round.
+- **Wider tester round** — Session 18 finishes Fix #2 (pause-and-return), at which point the testing companion has cleared the original critical-fixes list and is ready to share with the wider tester group.
+
+### What's Where
+
+- `no-really-testing.html` — all Session 17 changes live here. ~1700 lines.
+- New localStorage keys: `nr_records_v1` (notes + answers, always for notes, save-mode-respecting for answers), `nr_dev_mode` (dev mode persistence flag, off by default).
+- Existing `nr_testing_v1` (in-progress-resume) and Google Form submission flow unchanged.
+- `nd-checkin.html` not touched this session. Will need a parallel notes-persistence pass eventually (post-Supabase, or earlier if v2 architecture refactor merges question source).
+- `BRIEF.md`, `ROADMAP.md`, `CHANGELOG.md` updated this session.
+
+---
+
 ## 2026-05-13 — Session 16: Critical Fixes Pass on Testing Companion
 
 ### What Got Done

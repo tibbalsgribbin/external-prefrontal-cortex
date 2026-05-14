@@ -454,8 +454,13 @@ Flags appear inline where they occur and are also collected in a **Flags Summary
 **Tester identity:** Optional handle, captured once on the intro screen and attached to all subsequent submissions from that browser. No email required. Lets Melissa spot patterns across one tester's feedback without forcing identification.
 
 **Save-mode behaviour:**
-- Default: *Don't save anything — testing only.* Closing the tab clears all answers and progress. Feedback already submitted is unaffected (it lives in the Google Sheet).
-- Opt-in: *Save my answers and progress locally so I can pause and resume.* Returning to the URL on the same browser triggers a resume screen.
+- Default: *Start fresh every time.* Closing the tab clears all answers and progress. Feedback already submitted is unaffected (it lives in the Google Sheet). *(Renamed from "Don't save anything — testing only" in Session 17.)*
+- Opt-in: *Remember me on this device.* Returning to the URL on the same browser triggers a resume screen. Answers and notes both persist on this device.
+- **Notes are the exception:** since Session 17, notes always persist regardless of save-mode (separate `nr_records_v1` storage key). The *"stays on your device"* promise on the notes label is now structural, not mode-dependent.
+
+**Tester navigation tools (Session 17):**
+- **Tester-visible:** *"Skip remaining questions and go directly to final feedback (testing)"* link at the bottom of every question. Confirmation dialog before skipping; existing answers preserved. Lets a fading tester reach the wrap-up before they fold.
+- **Hidden dev mode (build team only):** triple-click the section label to open a small dev panel (top-left). Provides Jump-to-Q#, Jump-to-wrap-up, Jump-to-thanks, and an opt-in *"Remember across reloads"* checkbox. Auto-clears on refresh by default, so accidental activations don't strand a tester.
 
 **Question source:** Duplicated inside the testing companion file at session 15. The two files (`nd-checkin.html` and `no-really-testing.html`) currently maintain question wording independently. A future refactor may move questions to a shared `questions.json` for single-source-of-truth editing — not in scope yet.
 
@@ -476,10 +481,16 @@ Flags appear inline where they occur and are also collected in a **Flags Summary
 - Q45 reframed away from clinician: *"Is there something you've been carrying that's hard to put into words — even here?"* — the original wording ("hard to say out loud" + "your clinician") contradicted the tool's stance and didn't fit a web interface.
 - During the mutual-exclusivity audit, Q26 / Q27 / Q28 / Q29 Part 2 were switched to multi-select with "mark all that apply" labels. A stim can be both regulating AND distressing in the same day; the original select-one was forcing false simplification. A new `p2multi:true` flag was added to the multi-part question types to support this cleanly without breaking existing single-select Part 2s.
 
-🔴 **Still outstanding for Session 17:**
-1. **Notes persistence + viewability** — Notes need to always persist regardless of save-mode; add a "View my saved notes" screen accessible from intro and thanks screens.
-2. **Pause-and-return** — explicit "Resume now" button on the pause screen; clearer return instructions.
-3. **Q42 placeholder honesty** — replace coy placeholder text with the gist of what Q42 actually asks. (Full Q42 build remains its own dedicated session.)
+✅ **Addressed Session 17:**
+1. **Notes persistence + viewability** ✅ — Notes now always persist regardless of save-mode. New append-only `nr_records_v1` localStorage key stores every note with sessionId + qVersion + timestamp metadata, separate from in-progress-resume storage. New *"View my saved notes"* screen lists notes grouped by date, with per-note edit/delete (progressive disclosure — quiet by default), bulk *"Copy all my notes to clipboard"* and *"Delete all my notes"* actions, and the structural promise displayed at the top: *"These notes live in this browser, on this device. No account, no cloud — nobody else can see them."* Accessible from intro, resume, pause modal, and thanks screens (link only appears when notes exist). Notes accumulate across check-ins. Save-mode toggle reworded to *"Start fresh every time"* / *"Remember me on this device"* with new explanatory text.
+2. **Q42 placeholder honesty** ✅ — Replaced the coy placeholder with a rich three-prompt card that names what Q42 actually asks (*"thoughts of self-harm or not wanting to be alive"*), explains why the full build is held back (*"too important to fold into this testing round"*), and invites lived-experience input from testers. Three labeled text areas: (1) lived experience of these thoughts, (2) response to PHQ-9 item 9 wording (quoted verbatim), (3) what a better question would look like. Each submission tags distinctly in the feedback pipeline (`q42_lived_experience`, `q42_phq9_response`, `q42_better_version`) for sorting.
+
+🔴 **Still outstanding for Session 18:**
+1. **Pause-and-return** — explicit "Resume now" affordance on the paused screen; clearer return instructions for testers who closed the tab. (Carried forward from Session 17 — deferred because the substantive work was Fix #1 and the tester-tools build.)
+
+**New from Session 17 — for future sessions:**
+- **The middle path: subset selection between Low Capacity and Full** — 45 questions is a lot. The current architecture has two settings (Low Capacity Mode at ~8 questions, full check-in at 45). Binaries fail ND users; capacity isn't binary, and users will want a meaningful middle. This is a core design question touching question architecture, user mental model, advocacy output, and the future longitudinal data model. Deserves a dedicated design session — likely more than one. Possible directions: section-based picker, "what matters most today" front-loading, curated "core 20." Do not solve quickly.
+- **Historical tracking foundation laid (data model)** — Session 17 introduced an append-only `nr_records_v1` localStorage store keyed by sessionId + qVersion + timestamp. Notes always persist there; answers persist when save-mode is on. No UI yet for viewing answer history or longitudinal patterns — but the data is accumulating in the right shape. Future longitudinal features (history view, pattern surfacing, advocacy export) become a port to Supabase, not a redesign. `Q_VERSION` constant bumpable when question wording changes meaningfully — preserves historical context.
 
 **Parked for dedicated session:**
 - Q7 pain question redesign — the question asks for a *range* across the day but the response options are scalar. Restructure (sliders, multi-select, paired low-high, or break into separate questions). Also: add gastrointestinal symptoms somewhere appropriate.
@@ -526,6 +537,7 @@ Flags appear inline where they occur and are also collected in a **Flags Summary
 * **Testing pipeline live.** Google Form *No Really — Tester Feedback* receives submissions from `no-really-testing.html`; auto-populates a Google Sheet for analysis. Form owned by `noreally.howareyou@gmail.com`.
 * **First tester pass complete** — Melissa walked through all questions in `no-really-testing.html` and confirmed end-to-end submission pipeline working. Generated eight 🔴 critical fixes and a parked list (see Testing Companion section).
 * **Session 16 — five of eight critical fixes addressed in `no-really-testing.html`** (audience-naming audit, Notes vs Feedback disambiguation, frequency scale redesign, grey text hierarchy reset, Q39 "unexplained" rewrite). Plus: Q26–Q28 plain-language examples, Q33 split into two parts, Q41 PEM gloss, Q45 reframed, Q26/27/28/29 Part 2 switched to multi-select. Three critical fixes remain for Session 17 (notes persistence + viewer, pause-and-return, Q42 placeholder honesty).
+* **Session 17 — Notes persistence + View notes screen, Q42 placeholder rewrite, tester nav tools.** Notes always persist regardless of save-mode (new append-only `nr_records_v1` store). New View Notes screen with progressive-disclosure edit/delete + bulk actions. Save-mode toggle reworded *Start fresh every time / Remember me on this device.* Q42 placeholder now invites lived-experience input across three tagged prompts. New tester-visible *Skip to final feedback* link and hidden dev mode (triple-click activated). Pause-and-return carried forward to Session 18.
 * `q42-onboarding-page-draft.md` exists in repo — working draft, approved
 * No Supabase project connected yet
 * Audience: small trusted tester group
